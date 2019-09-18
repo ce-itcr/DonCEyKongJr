@@ -1,7 +1,3 @@
-//
-// Created by jesquivel on 9/18/19.
-//
-
 #include "Interface.h"
 
 GtkWidget *window;
@@ -15,7 +11,10 @@ GtkWidget *builder;
 
 void loadInterface(){
 
-    builder = gtk_builder_new_from_file("/home/jesquivel/Desktop/GladeTest.glade");
+    builder = gtk_builder_new_from_file("Interface.glade");
+
+//    builder = gtk_builder_new();
+//    gtk_builder_add_from_file(builder, "Interface.glade", NULL);
 
     window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
     window2 = GTK_WIDGET(gtk_builder_get_object(builder,"window2"));

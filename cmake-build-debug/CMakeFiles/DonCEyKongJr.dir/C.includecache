@@ -6,12 +6,8 @@
 
 #IncludeRegexTransform: 
 
-/home/jesquivel/GitHub/DonCEyKongJr/main.c
-stdio.h
--
-src/communication/socketClient.h
-/home/jesquivel/GitHub/DonCEyKongJr/src/communication/socketClient.h
-src/app/Interface.h
+/home/jesquivel/GitHub/DonCEyKongJr/src/app/Interface.c
+Interface.h
 /home/jesquivel/GitHub/DonCEyKongJr/src/app/Interface.h
 
 /home/jesquivel/GitHub/DonCEyKongJr/src/app/Interface.h
@@ -34,26 +30,6 @@ math.h
 ctype.h
 -
 time.h
--
-
-/home/jesquivel/GitHub/DonCEyKongJr/src/communication/socketClient.h
-unistd.h
--
-stdio.h
--
-sys/socket.h
--
-stdlib.h
--
-netinet/in.h
--
-arpa/inet.h
--
-unistd.h
--
-string.h
--
-stdbool.h
 -
 
 /usr/include/atk-1.0/atk/atk-enum-types.h
