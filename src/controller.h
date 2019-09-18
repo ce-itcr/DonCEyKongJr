@@ -1,5 +1,5 @@
-/* 
- main.c - main file to run the DonCEKongJr client application.
+/*
+ controller.c -
 
  This file is part of DonCE Y Kong Jr, the same correspondent to Project III for the course of Languages, Compilers and Interpreters. (CE3104), Languages module.
  The project consists in the implementation of an application that reaffirms the knowledge of the imperative and object-oriented programming paradigms.
@@ -10,16 +10,7 @@
  Last modified   : 09/17/2019, 16:00, @angelortizv
 */
 
-#include <stdio.h>
-#include "src/communication/socketClient.h"
-#include "src/app/Interface.h"
+#ifndef DONCEYKONGJR_CONTROLLER_H
+#define DONCEYKONGJR_CONTROLLER_H
 
-int main(int argc, char *argv[]){
-    gtk_init(&argc,&argv);
-    loadInterface();
-    gtk_main();
-
-    enviar("Hola");
-    escuchar();
-    return EXIT_SUCCESS;
-}
+#endif //DONCEYKONGJR_CONTROLLER_H

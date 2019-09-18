@@ -1,0 +1,6 @@
+/opt/clion-2018.3.4/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/jesquivel/GitHub/DonCEyKongJr
+-- Checking for module 'gtk+-3.0'
+--   Found gtk+-3.0, version 3.22.30
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/jesquivel/GitHub/DonCEyKongJr/cmake-build-debug
