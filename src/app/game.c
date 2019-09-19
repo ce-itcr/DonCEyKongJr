@@ -100,40 +100,38 @@ void loadGraphics(Game *game){
 	orangesSurface = IMG_Load("img/fruit_oranges.png");
 	strawberrySurface = IMG_Load("img/fruit_strawberry.png");
 
-
-	//Si falla la carga de la imagen
+	if (backgroundSurface == NULL){
+		printf("Cannot find background.png\n\n");
+		SDL_Quit();
+		exit(1);
+	}
 	if (playerSurface == NULL){
 		printf("Cannot find dkjr.png\n\n");
 		SDL_Quit();
 		exit(1);
 	}
-	if (backgroundSurface == NULL){
-		printf("Cannot find back.png\n\n");
-		SDL_Quit();
-		exit(1);
-	}
 	if (blueKremlinSurface == NULL){
-		printf("Cannot find crocBlue1.png\n\n");
+		printf("Cannot find kremling_blue.png\n\n");
 		SDL_Quit();
 		exit(1);
 	}
 	if (redKremlinSurface == NULL){
-		printf("Cannot find crocRed1.png\n\n");
+		printf("Cannot find kremling_red.png\n\n");
 		SDL_Quit();
 		exit(1);
 	}
 	if (bananasSurface == NULL){
-		printf("Cannot find fruit1.png\n\n");
+		printf("Cannot find fruit_bananas.png\n\n");
 		SDL_Quit();
 		exit(1);
 	}
 	if (orangesSurface == NULL){
-		printf("Cannot find fruit2.png\n\n");
+		printf("Cannot find fruit_oranges.png\n\n");
 		SDL_Quit();
 		exit(1);
 	}
 	if (strawberrySurface == NULL){
-		printf("Cannot find fruit3.png\n\n");
+		printf("Cannot find fruit_strawberry.png\n\n");
 		SDL_Quit();
 		exit(1);
 	}

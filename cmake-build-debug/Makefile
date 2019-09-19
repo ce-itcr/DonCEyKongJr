@@ -123,6 +123,60 @@ DonCEyKongJr/fast:
 	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/build
 .PHONY : DonCEyKongJr/fast
 
+src/app/game.o: src/app/game.c.o
+
+.PHONY : src/app/game.o
+
+# target to build an object file
+src/app/game.c.o:
+	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/src/app/game.c.o
+.PHONY : src/app/game.c.o
+
+src/app/game.i: src/app/game.c.i
+
+.PHONY : src/app/game.i
+
+# target to preprocess a source file
+src/app/game.c.i:
+	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/src/app/game.c.i
+.PHONY : src/app/game.c.i
+
+src/app/game.s: src/app/game.c.s
+
+.PHONY : src/app/game.s
+
+# target to generate assembly for a file
+src/app/game.c.s:
+	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/src/app/game.c.s
+.PHONY : src/app/game.c.s
+
+src/communication/socketClient.o: src/communication/socketClient.c.o
+
+.PHONY : src/communication/socketClient.o
+
+# target to build an object file
+src/communication/socketClient.c.o:
+	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.o
+.PHONY : src/communication/socketClient.c.o
+
+src/communication/socketClient.i: src/communication/socketClient.c.i
+
+.PHONY : src/communication/socketClient.i
+
+# target to preprocess a source file
+src/communication/socketClient.c.i:
+	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.i
+.PHONY : src/communication/socketClient.c.i
+
+src/communication/socketClient.s: src/communication/socketClient.c.s
+
+.PHONY : src/communication/socketClient.s
+
+# target to generate assembly for a file
+src/communication/socketClient.c.s:
+	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.s
+.PHONY : src/communication/socketClient.c.s
+
 src/controller.o: src/controller.c.o
 
 .PHONY : src/controller.o
@@ -149,33 +203,6 @@ src/controller.s: src/controller.c.s
 src/controller.c.s:
 	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/src/controller.c.s
 .PHONY : src/controller.c.s
-
-src/game.o: src/game.c.o
-
-.PHONY : src/game.o
-
-# target to build an object file
-src/game.c.o:
-	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/src/game.c.o
-.PHONY : src/game.c.o
-
-src/game.i: src/game.c.i
-
-.PHONY : src/game.i
-
-# target to preprocess a source file
-src/game.c.i:
-	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/src/game.c.i
-.PHONY : src/game.c.i
-
-src/game.s: src/game.c.s
-
-.PHONY : src/game.s
-
-# target to generate assembly for a file
-src/game.c.s:
-	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/src/game.c.s
-.PHONY : src/game.c.s
 
 src/main.o: src/main.c.o
 
@@ -204,33 +231,6 @@ src/main.c.s:
 	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/src/main.c.s
 .PHONY : src/main.c.s
 
-src/socketClient.o: src/socketClient.c.o
-
-.PHONY : src/socketClient.o
-
-# target to build an object file
-src/socketClient.c.o:
-	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.o
-.PHONY : src/socketClient.c.o
-
-src/socketClient.i: src/socketClient.c.i
-
-.PHONY : src/socketClient.i
-
-# target to preprocess a source file
-src/socketClient.c.i:
-	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.i
-.PHONY : src/socketClient.c.i
-
-src/socketClient.s: src/socketClient.c.s
-
-.PHONY : src/socketClient.s
-
-# target to generate assembly for a file
-src/socketClient.c.s:
-	$(MAKE) -f CMakeFiles/DonCEyKongJr.dir/build.make CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.s
-.PHONY : src/socketClient.c.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -240,18 +240,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... DonCEyKongJr"
 	@echo "... edit_cache"
+	@echo "... src/app/game.o"
+	@echo "... src/app/game.i"
+	@echo "... src/app/game.s"
+	@echo "... src/communication/socketClient.o"
+	@echo "... src/communication/socketClient.i"
+	@echo "... src/communication/socketClient.s"
 	@echo "... src/controller.o"
 	@echo "... src/controller.i"
 	@echo "... src/controller.s"
-	@echo "... src/game.o"
-	@echo "... src/game.i"
-	@echo "... src/game.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/socketClient.o"
-	@echo "... src/socketClient.i"
-	@echo "... src/socketClient.s"
 .PHONY : help
 
 
