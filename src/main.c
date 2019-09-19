@@ -7,19 +7,18 @@
 
  File Version    : 1.0
  Authors         : Github @ angelortizv
- Last modified   : 09/17/2019, 16:00, @angelortizv
+ Last modified   : 19/09/2019, 00:20, @angelortizv
 */
 
 #include <stdio.h>
-#include "src/communication/socketClient.h"
-#include "src/app/Interface.h"
+#include "socketClient.h"
+#include "controller.h"
 
 int main(int argc, char *argv[]){
-    gtk_init(&argc,&argv);
-    loadInterface();
-    gtk_main();
 
-    enviar("Hola");
+    runGame();
+
+    enviar("communication tests");
     escuchar();
     return EXIT_SUCCESS;
 }
