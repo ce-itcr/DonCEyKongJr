@@ -100,15 +100,13 @@ void loadGraphics(Game *game){
 	orangesSurface = IMG_Load("img/fruit_oranges.png");
 	strawberrySurface = IMG_Load("img/fruit_strawberry.png");
 
-
-	//Si falla la carga de la imagen
-	if (playerSurface == NULL){
-		printf("Cannot find dkjr.png\n\n");
+	if (backgroundSurface == NULL){
+		printf("Cannot find background.png\n\n");
 		SDL_Quit();
 		exit(1);
 	}
-	if (backgroundSurface == NULL){
-		printf("Cannot find background.png\n\n");
+	if (playerSurface == NULL){
+		printf("Cannot find dkjr.png\n\n");
 		SDL_Quit();
 		exit(1);
 	}

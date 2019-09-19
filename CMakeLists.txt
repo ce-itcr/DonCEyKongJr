@@ -7,12 +7,12 @@ find_package(SDL2 REQUIRED)
 
 add_executable(DonCEyKongJr
         src/main.c
-        src/game.h
-        src/game.c
+        src/app/game.h
+        src/app/game.c
         src/controller.h
         src/controller.c
-        src/socketClient.h
-        src/socketClient.c
+        src/communication/socketClient.h
+        src/communication/socketClient.c
         )
 
 include_directories(${SDL2_INCLUDE_DIR}

@@ -70,18 +70,18 @@ CMakeFiles/DonCEyKongJr.dir/src/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/DonCEyKongJr.dir/src/main.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/angelortizv/Documents/Projects/DonCEyKongJr/src/main.c -o CMakeFiles/DonCEyKongJr.dir/src/main.c.s
 
-CMakeFiles/DonCEyKongJr.dir/src/game.c.o: CMakeFiles/DonCEyKongJr.dir/flags.make
-CMakeFiles/DonCEyKongJr.dir/src/game.c.o: ../src/game.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/angelortizv/Documents/Projects/DonCEyKongJr/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/DonCEyKongJr.dir/src/game.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/DonCEyKongJr.dir/src/game.c.o   -c /home/angelortizv/Documents/Projects/DonCEyKongJr/src/game.c
+CMakeFiles/DonCEyKongJr.dir/src/app/game.c.o: CMakeFiles/DonCEyKongJr.dir/flags.make
+CMakeFiles/DonCEyKongJr.dir/src/app/game.c.o: ../src/app/game.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/angelortizv/Documents/Projects/DonCEyKongJr/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/DonCEyKongJr.dir/src/app/game.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/DonCEyKongJr.dir/src/app/game.c.o   -c /home/angelortizv/Documents/Projects/DonCEyKongJr/src/app/game.c
 
-CMakeFiles/DonCEyKongJr.dir/src/game.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/DonCEyKongJr.dir/src/game.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/angelortizv/Documents/Projects/DonCEyKongJr/src/game.c > CMakeFiles/DonCEyKongJr.dir/src/game.c.i
+CMakeFiles/DonCEyKongJr.dir/src/app/game.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/DonCEyKongJr.dir/src/app/game.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/angelortizv/Documents/Projects/DonCEyKongJr/src/app/game.c > CMakeFiles/DonCEyKongJr.dir/src/app/game.c.i
 
-CMakeFiles/DonCEyKongJr.dir/src/game.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/DonCEyKongJr.dir/src/game.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/angelortizv/Documents/Projects/DonCEyKongJr/src/game.c -o CMakeFiles/DonCEyKongJr.dir/src/game.c.s
+CMakeFiles/DonCEyKongJr.dir/src/app/game.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/DonCEyKongJr.dir/src/app/game.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/angelortizv/Documents/Projects/DonCEyKongJr/src/app/game.c -o CMakeFiles/DonCEyKongJr.dir/src/app/game.c.s
 
 CMakeFiles/DonCEyKongJr.dir/src/controller.c.o: CMakeFiles/DonCEyKongJr.dir/flags.make
 CMakeFiles/DonCEyKongJr.dir/src/controller.c.o: ../src/controller.c
@@ -96,33 +96,33 @@ CMakeFiles/DonCEyKongJr.dir/src/controller.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/DonCEyKongJr.dir/src/controller.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/angelortizv/Documents/Projects/DonCEyKongJr/src/controller.c -o CMakeFiles/DonCEyKongJr.dir/src/controller.c.s
 
-CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.o: CMakeFiles/DonCEyKongJr.dir/flags.make
-CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.o: ../src/socketClient.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/angelortizv/Documents/Projects/DonCEyKongJr/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.o   -c /home/angelortizv/Documents/Projects/DonCEyKongJr/src/socketClient.c
+CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.o: CMakeFiles/DonCEyKongJr.dir/flags.make
+CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.o: ../src/communication/socketClient.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/angelortizv/Documents/Projects/DonCEyKongJr/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.o   -c /home/angelortizv/Documents/Projects/DonCEyKongJr/src/communication/socketClient.c
 
-CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/angelortizv/Documents/Projects/DonCEyKongJr/src/socketClient.c > CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.i
+CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/angelortizv/Documents/Projects/DonCEyKongJr/src/communication/socketClient.c > CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.i
 
-CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/angelortizv/Documents/Projects/DonCEyKongJr/src/socketClient.c -o CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.s
+CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/angelortizv/Documents/Projects/DonCEyKongJr/src/communication/socketClient.c -o CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.s
 
 # Object files for target DonCEyKongJr
 DonCEyKongJr_OBJECTS = \
 "CMakeFiles/DonCEyKongJr.dir/src/main.c.o" \
-"CMakeFiles/DonCEyKongJr.dir/src/game.c.o" \
+"CMakeFiles/DonCEyKongJr.dir/src/app/game.c.o" \
 "CMakeFiles/DonCEyKongJr.dir/src/controller.c.o" \
-"CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.o"
+"CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.o"
 
 # External object files for target DonCEyKongJr
 DonCEyKongJr_EXTERNAL_OBJECTS =
 
 DonCEyKongJr: CMakeFiles/DonCEyKongJr.dir/src/main.c.o
-DonCEyKongJr: CMakeFiles/DonCEyKongJr.dir/src/game.c.o
+DonCEyKongJr: CMakeFiles/DonCEyKongJr.dir/src/app/game.c.o
 DonCEyKongJr: CMakeFiles/DonCEyKongJr.dir/src/controller.c.o
-DonCEyKongJr: CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.o
+DonCEyKongJr: CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.o
 DonCEyKongJr: CMakeFiles/DonCEyKongJr.dir/build.make
 DonCEyKongJr: CMakeFiles/DonCEyKongJr.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/angelortizv/Documents/Projects/DonCEyKongJr/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable DonCEyKongJr"

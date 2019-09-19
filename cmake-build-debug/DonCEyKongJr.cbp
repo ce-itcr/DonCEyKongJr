@@ -84,25 +84,25 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/angelortizv/Documents/Projects/DonCEyKongJr/src/app/game.c">
+			<Option target="DonCEyKongJr"/>
+		</Unit>
+		<Unit filename="/home/angelortizv/Documents/Projects/DonCEyKongJr/src/app/game.h">
+			<Option target="DonCEyKongJr"/>
+		</Unit>
+		<Unit filename="/home/angelortizv/Documents/Projects/DonCEyKongJr/src/communication/socketClient.c">
+			<Option target="DonCEyKongJr"/>
+		</Unit>
+		<Unit filename="/home/angelortizv/Documents/Projects/DonCEyKongJr/src/communication/socketClient.h">
+			<Option target="DonCEyKongJr"/>
+		</Unit>
 		<Unit filename="/home/angelortizv/Documents/Projects/DonCEyKongJr/src/controller.c">
 			<Option target="DonCEyKongJr"/>
 		</Unit>
 		<Unit filename="/home/angelortizv/Documents/Projects/DonCEyKongJr/src/controller.h">
 			<Option target="DonCEyKongJr"/>
 		</Unit>
-		<Unit filename="/home/angelortizv/Documents/Projects/DonCEyKongJr/src/game.c">
-			<Option target="DonCEyKongJr"/>
-		</Unit>
-		<Unit filename="/home/angelortizv/Documents/Projects/DonCEyKongJr/src/game.h">
-			<Option target="DonCEyKongJr"/>
-		</Unit>
 		<Unit filename="/home/angelortizv/Documents/Projects/DonCEyKongJr/src/main.c">
-			<Option target="DonCEyKongJr"/>
-		</Unit>
-		<Unit filename="/home/angelortizv/Documents/Projects/DonCEyKongJr/src/socketClient.c">
-			<Option target="DonCEyKongJr"/>
-		</Unit>
-		<Unit filename="/home/angelortizv/Documents/Projects/DonCEyKongJr/src/socketClient.h">
 			<Option target="DonCEyKongJr"/>
 		</Unit>
 		<Unit filename="/home/angelortizv/Documents/Projects/DonCEyKongJr/CMakeLists.txt">

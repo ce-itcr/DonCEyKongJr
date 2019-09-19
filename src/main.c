@@ -11,7 +11,7 @@
 */
 
 #include <stdio.h>
-#include "socketClient.h"
+#include "communication/socketClient.h"
 #include "controller.h"
 
 int main(int argc, char *argv[]){

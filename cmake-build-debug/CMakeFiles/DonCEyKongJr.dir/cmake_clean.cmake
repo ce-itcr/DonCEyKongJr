@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/DonCEyKongJr.dir/src/main.c.o"
-  "CMakeFiles/DonCEyKongJr.dir/src/game.c.o"
+  "CMakeFiles/DonCEyKongJr.dir/src/app/game.c.o"
   "CMakeFiles/DonCEyKongJr.dir/src/controller.c.o"
-  "CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.o"
+  "CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.o"
   "DonCEyKongJr.pdb"
   "DonCEyKongJr"
 )

@@ -50,8 +50,6 @@ typedef struct{
 	int sizeMult; 
 
 	DKJr player;
-	Fruit fruits[20];
-	Kremling kremling[20];
 
 	SDL_Renderer *renderer;
 

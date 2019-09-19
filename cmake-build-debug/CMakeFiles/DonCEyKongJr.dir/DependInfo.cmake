@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/home/angelortizv/Documents/Projects/DonCEyKongJr/src/app/game.c" "/home/angelortizv/Documents/Projects/DonCEyKongJr/cmake-build-debug/CMakeFiles/DonCEyKongJr.dir/src/app/game.c.o"
+  "/home/angelortizv/Documents/Projects/DonCEyKongJr/src/communication/socketClient.c" "/home/angelortizv/Documents/Projects/DonCEyKongJr/cmake-build-debug/CMakeFiles/DonCEyKongJr.dir/src/communication/socketClient.c.o"
   "/home/angelortizv/Documents/Projects/DonCEyKongJr/src/controller.c" "/home/angelortizv/Documents/Projects/DonCEyKongJr/cmake-build-debug/CMakeFiles/DonCEyKongJr.dir/src/controller.c.o"
-  "/home/angelortizv/Documents/Projects/DonCEyKongJr/src/game.c" "/home/angelortizv/Documents/Projects/DonCEyKongJr/cmake-build-debug/CMakeFiles/DonCEyKongJr.dir/src/game.c.o"
   "/home/angelortizv/Documents/Projects/DonCEyKongJr/src/main.c" "/home/angelortizv/Documents/Projects/DonCEyKongJr/cmake-build-debug/CMakeFiles/DonCEyKongJr.dir/src/main.c.o"
-  "/home/angelortizv/Documents/Projects/DonCEyKongJr/src/socketClient.c" "/home/angelortizv/Documents/Projects/DonCEyKongJr/cmake-build-debug/CMakeFiles/DonCEyKongJr.dir/src/socketClient.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

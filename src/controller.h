@@ -13,7 +13,7 @@
 #ifndef DONCEYKONGJR_CONTROLLER_H
 #define DONCEYKONGJR_CONTROLLER_H
 
-#include "game.h"
+#include "app/game.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
