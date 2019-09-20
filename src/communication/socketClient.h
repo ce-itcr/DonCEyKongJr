@@ -22,6 +22,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdbool.h>
+#include "JsonParser.h"
+#include "../app/game.h"
 
 char* enviar(char* Mensaje);
 char* escuchar();

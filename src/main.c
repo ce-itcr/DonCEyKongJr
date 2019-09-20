@@ -16,6 +16,8 @@
 
 int main(int argc, char *argv[]){
 
+    lists = malloc(sizeof(Lists));
+
     runGame();
 
     enviar("communication tests");

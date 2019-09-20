@@ -12,8 +12,6 @@
 
 #include "game.h"
 
-Crocodile* Kremling1;
-
 int processEvents(SDL_Window *window, Game *game){
   SDL_Event event;
   int done = 0;
@@ -44,26 +42,45 @@ int processEvents(SDL_Window *window, Game *game){
 
   const Uint8 *state = SDL_GetKeyboardState(NULL);
   if(state[SDL_SCANCODE_LEFT]){
-  	checkCollision(game->player.pCollider, Kremling1->rCollider);
+  	checkPlayerCollision(game);
     game->player.x -= 1*game->sizeMult;
     game->player.pCollider.x -= 1*game->sizeMult;
   }
   if(state[SDL_SCANCODE_RIGHT]){
-	  checkCollision(game->player.pCollider, Kremling1->rCollider);
+  	checkPlayerCollision(game);
     game->player.x += 1*game->sizeMult;
     game->player.pCollider.x += 1*game->sizeMult;
   }
   if(state[SDL_SCANCODE_UP]){
-	  checkCollision(game->player.pCollider, Kremling1->rCollider);
+  	checkPlayerCollision(game);
     game->player.y -= 1*game->sizeMult;
     game->player.pCollider.y -= 1*game->sizeMult;
   }
   if(state[SDL_SCANCODE_DOWN]){
-	  checkCollision(game->player.pCollider, Kremling1->rCollider);
+	  checkPlayerCollision(game);
       game->player.y += 1*game->sizeMult;
       game->player.pCollider.y += 1*game->sizeMult;
   }
   return done;
+}
+
+void checkPlayerCollision(Game* game){
+		for(int i = 0; i < lists->numOfCrocodiles;i++){
+			if(checkCollision(game->player.pCollider,lists->cocrodileList[i].rCollider)){
+				game->player.alive = 0;
+			}
+		}
+		for(int i = 0; i < lists->numOfFruits;i++){
+			if(checkCollision(game->player.pCollider,lists->fruitList[i].rCollider)){
+				game->player.score += lists->fruitList[i].score;
+			}
+		}
+		for(int i = 0; i < lists->numOfTerrain;i++){
+			if(checkCollision(game->player.pCollider,lists->terrainList[i].tCollider)){
+				game->player.y -= 10;
+				game->player.pCollider.y -= 10;
+			}
+		}
 }
 
 void initializeGame(SDL_Window *window, Game *game){
@@ -78,13 +95,6 @@ void initializeGame(SDL_Window *window, Game *game){
     game->player.pCollider.y = game->y-(4*(8*game->sizeMult));
     game->player.pCollider.w = 35;
     game->player.pCollider.h = 35;
-
-	Kremling1 = malloc(sizeof(Crocodile));
-
-	Kremling1->rCollider.x = 100;
-	Kremling1->rCollider.y = 100;
-	Kremling1->rCollider.h = 100;
-	Kremling1->rCollider.w = 100;
 
 	window = SDL_CreateWindow("DonCE y Kong Jr",                    
 							SDL_WINDOWPOS_UNDEFINED,            
@@ -102,9 +112,39 @@ void gameRender(Game *game){
 
     SDL_Rect playerRect = {game->player.x, game->player.y, 25*game->sizeMult, 16*game->sizeMult};
     SDL_RenderCopy(game->renderer, game->playerImage, NULL, &playerRect);
-    SDL_RenderPresent(game->renderer);
 
-	SDL_RenderFillRect(game->renderer,&Kremling1->rCollider);
+	Terrain* terrain1 = malloc(sizeof(Terrain));
+//	Terrain* terrain2 = malloc(sizeof(Terrain));
+//	Terrain* terrain3 = malloc(sizeof(Terrain));
+//	Terrain* terrain4 = malloc(sizeof(Terrain));
+//	Terrain* terrain5 = malloc(sizeof(Terrain));
+//	Terrain* terrain6 = malloc(sizeof(Terrain));
+//	Terrain* terrain7 = malloc(sizeof(Terrain));
+//	Terrain* terrain8 = malloc(sizeof(Terrain));
+//	Terrain* terrain9 = malloc(sizeof(Terrain));
+//	Terrain* terrain10 = malloc(sizeof(Terrain));
+//
+//	int dir[] = {(252,555,20,100),(),(),(),(),(),(),(),(),()};
+//	Terrain ter[] = {terrain1,terrain2,terrain3,terrain4,terrain5,terrain6,terrain7,terrain8,terrain9,terrain10};
+//
+//	for(int i = 0; i < 10; i++){
+//
+//	}
+	terrain1->tCollider.x = 252;
+	terrain1->tCollider.y = 555;
+	terrain1->tCollider.h = 20;
+	terrain1->tCollider.w = 100;
+
+
+
+	lists->numOfCrocodiles = 0;
+	lists->numOfFruits = 0;
+	lists->numOfTerrain = 10;
+	lists->terrainList[0] = *terrain1;
+
+	SDL_RenderCopy(game->renderer,game->blueKremlingImage,NULL,&terrain1->tCollider);
+
+	SDL_RenderPresent(game->renderer);
 
 }
 
