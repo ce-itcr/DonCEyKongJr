@@ -12,7 +12,7 @@
 
 #include "game.h"
 
-Kremling* Kremling1;
+Crocodile* Kremling1;
 
 int processEvents(SDL_Window *window, Game *game){
   SDL_Event event;
@@ -79,7 +79,7 @@ void initializeGame(SDL_Window *window, Game *game){
     game->player.pCollider.w = 35;
     game->player.pCollider.h = 35;
 
-	Kremling1 = malloc(sizeof(Kremling));
+	Kremling1 = malloc(sizeof(Crocodile));
 
 	Kremling1->rCollider.x = 100;
 	Kremling1->rCollider.y = 100;

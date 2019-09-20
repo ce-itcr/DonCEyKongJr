@@ -42,6 +42,7 @@ typedef struct Fruit{
     int width;
     int height;
     int alive;
+    SDL_Rect rCollider;
 } Fruit;
 
 // Name     :
@@ -55,6 +56,7 @@ typedef struct Crocodile{
     int width;
     int height;
     int alive;
+    SDL_Rect rCollider;
 } Crocodile;
 
 // Name     :
