@@ -12,6 +12,8 @@
 
 #include "game.h"
 
+Kremling* Kremling1;
+
 int processEvents(SDL_Window *window, Game *game){
   SDL_Event event;
   int done = 0;
@@ -42,16 +44,24 @@ int processEvents(SDL_Window *window, Game *game){
 
   const Uint8 *state = SDL_GetKeyboardState(NULL);
   if(state[SDL_SCANCODE_LEFT]){
+  	checkCollision(game->player.pCollider, Kremling1->rCollider);
     game->player.x -= 1*game->sizeMult;
+    game->player.pCollider.x -= 1*game->sizeMult;
   }
   if(state[SDL_SCANCODE_RIGHT]){
+	  checkCollision(game->player.pCollider, Kremling1->rCollider);
     game->player.x += 1*game->sizeMult;
+    game->player.pCollider.x += 1*game->sizeMult;
   }
   if(state[SDL_SCANCODE_UP]){
+	  checkCollision(game->player.pCollider, Kremling1->rCollider);
     game->player.y -= 1*game->sizeMult;
+    game->player.pCollider.y -= 1*game->sizeMult;
   }
   if(state[SDL_SCANCODE_DOWN]){
-    game->player.y += 1*game->sizeMult;
+	  checkCollision(game->player.pCollider, Kremling1->rCollider);
+      game->player.y += 1*game->sizeMult;
+      game->player.pCollider.y += 1*game->sizeMult;
   }
   return done;
 }
@@ -64,6 +74,18 @@ void initializeGame(SDL_Window *window, Game *game){
 	game->y = 216*game->sizeMult;
 	game->player.x = 0;
 	game->player.y = game->y-(4*(8*game->sizeMult));
+    game->player.pCollider.x = 0;
+    game->player.pCollider.y = game->y-(4*(8*game->sizeMult));
+    game->player.pCollider.w = 35;
+    game->player.pCollider.h = 35;
+
+	Kremling1 = malloc(sizeof(Kremling));
+
+	Kremling1->rCollider.x = 100;
+	Kremling1->rCollider.y = 100;
+	Kremling1->rCollider.h = 100;
+	Kremling1->rCollider.w = 100;
+
 	window = SDL_CreateWindow("DonCE y Kong Jr",                    
 							SDL_WINDOWPOS_UNDEFINED,            
 							SDL_WINDOWPOS_UNDEFINED,            
@@ -81,6 +103,9 @@ void gameRender(Game *game){
     SDL_Rect playerRect = {game->player.x, game->player.y, 25*game->sizeMult, 16*game->sizeMult};
     SDL_RenderCopy(game->renderer, game->playerImage, NULL, &playerRect);
     SDL_RenderPresent(game->renderer);
+
+	SDL_RenderFillRect(game->renderer,&Kremling1->rCollider);
+
 }
 
 void loadGraphics(Game *game){
@@ -164,4 +189,38 @@ void closeGame(SDL_Window *window, Game *game){
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(game->renderer);
 	SDL_Quit();
+}
+
+bool checkCollision( SDL_Rect a, SDL_Rect b ){
+	//The sides of the rectangles
+	int leftA, leftB;
+	int rightA, rightB;
+	int topA, topB;
+	int bottomA, bottomB;
+	//Calculate the sides of rect A
+	leftA = a.x;
+	rightA = a.x + a.w;
+	topA = a.y;
+	bottomA = a.y + a.h;
+	//Calculate the sides of rect B
+	leftB = b.x;
+	rightB = b.x + b.w;
+	topB = b.y;
+	bottomB = b.y + b.h;
+	//If any of the sides from A are outside of B
+	if( bottomA <= topB ){
+		return false;
+	}
+	if( topA >= bottomB ){
+		return false;
+	}
+	if( rightA <= leftB ){
+		return false;
+	}
+	if( leftA >= rightB ){
+		return false;
+	}
+	//If none of the sides from A are outside B
+	printf("collision\n");
+	return true;
 }

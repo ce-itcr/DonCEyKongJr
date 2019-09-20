@@ -18,28 +18,48 @@
 #include <string.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <jmorecfg.h>
+#include <stdbool.h>
 
 // Name     :
 // Brief    : Type: 0 = bananas ; 1 = orange ; 2 = strawberry
 // Use      :
 typedef struct{
     int x, y;
+
+    SDL_Rect pCollider;
 } DKJr;
 
 // Name     :
-// Brief    : Type: 0 = bananas ; 1 = oranges ; 2 = strawberry
+// Brief    : Species: 0 = bananas ; 1 = oranges ; 2 = strawberry
 // Use      :
-typedef struct{
+typedef struct Fruit{
 	int x, y;
-	int type;
+    int species;
+
+    int height;
+    int width;
+    int velocity;
+
+    boolean alive;
+
+    SDL_Rect rCollider;
 } Fruit;
 
 // Name     :
 // Brief    : Type: 0 = blueKremling ; 1 = redKremling
 // Use      :
-typedef struct{
+typedef struct Kremling{
 	int x, y;
-	char type;	
+    int color;
+
+    int height;
+    int width;
+    int velocity;
+
+    boolean alive;
+
+    SDL_Rect rCollider;
 } Kremling;
 
 // Name     :
@@ -68,6 +88,8 @@ void initializeGame(SDL_Window *window, Game *game);
 void gameRender(Game *game);
 void loadGraphics(Game *game);
 void closeGame(SDL_Window *window, Game *game);
+bool checkCollision(SDL_Rect a,SDL_Rect b);
+
 
 
 #endif //DONCEYKONGJR_GAME_H
