@@ -3,8 +3,6 @@
 //
 
 #include "JsonParser.h"
-#include "cJSON.h"
-#include <stdio.h>
 
 Crocodile getCrocodileByNumber(char *json, int n){
     int species = getIntValueInJson(json, "crocodiles", n, "species");

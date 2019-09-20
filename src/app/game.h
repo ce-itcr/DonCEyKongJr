@@ -29,18 +29,29 @@ typedef struct{
 // Name     :
 // Brief    : Type: 0 = bananas ; 1 = oranges ; 2 = strawberry
 // Use      :
-typedef struct{
-	int x, y;
-	int type;
+typedef struct Fruit{
+    int posX;
+    int posY;
+    int species;
+    int score;
+    int speed;
+    int width;
+    int height;
+    int alive;
 } Fruit;
 
 // Name     :
 // Brief    : Type: 0 = blueKremling ; 1 = redKremling
 // Use      :
-typedef struct{
-	int x, y;
-	char type;	
-} Kremling;
+typedef struct Crocodile{
+    int posX;
+    int posY;
+    int species;
+    int speed;
+    int width;
+    int height;
+    int alive;
+} Crocodile;
 
 // Name     :
 // Brief    : 

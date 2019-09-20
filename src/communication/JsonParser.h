@@ -5,7 +5,9 @@
 #ifndef JSON_JSONPARSER_H
 #define JSON_JSONPARSER_H
 
-#include "Entities.h"
+#include "app/game.h"
+#include "cJSON.h"
+#include <stdio.h>
 
 Crocodile getCrocodileByNumber(char *json, int n);
 Fruit getFruitByNumber(char *json, int n);
