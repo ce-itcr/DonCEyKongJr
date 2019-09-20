@@ -14,9 +14,6 @@
 
 #define PORT 8080
 
-Socket() {
-}
-
 char* enviar(char* Mensaje) {
     printf("p0.15519\n");
     struct sockaddr_in address;
@@ -82,5 +79,12 @@ char* escuchar()
     printf("%s\n", buffer);
     updateEntities(buffer);
     close(sock);
+//    while(valread) {
+//        buffer[valread]='\0';    // explicit null termination: updated based on comments
+//        printf("%s\n",valread); // print the current receive buffer with a newline
+//        fflush(stdout);         // make sure everything makes it to the output
+//        buffer[0]='\0';         // clear the buffer : I am 99% sure this is not needed now
+//        valread--;
+//    }
     return buffer;
 }

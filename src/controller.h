@@ -14,6 +14,7 @@
 #define DONCEYKONGJR_CONTROLLER_H
 
 #include "app/game.h"
+#include <pthread.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 

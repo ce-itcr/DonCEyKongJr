@@ -27,7 +27,6 @@
 typedef struct{
     int x, y;
     int alive;
-    int score;
     SDL_Rect pCollider;
 } DKJr;
 
@@ -69,12 +68,16 @@ typedef struct Terrain{
 } Terrain;
 
 typedef struct Lists{
+    int score;
+    int gameON;
     Crocodile cocrodileList[50];
     Fruit fruitList[50];
     Terrain terrainList[50];
     int numOfTerrain;
     int numOfCrocodiles;
     int numOfFruits;
+    int currentNumberOfFruits;
+    int currentNumberOfCrocodiles;
 }Lists;
 
 Lists *lists;
@@ -100,14 +103,15 @@ typedef struct{
 } Game;
 
 
+
+
 int processEvents(SDL_Window *window, Game *game);
 void initializeGame(SDL_Window *window, Game *game);
 void gameRender(Game *game);
 void loadGraphics(Game *game);
 void closeGame(SDL_Window *window, Game *game);
 bool checkCollision(SDL_Rect a,SDL_Rect b);
-void checkPlayerCollision(Game* game);
-
-
+void checkPlayerCollision(Game* game,char* direction);
+void updateFruitsAndCrocodiles();
 
 #endif //DONCEYKONGJR_GAME_H
