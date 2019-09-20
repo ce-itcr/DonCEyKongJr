@@ -34,33 +34,28 @@ typedef struct{
 // Brief    : Species: 0 = bananas ; 1 = oranges ; 2 = strawberry
 // Use      :
 typedef struct Fruit{
-	int x, y;
+    int posX;
+    int posY;
     int species;
-
-    int height;
+    int score;
+    int speed;
     int width;
-    int velocity;
-
-    boolean alive;
-
-    SDL_Rect rCollider;
+    int height;
+    int alive;
 } Fruit;
 
 // Name     :
 // Brief    : Type: 0 = blueKremling ; 1 = redKremling
 // Use      :
-typedef struct Kremling{
-	int x, y;
-    int color;
-
-    int height;
+typedef struct Crocodile{
+    int posX;
+    int posY;
+    int species;
+    int speed;
     int width;
-    int velocity;
-
-    boolean alive;
-
-    SDL_Rect rCollider;
-} Kremling;
+    int height;
+    int alive;
+} Crocodile;
 
 // Name     :
 // Brief    : 
