@@ -171,16 +171,22 @@ void gameRender(Game *game) {
 		Terrain *terrain9 = malloc(sizeof(Terrain));
 		Terrain *terrain10 = malloc(sizeof(Terrain));
 
-    for (int i = 0; i < 11; i++) {
-        ter[i]->tCollider.x = dir[i][0];
-        ter[i]->tCollider.y = dir[i][1];
-        ter[i]->tCollider.h = dir[i][2];
-        ter[i]->tCollider.w = dir[i][3];
-        lists->terrainList[i] = *ter[i];
-//		SDL_RenderCopy(game->renderer,game->blueKremlingImage,NULL,&ter[i]->tCollider);
-    }
 
-		for (int i = 0; i < 11; i++) {
+        int dir[11][4] = {{0,   600, 20, 200},
+                          {252, 555, 20, 100},
+                          {375, 585, 20, 80},
+                          {475, 554, 20, 100},
+                          {590, 535, 20, 100},
+                          {550, 360, 25, 325},
+                          {105, 410, 23, 150},
+                          {110, 290, 23, 100},
+                          {0,   142, 28, 430},
+                          {385, 165, 25, 200},
+                          {200, 75,  25, 50}};
+        Terrain *ter[11] = {terrain0, terrain1, terrain2, terrain3, terrain4, terrain5, terrain6, terrain7, terrain8,
+                            terrain9, terrain10};
+
+        for (int i = 0; i < 11; i++) {
 			ter[i]->tCollider.x = dir[i][0];
 			ter[i]->tCollider.y = dir[i][1];
 			ter[i]->tCollider.h = dir[i][2];
