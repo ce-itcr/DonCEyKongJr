@@ -112,6 +112,9 @@ void loadGame(GameState *game){
     game->player.facingLeft = 1;
     game->player.slowingDown = 0;
 
+    game->sizeMult =3;
+    game->windowPage = 0;
+
     game->time = 0;
 
     //init ledges
@@ -312,6 +315,17 @@ int processEvents(SDL_Window *window, GameState *game){
         }
     }
 
+    if(game->windowPage == 0 && event.type == SDL_MOUSEBUTTONDOWN){
+        if (event.button.button == SDL_BUTTON_LEFT){
+            int mouseX, mouseY;
+            SDL_GetMouseState(&mouseX, &mouseY);
+
+            if (playGame_btn(game, mouseX, mouseY)){
+                game->windowPage = 1;
+            }
+        }
+    }
+
     //More jumping
     const Uint8 *state = SDL_GetKeyboardState(NULL);
     if(state[SDL_SCANCODE_UP]){
@@ -346,43 +360,65 @@ int processEvents(SDL_Window *window, GameState *game){
     return done;
 }
 
+int playGame_btn(GameState *game, int mouseX, int mouseY){
+    int playXLeft = 12*8*game->sizeMult;
+    int playXRight = 19*8*game->sizeMult;
+    int playYDown = (248*game->sizeMult)-(6*8*game->sizeMult);
+    int playYUp = (248*game->sizeMult)-(10*8*game->sizeMult);
+
+    if ((mouseX > playXLeft && mouseX < playXRight) == 0){
+        return 0;
+    }
+    if ((mouseY > playYUp && mouseY < playYDown) == 0){
+        return 0;
+    }
+    return 1;
+}
+
 void doRender(SDL_Renderer *renderer, GameState *game){
 
+    if(game->windowPage == 0){
+        SDL_Rect menuRect = {0, 0,  248*3, 216*3};
+        SDL_RenderCopy(game->renderer, game->menu, NULL, &menuRect);
+    }
+    if(game->windowPage == 1){
+
+        SDL_Rect backgroundRect = {0,0, 248*3, 216*3};
+        SDL_RenderCopy(game->renderer, game->background, NULL, &backgroundRect);
+
+        SDL_Rect safetykeyRect = {275,10, 50, 50};
+        SDL_RenderCopy(game->renderer, game->safetyKey, NULL, &safetykeyRect);
+
+        SDL_Rect marioRect = {175,100, 75, 75};
+        SDL_RenderCopy(game->renderer, game->mario, NULL, &marioRect);
+
+        SDL_Rect jailRect = {20,50, 150, 100};
+        SDL_RenderCopy(game->renderer, game->jail, NULL, &jailRect);
+
+        SDL_Rect dkRect = {65,60, 70, 65};
+        SDL_RenderCopy(game->renderer, game->dk, NULL, &dkRect);
+
+        SDL_Rect scoreholderRect = {570,0, 150, 95};
+        SDL_RenderCopy(game->renderer, game->scoreholder, NULL, &scoreholderRect);
+
+        for(int i = 0; i < 100; i++){
+            SDL_Rect ledgeRect = { game->ledges[i].x, game->ledges[i].y, game->ledges[i].w, game->ledges[i].h };
+            SDL_RenderCopy(renderer, game->brick, NULL, &ledgeRect);
+        }
+
+        for(int i = 0; i < 100; i++){
+            SDL_Rect underledges = { game->underledges[i].x, game->underledges[i].y, game->underledges[i].w, game->underledges[i].h };
+            SDL_RenderCopy(renderer, game->platform, NULL, &underledges);
+        }
+
+        //draw a rectangle at player's position
+        SDL_Rect rect = { game->player.x, game->player.y, 70, 70};
+        SDL_RenderCopyEx(renderer, game->playerFrames[game->player.animFrame],
+                         NULL, &rect, 0, NULL, (game->player.facingLeft == 0));
+
+    }
+
     //SDL_RenderClear(renderer);
-
-    SDL_Rect backgroundRect = {0,0, 248*3, 216*3};
-    SDL_RenderCopy(game->renderer, game->background, NULL, &backgroundRect);
-
-    SDL_Rect safetykeyRect = {275,10, 50, 50};
-    SDL_RenderCopy(game->renderer, game->safetyKey, NULL, &safetykeyRect);
-
-    SDL_Rect marioRect = {175,100, 75, 75};
-    SDL_RenderCopy(game->renderer, game->mario, NULL, &marioRect);
-
-    SDL_Rect jailRect = {20,50, 150, 100};
-    SDL_RenderCopy(game->renderer, game->jail, NULL, &jailRect);
-
-    SDL_Rect dkRect = {65,60, 70, 65};
-    SDL_RenderCopy(game->renderer, game->dk, NULL, &dkRect);
-
-    SDL_Rect scoreholderRect = {570,0, 150, 95};
-    SDL_RenderCopy(game->renderer, game->scoreholder, NULL, &scoreholderRect);
-
-    for(int i = 0; i < 100; i++){
-        SDL_Rect ledgeRect = { game->ledges[i].x, game->ledges[i].y, game->ledges[i].w, game->ledges[i].h };
-        SDL_RenderCopy(renderer, game->brick, NULL, &ledgeRect);
-    }
-
-    for(int i = 0; i < 100; i++){
-        SDL_Rect underledges = { game->underledges[i].x, game->underledges[i].y, game->underledges[i].w, game->underledges[i].h };
-        SDL_RenderCopy(renderer, game->platform, NULL, &underledges);
-    }
-
-    //draw a rectangle at player's position
-    SDL_Rect rect = { game->player.x, game->player.y, 70, 70};
-    SDL_RenderCopyEx(renderer, game->playerFrames[game->player.animFrame],
-                     NULL, &rect, 0, NULL, (game->player.facingLeft == 0));
-
 
 
     //We are done drawing, "present" or show to the screen what we've drawn

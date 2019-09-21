@@ -93,6 +93,7 @@ typedef struct{
 
     int time;
     int windowPage;
+    int sizeMult;
 
     SDL_Renderer *renderer;
 } GameState;
@@ -104,6 +105,7 @@ void collisionDetect(GameState *game);
 int processEvents(SDL_Window *window, GameState *game);
 void doRender(SDL_Renderer *renderer, GameState *game);
 void closeGame(SDL_Window *window, GameState *game, SDL_Renderer *renderer);
+int playGame_btn(GameState *game, int mouseX, int mouseY);
 
 
 #endif //DONCEYKONGJR_GAME_H
