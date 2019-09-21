@@ -13,107 +13,87 @@
 #ifndef DONCEYKONGJR_GAME_H
 #define DONCEYKONGJR_GAME_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <SDL2/SDL_mixer.h>
-#include <jmorecfg.h>
-#include <stdbool.h>
+#include <stdio.h>
+#include <time.h>
 
-// Name     :
-// Brief    : Type: 0 = bananas ; 1 = orange ; 2 = strawberry
-// Use      :
-typedef struct{
-    int x, y;
-    int alive;
-    SDL_Rect pCollider;
+#define GRAVITY  0.35f
+
+typedef struct
+{
+	float x, y;
+	float dx, dy;
+	short life;
+	char *name;
+	int onLedge;
+
+	int animFrame, facingLeft, slowingDown;
 } DKJr;
 
-// Name     :
-// Brief    : Species: 0 = bananas ; 1 = oranges ; 2 = strawberry
-// Use      :
+typedef struct{
+	int x, y, w, h;
+} Ledge;
+
 typedef struct Fruit{
-    int posX;
-    int posY;
-    int species;
-    int score;
-    int speed;
-    int width;
-    int height;
-    int alive;
-    SDL_Rect rCollider;
+	int posX;
+	int posY;
+	int species;
+	int score;
+	int speed;
+	int width;
+	int height;
+	int alive;
 } Fruit;
 
-// Name     :
-// Brief    : Type: 0 = blueKremling ; 1 = redKremling
-// Use      :
 typedef struct Crocodile{
-    int posX;
-    int posY;
-    int species;
-    int speed;
-    int width;
-    int height;
-    int alive;
-    SDL_Rect rCollider;
+	int posX;
+	int posY;
+	int species;
+	int speed;
+	int width;
+	int height;
+	int alive;
 } Crocodile;
 
-typedef struct Terrain{
-    int x;
-    int y;
-    int height;
-    int width;
-    SDL_Rect tCollider;
-} Terrain;
-
 typedef struct Lists{
-    int score;
-    int gameON;
-    Crocodile cocrodileList[50];
-    Fruit fruitList[50];
-    Terrain terrainList[50];
-    int numOfTerrain;
-    int numOfCrocodiles;
-    int numOfFruits;
-    int currentNumberOfFruits;
-    int currentNumberOfCrocodiles;
+	int score;
+	int gameON;
+	Crocodile cocrodileList[50];
+	Fruit fruitList[50];
+	Ledge terrainList[50];
+	int numOfTerrain;
+	int numOfCrocodiles;
+	int numOfFruits;
+	int currentNumberOfFruits;
+	int currentNumberOfCrocodiles;
 }Lists;
 
 Lists *lists;
 
-// Name     :
-// Brief    : 
-// Use      :
 typedef struct{
-	int x, y;
-	int sizeMult; 
-	int windowPage;
-
 	DKJr player;
+
+	Ledge ledges[100];
+	Ledge underledges[100];
+
+	SDL_Texture *playerFrames[2];
+	SDL_Texture *brick;
+	SDL_Texture *background;
+	SDL_Texture *platform;
+
+	int time;
+
 	SDL_Renderer *renderer;
+} GameState;
 
-	SDL_Texture *backgroundImage;
-	SDL_Texture *menuImage;
-	SDL_Texture *platformImage;
-	SDL_Texture *playerImage;
-	SDL_Texture *blueKremlingImage;
-	SDL_Texture *redKremlingImage;
-	SDL_Texture *bananasImage;
-	SDL_Texture *orangesImage;
-	SDL_Texture *strawberryImage;
-} Game;
+void loadGame(GameState *game);
+void process(GameState *game);
+void collisionDetect(GameState *game);
+int processEvents(SDL_Window *window, GameState *game);
+void initializeGame(SDL_Window *window, GameState *game);
+void doRender(SDL_Renderer *renderer, GameState *game);
+void closeGame(SDL_Window *window, GameState* game);
 
-Mix_Music *backgroundSound;
-int processEvents(SDL_Window *window, Game *game);
-void initializeGame(SDL_Window *window, Game *game);
-int playGame_btn(Game *game, int mouseX, int mouseY);
-void gameRender(Game *game);
-void loadGraphics(Game *game);
-void closeGame(SDL_Window *window, Game *game);
-bool checkCollision(SDL_Rect a,SDL_Rect b);
-void checkPlayerCollision(Game* game,char* direction);
-void updateFruitsAndCrocodiles();
 
 #endif //DONCEYKONGJR_GAME_H

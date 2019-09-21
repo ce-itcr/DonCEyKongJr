@@ -12,12 +12,12 @@
 
 #include "controller.h"
 
-Game game;
+GameState game;
 SDL_Window* window = NULL;
 
 void runGame(){
     initializeGame(window, &game);
-    loadGraphics(&game);
+    loadGame(&game);
 
     pthread_t tid;
     pthread_create(&tid,NULL,runCommunication,(void *)&tid);
@@ -34,10 +34,11 @@ void* runCommunication(void* arg){
 }
 
 void* runGameThread(void* arg){
+    SDL_Renderer *renderer = NULL;
     int done = 0;
     while(!done){
         done = processEvents(window, &game);
-        gameRender(&game);
+        doRender(renderer, &game);
         SDL_Delay(10);
     }
     closeGame(window, &game);

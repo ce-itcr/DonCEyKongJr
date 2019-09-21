@@ -12,360 +12,371 @@
 
 #include "game.h"
 
-int processEvents(SDL_Window *window, Game *game){
-  SDL_Event event;
-  int done = 0;
+void loadGame(GameState *game){
+    SDL_Surface *surface = NULL;
 
-  while(SDL_PollEvent(&event)){
-    switch(event.type){
-      case SDL_WINDOWEVENT_CLOSE:{
-        if(window){
-          SDL_DestroyWindow(window);
-          window = NULL;
-          done = 1;
-        }
-      }
-      break;
-      case SDL_KEYDOWN:{
-        switch(event.key.keysym.sym){
-          case SDLK_ESCAPE:
-            done = 1;
-          break;
-        }
-      }
-      break;
-      case SDL_QUIT:
-        done = 1;
-      break;
+    surface = IMG_Load("img/background.png");
+    if(surface == NULL){
+        printf("Cannot find background.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->background = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+    surface = IMG_Load("img/jr_a.png");
+    if(surface == NULL){
+        printf("Cannot find player_lta.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->playerFrames[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+    surface = IMG_Load("img/jr_b.png");
+    if(surface == NULL){
+        printf("Cannot find player_ltb.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->playerFrames[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+    surface = IMG_Load("img/platform.png");
+    if(surface == NULL){
+        printf("Cannot find brick.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->brick = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+    surface = IMG_Load("img/downplatform.png");
+    if(surface == NULL){
+        printf("Cannot find downplatform.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->platform = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+    game->player.x = 40;
+    game->player.y = 240-40;
+    game->player.dx = 0;
+    game->player.dy = 0;
+    game->player.onLedge = 0;
+    game->player.animFrame = 0;
+    game->player.facingLeft = 1;
+    game->player.slowingDown = 0;
+
+    game->time = 0;
+
+    //init ledges
+    for(int i = 0; i < 100; i++){
+        game->ledges[i].w = 256;
+        game->ledges[i].h = 20;
+        game->ledges[i].x = i*256;
+        game->ledges[i].y = 650;
     }
 
-    if(game->windowPage == 0 && event.type == SDL_MOUSEBUTTONDOWN){
-    	if (event.button.button == SDL_BUTTON_LEFT){
-    		int mouseX, mouseY;
-			SDL_GetMouseState(&mouseX, &mouseY);
+    game->ledges[94].x = 552;
+    game->ledges[94].y = 368;
+    game->ledges[94].w = 190;
+    game->ledges[94].h = 22;
 
-			if (playGame_btn(game, mouseX, mouseY)){
-				game->windowPage = 1;
-			}
-		}
+    game->ledges[95].x = 405;
+    game->ledges[95].y = 176;
+    game->ledges[95].w = 195;
+    game->ledges[95].h = 22;
+
+    game->ledges[96].x = 190;
+    game->ledges[96].y = 80;
+    game->ledges[96].w = 75;
+    game->ledges[96].h = 22;
+
+    game->ledges[97].x = 0;
+    game->ledges[97].y = 155;
+    game->ledges[97].w = 432;
+    game->ledges[97].h = 22;
+
+    game->ledges[98].x = 120;
+    game->ledges[98].y = 295;
+    game->ledges[98].w = 96;
+    game->ledges[98].h = 22;
+
+    game->ledges[99].x = 120;
+    game->ledges[99].y = 415;
+    game->ledges[99].w = 145;
+    game->ledges[99].h = 22;
+
+    for(int i = 0; i < 100; i++){
+        game->underledges[i].w = 256;
+        game->underledges[i].h = 20;
+        game->underledges[i].x = i*256;
+        game->underledges[i].y = 650;
     }
-  }
 
-  const Uint8 *state = SDL_GetKeyboardState(NULL);
-  if(state[SDL_SCANCODE_LEFT]){
-  	checkPlayerCollision(game,"");
-    game->player.x -= 1*game->sizeMult;
-    game->player.pCollider.x -= 1*game->sizeMult;
-  }
-  if(state[SDL_SCANCODE_RIGHT]){
-  	checkPlayerCollision(game,"");
-    game->player.x += 1*game->sizeMult;
-    game->player.pCollider.x += 1*game->sizeMult;
-  }
-//  if(state[SDL_SCANCODE_UP]){
-//  	checkPlayerCollision(game,"-y");
-//    game->player.y -= 1*game->sizeMult;
-//    game->player.pCollider.y -= 1*game->sizeMult;
-//  }
-//  if(state[SDL_SCANCODE_DOWN]){
-//	  checkPlayerCollision(game,"+y");
-//      game->player.y += 1*game->sizeMult;
-//      game->player.pCollider.y += 1*game->sizeMult;
-//  }
-  return done;
+    game->underledges[95].x = 600;
+    game->underledges[95].y = 530;
+    game->underledges[95].w = 100;
+    game->underledges[95].h = 200;
+
+    game->underledges[96].x = 480;
+    game->underledges[96].y = 550;
+    game->underledges[96].w = 95;
+    game->underledges[96].h = 140;
+
+    game->underledges[97].x = 380;
+    game->underledges[97].y = 585;
+    game->underledges[97].w = 80;
+    game->underledges[97].h = 140;
+
+    game->underledges[98].x = 260;
+    game->underledges[98].y = 550;
+    game->underledges[98].w = 100;
+    game->underledges[98].h = 140;
+
+    game->underledges[99].x = 0;
+    game->underledges[99].y = 618;
+    game->underledges[99].w = 188;
+    game->underledges[99].h = 100;
+
 }
 
-void checkPlayerCollision(Game* game,char* direction){
-		for(int i = 0; i < lists->numOfCrocodiles;i++){
-			if(checkCollision(game->player.pCollider,lists->cocrodileList[i].rCollider)){
-				game->player.alive = 0;
-			}
-		}
-		for(int i = 0; i < lists->numOfFruits;i++){
-			if(checkCollision(game->player.pCollider,lists->fruitList[i].rCollider)){
-				lists->score += lists->fruitList[i].score;
-				lists->fruitList[i].alive = 0;
-			}
-		}
-		for(int i = 0; i < lists->numOfTerrain;i++){
-			if(checkCollision(game->player.pCollider,lists->terrainList[i].tCollider)){
-				if(direction == "+y") {
-					game->player.y -= 10;
-					game->player.pCollider.y -= 10;
-				}else if(direction == "-y"){
-					game->player.y += 10;
-					game->player.pCollider.y += 10;
-				}
+void process(GameState *game){
+    //add time
+    game->time++;
 
-			}
-		}
+    //player movement
+    DKJr *player = &game->player;
+    player->x += player->dx;
+    player->y += player->dy;
+
+    if(player->dx != 0 && player->onLedge && !player->slowingDown){
+        if(game->time % 8 == 0){
+            if(player->animFrame == 0){
+                player->animFrame = 1;
+            }
+            else{
+                player->animFrame = 0;
+            }
+        }
+    }
+
+    player->dy += GRAVITY;
 }
 
-int playGame_btn(Game *game, int mouseX, int mouseY){
-	int playXLeft = 12*8*game->sizeMult;
-	int playXRight = 19*8*game->sizeMult;
-	int playYDown = game->y-(6*8*game->sizeMult);
-	int playYUp = game->y-(10*8*game->sizeMult);
+void collisionDetect(GameState *game){
+    //Check for collision with any ledges (brick blocks)
+    for(int i = 0; i < 100; i++){
+        float mw = 48, mh = 48;
+        float mx = game->player.x, my = game->player.y;
+        float bx = game->ledges[i].x, by = game->ledges[i].y, bw = game->ledges[i].w, bh = game->ledges[i].h;
+        float ubx = game->underledges[i].x, uby = game->underledges[i].y, ubw = game->underledges[i].w, ubh = game->underledges[i].h;
 
-	if ((mouseX > playXLeft && mouseX < playXRight) == 0){
-		return 0;
-	}
-	if ((mouseY > playYUp && mouseY < playYDown) == 0){
-		return 0;
-	}
-	return 1;
+        //Check collisions for ledges
+        if(mx+mw/2 > bx && mx+mw/2<bx+bw){
+            if(my < by+bh && my > by && game->player.dy < 0){
+                game->player.y = by+bh;
+                my = by+bh;
+                game->player.dy = 0;
+                game->player.onLedge = 1;
+            }
+        }
+        if(mx+mw > bx && mx<bx+bw){
+            if(my+mh > by && my < by && game->player.dy > 0){
+                game->player.y = by-mh;
+                my = by-mh;
+                game->player.dy = 0;
+                game->player.onLedge = 1;
+            }
+        }
+        if(my+mh > by && my<by+bh){
+            if(mx < bx+bw && mx+mw > bx+bw && game->player.dx < 0){
+                game->player.x = bx+bw;
+                mx = bx+bw;
+                game->player.dx = 0;
+            }
+            else if(mx+mw > bx && mx < bx && game->player.dx > 0){
+                game->player.x = bx-mw;
+                mx = bx-mw;
+                game->player.dx = 0;
+            }
+        }
+
+        //Check collisions for underledges
+        if(mx+mw/2 > ubx && mx+mw/2<ubx+ubw){
+            if(my < uby+ubh && my > uby && game->player.dy < 0){
+                game->player.y = uby+ubh;
+                my = by+ubh;
+                game->player.dy = 0;
+                game->player.onLedge = 1;
+            }
+        }
+        if(mx+mw > ubx && mx<ubx+ubw){
+            if(my+mh > uby && my < uby && game->player.dy > 0){
+                game->player.y = uby-mh;
+                my = uby-mh;
+                game->player.dy = 0;
+                game->player.onLedge = 1;
+            }
+        }
+        if(my+mh > uby && my<uby+ubh){
+            if(mx < ubx+bw && mx+mw > ubx+bw && game->player.dx < 0){
+                game->player.x = ubx+ubw;
+                mx = ubx+ubw;
+                game->player.dx = 0;
+            }
+            else if(mx+mw > ubx && mx < ubx && game->player.dx > 0){
+                game->player.x = bx-mw;
+                mx = ubx-mw;
+                game->player.dx = 0;
+            }
+        }
+
+    }
 }
 
-void initializeGame(SDL_Window *window, Game *game){
-	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+int processEvents(SDL_Window *window, GameState *game){
+    SDL_Event event;
+    int done = 0;
 
-	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-	backgroundSound = Mix_LoadMUS("audio/Stage1.mp3");
-	//Mix_PlayMusic(backgroundSound, -1);
+    while(SDL_PollEvent(&event)){
+        switch(event.type){
+            case SDL_WINDOWEVENT_CLOSE:{
+                if(window){
+                    SDL_DestroyWindow(window);
+                    window = NULL;
+                    done = 1;
+                }
+            }
+                break;
+            case SDL_KEYDOWN:{
+                switch(event.key.keysym.sym){
+                    case SDLK_ESCAPE:
+                        done = 1;
+                        break;
+                    case SDLK_UP:
+                        if(game->player.onLedge){
+                            game->player.dy = -8;
+                            game->player.onLedge = 0;
+                        }
+                        break;
+                }
+            }
+                break;
+            case SDL_QUIT:
+                //quit out of the game
+                done = 1;
+                break;
+        }
+    }
 
-	lists->gameON = 1;
-	game->sizeMult = 3;
-	game->windowPage = 0;
-	game->x = 248*game->sizeMult;
-	game->y = 216*game->sizeMult;
-	game->player.x = 0;
-	game->player.y = game->y-(4*(8*game->sizeMult));
-    game->player.pCollider.x = 0;
-    game->player.pCollider.y = game->y-(4*(8*game->sizeMult));
-    game->player.pCollider.w = 35;
-    game->player.pCollider.h = 35;
+    //More jumping
+    const Uint8 *state = SDL_GetKeyboardState(NULL);
+    if(state[SDL_SCANCODE_UP]){
+        game->player.dy -= 0.2f;
+    }
 
-	window = SDL_CreateWindow("DonCE y Kong Jr",                    
-							SDL_WINDOWPOS_UNDEFINED,            
-							SDL_WINDOWPOS_UNDEFINED,            
-							248*game->sizeMult,                       
-							216*game->sizeMult,                     
-							0);                                  
-
-	game->renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    //Walking
+    if(state[SDL_SCANCODE_LEFT]){
+        game->player.dx -= 0.5;
+        if(game->player.dx < -6){
+            game->player.dx = -6;
+        }
+        game->player.facingLeft = 1;
+        game->player.slowingDown = 0;
+    }
+    else if(state[SDL_SCANCODE_RIGHT]){
+        game->player.dx += 0.5;
+        if(game->player.dx > 6){
+            game->player.dx = 6;
+        }
+        game->player.facingLeft = 0;
+        game->player.slowingDown = 0;
+    }
+    else{
+        game->player.animFrame = 0;
+        game->player.dx *= 0.8f;
+        game->player.slowingDown = 1;
+        if(fabsf(game->player.dx) < 0.1f){
+            game->player.dx = 0;
+        }
+    }
+    return done;
 }
 
-void gameRender(Game *game) {
-
-	if (game->windowPage == 0){
-		SDL_Rect menuRect = {0, 0, game->x, game->y};
-		SDL_RenderCopy(game->renderer, game->menuImage, NULL, &menuRect);
-	}
-	if(game->windowPage == 1){
-		//Mix_PlayMusic(backgroundSound, -1);
-		SDL_Rect backRect = {0, 0, game->x, game->y};
-		SDL_RenderCopy(game->renderer, game->backgroundImage, NULL, &backRect);
-
-		SDL_Rect playerRect = {game->player.x, game->player.y, 25 * game->sizeMult, 16 * game->sizeMult};
-		SDL_RenderCopy(game->renderer, game->playerImage, NULL, &playerRect);
-
-		Terrain *terrain0 = malloc(sizeof(Terrain));
-		Terrain *terrain1 = malloc(sizeof(Terrain));
-		Terrain *terrain2 = malloc(sizeof(Terrain));
-		Terrain *terrain3 = malloc(sizeof(Terrain));
-		Terrain *terrain4 = malloc(sizeof(Terrain));
-		Terrain *terrain5 = malloc(sizeof(Terrain));
-		Terrain *terrain6 = malloc(sizeof(Terrain));
-		Terrain *terrain7 = malloc(sizeof(Terrain));
-		Terrain *terrain8 = malloc(sizeof(Terrain));
-		Terrain *terrain9 = malloc(sizeof(Terrain));
-		Terrain *terrain10 = malloc(sizeof(Terrain));
+void doRender(SDL_Renderer *renderer, GameState *game){
+    //set the drawing color to blue
+    //SDL_SetRenderDrawColor(renderer, 128, 128, 255, 255);
 
 
-        int dir[11][4] = {{0,   600, 20, 200},
-                          {252, 555, 20, 100},
-                          {375, 585, 20, 80},
-                          {475, 554, 20, 100},
-                          {590, 535, 20, 100},
-                          {550, 360, 25, 325},
-                          {105, 410, 23, 150},
-                          {110, 290, 23, 100},
-                          {0,   142, 28, 430},
-                          {385, 165, 25, 200},
-                          {200, 75,  25, 50}};
-        Terrain *ter[11] = {terrain0, terrain1, terrain2, terrain3, terrain4, terrain5, terrain6, terrain7, terrain8,
-                            terrain9, terrain10};
+    //Clear the screen (to blue)
+    SDL_RenderClear(renderer);
 
-        for (int i = 0; i < 11; i++) {
-			ter[i]->tCollider.x = dir[i][0];
-			ter[i]->tCollider.y = dir[i][1];
-			ter[i]->tCollider.h = dir[i][2];
-			ter[i]->tCollider.w = dir[i][3];
-			lists->terrainList[i] = *ter[i];
-			//SDL_RenderCopy(game->renderer,game->platformImage,NULL,&ter[i]->tCollider);
-		}
+    SDL_Rect backgroundRect = {0,0, 248*3, 216*3};
+    SDL_RenderCopy(game->renderer, game->background, NULL, &backgroundRect);
 
-		lists->numOfTerrain = 11;
-	}
+    for(int i = 0; i < 100; i++){
+        SDL_Rect ledgeRect = { game->ledges[i].x, game->ledges[i].y, game->ledges[i].w, game->ledges[i].h };
+        SDL_RenderCopy(renderer, game->brick, NULL, &ledgeRect);
+    }
+
+    for(int i = 0; i < 100; i++){
+        SDL_Rect underledges = { game->underledges[i].x, game->underledges[i].y, game->underledges[i].w, game->underledges[i].h };
+        SDL_RenderCopy(renderer, game->platform, NULL, &underledges);
+    }
+
+    //draw a rectangle at player's position
+    SDL_Rect rect = { game->player.x, game->player.y, 48, 48 };
+    SDL_RenderCopyEx(renderer, game->playerFrames[game->player.animFrame],
+                     NULL, &rect, 0, NULL, (game->player.facingLeft == 0));
 
 
-    SDL_RenderPresent(game->renderer);
+    //We are done drawing, "present" or show to the screen what we've drawn
+    SDL_RenderPresent(renderer);
 }
 
-void loadGraphics(Game *game){
+void initializeGame(SDL_Window *window, GameState *game){
 
-	SDL_Surface *backgroundSurface = NULL;
-	SDL_Surface *menuSurface = NULL;
-	SDL_Surface *platformSurface = NULL;
-	SDL_Surface *playerSurface = NULL;
-	SDL_Surface *blueKremlinSurface = NULL;
-	SDL_Surface *redKremlinSurface = NULL;
-	SDL_Surface *bananasSurface = NULL;
-	SDL_Surface *orangesSurface = NULL;
-	SDL_Surface *strawberrySurface = NULL;
+    window = NULL;
+    SDL_Renderer *renderer = NULL;
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
-	backgroundSurface = IMG_Load("img/background.png");
-	menuSurface = IMG_Load("img/menu.png");
-	platformSurface = IMG_Load("img/platform.png");
-	playerSurface = IMG_Load("img/dkjr.png");
-	blueKremlinSurface = IMG_Load("img/kremling_blue.png");
-	redKremlinSurface = IMG_Load("img/kremling_red.png");
-	bananasSurface = IMG_Load("img/fruit_bananas.png");
-	orangesSurface = IMG_Load("img/fruit_oranges.png");
-	strawberrySurface = IMG_Load("img/fruit_strawberry.png");
+    //Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+    //backgroundSound = Mix_LoadMUS("audio/Stage1.mp3");
+    //Mix_PlayMusic(backgroundSound, -1);
 
-	if (backgroundSurface == NULL){
-		printf("Cannot find background.png\n\n");
-		SDL_Quit();
-		exit(1);
-	}
-	if (menuSurface == NULL){
-		printf("Cannot find menu.png\n\n");
-		SDL_Quit();
-		exit(1);
-	}
-	if (platformSurface == NULL){
-		printf("Cannot find platform.png\n\n");
-		SDL_Quit();
-		exit(1);
-	}
-	if (playerSurface == NULL){
-		printf("Cannot find dkjr.png\n\n");
-		SDL_Quit();
-		exit(1);
-	}
-	if (blueKremlinSurface == NULL){
-		printf("Cannot find kremling_blue.png\n\n");
-		SDL_Quit();
-		exit(1);
-	}
-	if (redKremlinSurface == NULL){
-		printf("Cannot find kremling_red.png\n\n");
-		SDL_Quit();
-		exit(1);
-	}
-	if (bananasSurface == NULL){
-		printf("Cannot find fruit_bananas.png\n\n");
-		SDL_Quit();
-		exit(1);
-	}
-	if (orangesSurface == NULL){
-		printf("Cannot find fruit_oranges.png\n\n");
-		SDL_Quit();
-		exit(1);
-	}
-	if (strawberrySurface == NULL){
-		printf("Cannot find fruit_strawberry.png\n\n");
-		SDL_Quit();
-		exit(1);
-	}
+    SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
+    int flags=IMG_INIT_JPG|IMG_INIT_PNG;
+    int initted=IMG_Init(flags);
 
-	game->playerImage = SDL_CreateTextureFromSurface(game->renderer, playerSurface);
-	game->menuImage = SDL_CreateTextureFromSurface(game->renderer, menuSurface);
-	game->platformImage = SDL_CreateTextureFromSurface(game->renderer, platformSurface);
-	game->backgroundImage = SDL_CreateTextureFromSurface(game->renderer, backgroundSurface);
-	game->blueKremlingImage = SDL_CreateTextureFromSurface(game->renderer, blueKremlinSurface);
-	game->redKremlingImage = SDL_CreateTextureFromSurface(game->renderer, redKremlinSurface);
-	game->bananasImage = SDL_CreateTextureFromSurface(game->renderer, bananasSurface);
-	game->orangesImage = SDL_CreateTextureFromSurface(game->renderer, orangesSurface);
-	game->strawberryImage = SDL_CreateTextureFromSurface(game->renderer, strawberrySurface);
+    srandom((int)time(NULL));
 
-	SDL_FreeSurface(playerSurface);
-	SDL_FreeSurface(menuSurface);
-	SDL_FreeSurface(platformSurface);
-	SDL_FreeSurface(backgroundSurface);
-	SDL_FreeSurface(blueKremlinSurface);
-	SDL_FreeSurface(redKremlinSurface);
-	SDL_FreeSurface(bananasSurface);
-	SDL_FreeSurface(orangesSurface);
-	SDL_FreeSurface(strawberrySurface);
+    //Create an application window with the following settings:
+    window = SDL_CreateWindow("Game Window",                     // window title
+                              SDL_WINDOWPOS_UNDEFINED,           // initial x position
+                              SDL_WINDOWPOS_UNDEFINED,           // initial y position
+                              248*3,                               // width, in pixels
+                              216*3,                               // height, in pixels
+                              0                                  // flags
+    );
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    game->renderer = renderer;
 }
 
-void closeGame(SDL_Window *window, Game* game){
-	SDL_DestroyTexture(game->playerImage);
-	SDL_DestroyTexture(game->menuImage);
-	SDL_DestroyTexture(game->platformImage);
-	SDL_DestroyTexture(game->backgroundImage);
-	SDL_DestroyTexture(game->blueKremlingImage);
-	SDL_DestroyTexture(game->redKremlingImage);
-	SDL_DestroyTexture(game->bananasImage);
-	SDL_DestroyTexture(game->orangesImage);
-	SDL_DestroyTexture(game->strawberryImage);
-	SDL_DestroyWindow(window);
-	SDL_DestroyRenderer(game->renderer);
-	Mix_FreeMusic(backgroundSound);
-	Mix_CloseAudio();
-	SDL_Quit();
+void closeGame(SDL_Window *window, GameState* game){
+    SDL_Renderer *renderer = NULL;
+    SDL_DestroyTexture(game->playerFrames[0]);
+    SDL_DestroyTexture(game->playerFrames[1]);
+    SDL_DestroyTexture(game->brick);
+    SDL_DestroyTexture(game->platform);
+//    SDL_DestroyTexture(gameState,background);
+
+    // Close and destroy the window
+    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
+
+    // Clean up
+    SDL_Quit();
 }
-
-bool checkCollision( SDL_Rect a, SDL_Rect b ){
-    int leftA, leftB;
-	int rightA, rightB;
-	int topA, topB;
-	int bottomA, bottomB;
-
-	leftA = a.x;
-	rightA = a.x + a.w;
-	topA = a.y;
-	bottomA = a.y + a.h;
-
-	leftB = b.x;
-	rightB = b.x + b.w;
-	topB = b.y;
-	bottomB = b.y + b.h;
-
-	if( bottomA <= topB ){
-		return false;
-	}
-	if( topA >= bottomB ){
-		return false;
-	}
-	if( rightA <= leftB ){
-		return false;
-	}
-	if( leftA >= rightB ){
-		return false;
-	}
-
-	return true;
-}
-
-//void updateFruitsAndCrocodiles(){
-//    for(int i = lists->currentNumberOfFruits; i < lists->numOfFruits;i++){
-//        lists->fruitList[i].rCollider.x = lists->fruitList[i].posX;
-//        lists->fruitList[i].rCollider.y = lists->fruitList[i].posY;
-//        lists->fruitList[i].rCollider.h = lists->fruitList[i].height;
-//        lists->fruitList[i].rCollider.w = lists->fruitList[i].width;
-//        if(lists->fruitList[i].species == 0){
-//            SDL_RenderCopy(game->renderer,game->bananasImage,NULL,&lists->fruitList[i].rCollider);
-//        }else if(lists->fruitList[i].species == 1){
-//            SDL_RenderCopy(game->renderer,game->orangesImage,NULL,&lists->fruitList[i].rCollider);
-//        }else{
-//            SDL_RenderCopy(game->renderer,game->strawberryImage,NULL,&lists->fruitList[i].rCollider);
-//        }
-//        currentNumberOfFruit = i;
-//    }
-//
-//	for(int i = lists->currentNumberOfCrocodiles; i < lists->numOfCrocodiles;i++){
-//		lists->cocrodileList[i].rCollider.x = lists->cocrodileList[i].posX;
-//		lists->cocrodileList[i].rCollider.y = lists->cocrodileList[i].posY;
-//		lists->cocrodileList[i].rCollider.h = lists->cocrodileList[i].height;
-//		lists->cocrodileList[i].rCollider.w = lists->cocrodileList[i].width;
-//		if(lists->cocrodileList[i].species == 0){
-//			SDL_RenderCopy(game->renderer,game->blueKremlingImage,NULL,&lists->cocrodileList[i].rCollider);
-//		}else{
-//			SDL_RenderCopy(game->renderer,game->redKremlingImage,NULL,&lists->cocrodileList[i].rCollider);
-//		}
-//		currentNumberOfCrocodiles = i;
-//	}
-//}

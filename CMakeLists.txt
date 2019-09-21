@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 project(DonCEyKongJr)
 
 set(CMAKE_C_STANDARD 99)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+#set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 find_package(SDL2 REQUIRED)
 
 add_executable(DonCEyKongJr
