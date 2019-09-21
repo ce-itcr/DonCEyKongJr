@@ -24,6 +24,15 @@ void loadGame(GameState *game){
     game->background = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
 
+    surface = IMG_Load("img/menu.png");
+    if(surface == NULL){
+        printf("Cannot find menu.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->menu = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
     surface = IMG_Load("img/jr_a.png");
     if(surface == NULL){
         printf("Cannot find player_lta.png!\n\n");
@@ -59,6 +68,53 @@ void loadGame(GameState *game){
     }
     game->platform = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
+
+
+    surface = IMG_Load("img/safetkey.png");
+    if(surface == NULL){
+        printf("Cannot find safetykey.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->safetyKey = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+    surface = IMG_Load("img/mario.png");
+    if(surface == NULL){
+        printf("Cannot find mario.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->mario = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+    surface = IMG_Load("img/jail.png");
+    if(surface == NULL){
+        printf("Cannot find mario.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->jail = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+    surface = IMG_Load("img/dk.png");
+    if(surface == NULL){
+        printf("Cannot find dk.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->dk = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+    surface = IMG_Load("img/scoreholder.png");
+    if(surface == NULL){
+        printf("Cannot find scoreholder.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->scoreholder = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
 
     game->player.x = 40;
     game->player.y = 240-40;
@@ -275,13 +331,11 @@ int processEvents(SDL_Window *window, GameState *game){
     //More jumping
     const Uint8 *state = SDL_GetKeyboardState(NULL);
     if(state[SDL_SCANCODE_UP]){
-        printf("Up\n");
         game->player.dy -= 0.2f;
     }
 
     //Walking
     if(state[SDL_SCANCODE_LEFT]){
-        printf("Left\n");
         game->player.dx -= 0.5;
         if(game->player.dx < -6){
             game->player.dx = -6;
@@ -290,7 +344,6 @@ int processEvents(SDL_Window *window, GameState *game){
         game->player.slowingDown = 0;
     }
     else if(state[SDL_SCANCODE_RIGHT]){
-        printf("Right\n");
         game->player.dx += 0.5;
         if(game->player.dx > 6){
             game->player.dx = 6;
@@ -310,14 +363,26 @@ int processEvents(SDL_Window *window, GameState *game){
 }
 
 void doRender(SDL_Renderer *renderer, GameState *game){
-//    set the drawing color to blue
-//    SDL_SetRenderDrawColor(renderer, 128, 128, 255, 255);
 
-    //Clear the screen (to blue)
-    SDL_RenderClear(renderer);
+    //SDL_RenderClear(renderer);
 
     SDL_Rect backgroundRect = {0,0, 248*3, 216*3};
     SDL_RenderCopy(game->renderer, game->background, NULL, &backgroundRect);
+
+    SDL_Rect safetykeyRect = {275,10, 50, 50};
+    SDL_RenderCopy(game->renderer, game->safetyKey, NULL, &safetykeyRect);
+
+    SDL_Rect marioRect = {175,100, 75, 75};
+    SDL_RenderCopy(game->renderer, game->mario, NULL, &marioRect);
+
+    SDL_Rect jailRect = {20,50, 150, 100};
+    SDL_RenderCopy(game->renderer, game->jail, NULL, &jailRect);
+
+    SDL_Rect dkRect = {65,60, 70, 65};
+    SDL_RenderCopy(game->renderer, game->dk, NULL, &dkRect);
+
+    SDL_Rect scoreholderRect = {570,0, 150, 95};
+    SDL_RenderCopy(game->renderer, game->scoreholder, NULL, &scoreholderRect);
 
     for(int i = 0; i < 100; i++){
         SDL_Rect ledgeRect = { game->ledges[i].x, game->ledges[i].y, game->ledges[i].w, game->ledges[i].h };
@@ -330,23 +395,29 @@ void doRender(SDL_Renderer *renderer, GameState *game){
     }
 
     //draw a rectangle at player's position
-    SDL_Rect rect = { game->player.x, game->player.y, 48, 48 };
+    SDL_Rect rect = { game->player.x, game->player.y, 70, 70};
     SDL_RenderCopyEx(renderer, game->playerFrames[game->player.animFrame],
                      NULL, &rect, 0, NULL, (game->player.facingLeft == 0));
+
+
+
 
 
     //We are done drawing, "present" or show to the screen what we've drawn
     SDL_RenderPresent(renderer);
 }
 
-void initializeGame(SDL_Window *window, GameState *game){
+void runner(){
+    GameState gameState;
+    SDL_Window *window;
+
     window = NULL;
     SDL_Renderer *renderer = NULL;
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
-//    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-//    backgroundSound = Mix_LoadMUS("audio/Stage1.mp3");
-//    Mix_PlayMusic(backgroundSound, -1);
+    //Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+    //backgroundSound = Mix_LoadMUS("audio/Stage1.mp3");
+    //Mix_PlayMusic(backgroundSound, -1);
 
     SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
     int flags=IMG_INIT_JPG|IMG_INIT_PNG;
@@ -355,7 +426,7 @@ void initializeGame(SDL_Window *window, GameState *game){
     srandom((int)time(NULL));
 
     //Create an application window with the following settings:
-    window = SDL_CreateWindow("Game Window",                     // window title
+    window = SDL_CreateWindow("DonCE Y Kong Jr",                     // window title
                               SDL_WINDOWPOS_UNDEFINED,           // initial x position
                               SDL_WINDOWPOS_UNDEFINED,           // initial y position
                               248*3,                               // width, in pixels
@@ -363,16 +434,37 @@ void initializeGame(SDL_Window *window, GameState *game){
                               0                                  // flags
     );
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    game->renderer = renderer;
-}
+    gameState.renderer = renderer;
 
-void closeGame(SDL_Window *window, GameState* game){
-    SDL_Renderer *renderer = NULL;
-    SDL_DestroyTexture(game->playerFrames[0]);
-    SDL_DestroyTexture(game->playerFrames[1]);
-    SDL_DestroyTexture(game->brick);
-    SDL_DestroyTexture(game->platform);
-//    SDL_DestroyTexture(gameState,background);
+    loadGame(&gameState);
+
+    // The window is open: enter program loop (see SDL_PollEvent)
+    int done = 0;
+
+    //Event loop
+    while(!done){
+        //Check for events
+        done = processEvents(window, &gameState);
+
+        process(&gameState);
+        collisionDetect(&gameState);
+
+        //Render display
+        doRender(renderer, &gameState);
+    }
+
+    //Shutdown game and unload all memory
+    SDL_DestroyTexture(gameState.playerFrames[0]);
+    SDL_DestroyTexture(gameState.playerFrames[1]);
+    SDL_DestroyTexture(gameState.brick);
+    SDL_DestroyTexture(gameState.platform);
+    SDL_DestroyTexture(gameState.safetyKey);
+    SDL_DestroyTexture(gameState.mario);
+    SDL_DestroyTexture(gameState.dk);
+    SDL_DestroyTexture(gameState.jail);
+    SDL_DestroyTexture(gameState.background);
+    SDL_DestroyTexture(gameState.menu);
+    SDL_DestroyTexture(gameState.scoreholder);
 
     // Close and destroy the window
     SDL_DestroyWindow(window);

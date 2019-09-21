@@ -75,28 +75,35 @@ typedef struct Lists{
 Lists *lists;
 
 typedef struct{
-	DKJr player;
+    DKJr player;
 
-	Ledge ledges[100];
-	Ledge underledges[100];
+    Ledge ledges[100];
+    Ledge underledges[100];
 
-	SDL_Texture *playerFrames[2];
-	SDL_Texture *brick;
-	SDL_Texture *background;
-	SDL_Texture *platform;
+    SDL_Texture *playerFrames[2];
+    SDL_Texture *brick;
+    SDL_Texture *background;
+    SDL_Texture *menu;
+    SDL_Texture *platform;
+    SDL_Texture *safetyKey;
+    SDL_Texture *mario;
+    SDL_Texture *dk;
+    SDL_Texture *jail;
+    SDL_Texture *scoreholder;
 
-	int time;
+    int time;
+    int windowPage;
 
-	SDL_Renderer *renderer;
+    SDL_Renderer *renderer;
 } GameState;
+
 
 void loadGame(GameState *game);
 void process(GameState *game);
 void collisionDetect(GameState *game);
 int processEvents(SDL_Window *window, GameState *game);
-void initializeGame(SDL_Window *window, GameState *game);
 void doRender(SDL_Renderer *renderer, GameState *game);
-void closeGame(SDL_Window *window, GameState* game);
+void runner();
 
 
 #endif //DONCEYKONGJR_GAME_H

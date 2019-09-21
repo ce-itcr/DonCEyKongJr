@@ -13,8 +13,6 @@ add_executable(DonCEyKongJr
         src/app/game.h
         src/app/game.c
 
-        src/communication/communication.c
-        src/communication/communication.h
         src/communication/JsonParser.c
         src/communication/JsonParser.h
         src/communication/socketClient.h

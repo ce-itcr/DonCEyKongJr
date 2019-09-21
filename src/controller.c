@@ -12,20 +12,28 @@
 
 #include "controller.h"
 
-GameState game;
-SDL_Window* window = NULL;
 
 void runGame(){
-    initializeGame(window, &game);
-    loadGame(&game);
+//    initializeGame(window, &game);
+
+//    loadGame(&game);
     lists->gameOn = 1;
-    SDL_Renderer *renderer = NULL;
-    int done = 0;
-    while(!done){
-        done = processEvents(window, &game);
-        doRender(renderer, &game);
-        SDL_Delay(10);
-    }
+
+    runner();
+
+
+
+//    int done = 0;
+//
+//    while(!done){
+//        done = processEvents(window, &game);
+//        process(&game);
+//        collisionDetect(&game);
+//
+//        doRender(renderer, &game);
+////        SDL_Delay(10);
+//    }
+//    closeGame(window, &game);
 
 //    pthread_t tid;
 //    pthread_create(&tid,NULL,runGameThread,(void *)&tid);
@@ -41,14 +49,13 @@ void* runCommunication(void* arg){
 }
 
 void* runGameThread(void* arg){
-    SDL_Renderer *renderer = NULL;
-    int done = 0;
-    printf("entro\n");
-    while(!done){
-        done = processEvents(window, &game);
-        doRender(renderer, &game);
-        SDL_Delay(10);
-    }
-    closeGame(window, &game);
-    pthread_exit(0);
+//    int done = 0;
+//    printf("entro\n");
+//    while(!done){
+//        done = processEvents(window, &game);
+//        doRender(renderer, &game);
+//        SDL_Delay(10);
+//    }
+//    closeGame(window, &game);
+//    pthread_exit(0);
 }
