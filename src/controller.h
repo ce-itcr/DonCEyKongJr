@@ -14,10 +14,13 @@
 #define DONCEYKONGJR_CONTROLLER_H
 
 #include "app/game.h"
+#include "communication/socketClient.h"
 #include <pthread.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
 void runGame();
+void* runCommunication(void* arg);
+void* runGameThread(void* args);
 
 #endif //DONCEYKONGJR_CONTROLLER_H
