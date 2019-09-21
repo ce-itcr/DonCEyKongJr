@@ -6,8 +6,8 @@
  For more information about the project visit: https://github.com/ce-itcr/DonCEyKongJr
 
  File Version    : 1.0
- Authors         : Github @ angelortizv
- Last modified   : 18/17/2019, 16:00, @jesquivel48
+ Authors         : Github@angelortizv, Github@jesquivel48, Github@isolis2000
+ Last modified   : 18/17/2019, 16:00, @isolis2000
 */
 
 #ifndef DONCEYKONGJR_SOCKETCLIENT_H

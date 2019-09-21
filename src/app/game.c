@@ -1,15 +1,3 @@
-/*
- game.c -
-
- This file is part of DonCE Y Kong Jr, the same correspondent to Project III for the course of Languages, Compilers and Interpreters. (CE3104), Languages module.
- The project consists in the implementation of an application that reaffirms the knowledge of the imperative and object-oriented programming paradigms.
- For more information about the project visit: https://github.com/ce-itcr/DonCEyKongJr
-
- File Version    : 1.0
- Authors         : Github @ angelortizv
- Last modified   : 19/09/2019, 00:20, @angelortizv
-*/
-
 #include "game.h"
 
 void loadGame(GameState *game){
@@ -115,7 +103,6 @@ void loadGame(GameState *game){
     game->scoreholder = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
 
-
     game->player.x = 40;
     game->player.y = 240-40;
     game->player.dx = 0;
@@ -200,10 +187,7 @@ void loadGame(GameState *game){
 }
 
 void process(GameState *game){
-    //add time
     game->time++;
-
-    //player movement
     DKJr *player = &game->player;
     player->x += player->dx;
     player->y += player->dy;
@@ -401,70 +385,23 @@ void doRender(SDL_Renderer *renderer, GameState *game){
 
 
 
-
-
     //We are done drawing, "present" or show to the screen what we've drawn
     SDL_RenderPresent(renderer);
 }
 
-void runner(){
-    GameState gameState;
-    SDL_Window *window;
-
-    window = NULL;
-    SDL_Renderer *renderer = NULL;
-    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-
-    //Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-    //backgroundSound = Mix_LoadMUS("audio/Stage1.mp3");
-    //Mix_PlayMusic(backgroundSound, -1);
-
-    SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
-    int flags=IMG_INIT_JPG|IMG_INIT_PNG;
-    int initted=IMG_Init(flags);
-
-    srandom((int)time(NULL));
-
-    //Create an application window with the following settings:
-    window = SDL_CreateWindow("DonCE Y Kong Jr",                     // window title
-                              SDL_WINDOWPOS_UNDEFINED,           // initial x position
-                              SDL_WINDOWPOS_UNDEFINED,           // initial y position
-                              248*3,                               // width, in pixels
-                              216*3,                               // height, in pixels
-                              0                                  // flags
-    );
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    gameState.renderer = renderer;
-
-    loadGame(&gameState);
-
-    // The window is open: enter program loop (see SDL_PollEvent)
-    int done = 0;
-
-    //Event loop
-    while(!done){
-        //Check for events
-        done = processEvents(window, &gameState);
-
-        process(&gameState);
-        collisionDetect(&gameState);
-
-        //Render display
-        doRender(renderer, &gameState);
-    }
-
+void closeGame(SDL_Window *window, GameState *game, SDL_Renderer *renderer){
     //Shutdown game and unload all memory
-    SDL_DestroyTexture(gameState.playerFrames[0]);
-    SDL_DestroyTexture(gameState.playerFrames[1]);
-    SDL_DestroyTexture(gameState.brick);
-    SDL_DestroyTexture(gameState.platform);
-    SDL_DestroyTexture(gameState.safetyKey);
-    SDL_DestroyTexture(gameState.mario);
-    SDL_DestroyTexture(gameState.dk);
-    SDL_DestroyTexture(gameState.jail);
-    SDL_DestroyTexture(gameState.background);
-    SDL_DestroyTexture(gameState.menu);
-    SDL_DestroyTexture(gameState.scoreholder);
+    SDL_DestroyTexture(game->playerFrames[0]);
+    SDL_DestroyTexture(game->playerFrames[1]);
+    SDL_DestroyTexture(game->brick);
+    SDL_DestroyTexture(game->platform);
+    SDL_DestroyTexture(game->safetyKey);
+    SDL_DestroyTexture(game->mario);
+    SDL_DestroyTexture(game->dk);
+    SDL_DestroyTexture(game->jail);
+    SDL_DestroyTexture(game->background);
+    SDL_DestroyTexture(game->menu);
+    SDL_DestroyTexture(game->scoreholder);
 
     // Close and destroy the window
     SDL_DestroyWindow(window);
@@ -472,4 +409,6 @@ void runner(){
 
     // Clean up
     SDL_Quit();
+
 }
+

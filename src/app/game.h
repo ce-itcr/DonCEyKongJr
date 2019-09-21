@@ -6,8 +6,8 @@
  For more information about the project visit: https://github.com/ce-itcr/DonCEyKongJr
 
  File Version    : 1.0
- Authors         : Github @ angelortizv
- Last modified   : 19/09/2019, 00:20, @angelortizv
+ Authors         : Github@angelortizv, Github@jesquivel48, Github@isolis2000
+ Last modified   : 21/09/2019, 16:50, @angelortizv
 */
 
 #ifndef DONCEYKONGJR_GAME_H
@@ -103,7 +103,7 @@ void process(GameState *game);
 void collisionDetect(GameState *game);
 int processEvents(SDL_Window *window, GameState *game);
 void doRender(SDL_Renderer *renderer, GameState *game);
-void runner();
+void closeGame(SDL_Window *window, GameState *game, SDL_Renderer *renderer);
 
 
 #endif //DONCEYKONGJR_GAME_H

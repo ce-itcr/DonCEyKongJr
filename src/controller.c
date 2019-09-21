@@ -1,39 +1,47 @@
-/*
- controller.c -
-
- This file is part of DonCE Y Kong Jr, the same correspondent to Project III for the course of Languages, Compilers and Interpreters. (CE3104), Languages module.
- The project consists in the implementation of an application that reaffirms the knowledge of the imperative and object-oriented programming paradigms.
- For more information about the project visit: https://github.com/ce-itcr/DonCEyKongJr
-
- File Version    : 1.0
- Authors         : Github @ angelortizv
- Last modified   : 19/09/2019, 00:20, @angelortizv
-*/
-
 #include "controller.h"
 
-
 void runGame(){
-//    initializeGame(window, &game);
-
-//    loadGame(&game);
     lists->gameOn = 1;
 
-    runner();
+    GameState gameState;
+    SDL_Window *window;
 
+    window = NULL;
+    SDL_Renderer *renderer = NULL;
 
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
-//    int done = 0;
-//
-//    while(!done){
-//        done = processEvents(window, &game);
-//        process(&game);
-//        collisionDetect(&game);
-//
-//        doRender(renderer, &game);
-////        SDL_Delay(10);
-//    }
-//    closeGame(window, &game);
+    int flags=IMG_INIT_JPG|IMG_INIT_PNG;
+    int initted=IMG_Init(flags);
+
+    srandom((int)time(NULL));
+
+    window = SDL_CreateWindow("DonCE Y Kong Jr",
+                              SDL_WINDOWPOS_UNDEFINED,
+                              SDL_WINDOWPOS_UNDEFINED,
+                              248*3,
+                              216*3,
+                              0
+    );
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+    gameState.renderer = renderer;
+
+    loadGame(&gameState);
+
+    // The window is open: enter program loop (see SDL_PollEvent)
+    int done = 0;
+
+    //Event loop
+    while(!done){
+        done = processEvents(window, &gameState);
+        process(&gameState);
+        collisionDetect(&gameState);
+        doRender(renderer, &gameState);
+    }
+
+    closeGame(window, &gameState, renderer);
+
 
 //    pthread_t tid;
 //    pthread_create(&tid,NULL,runGameThread,(void *)&tid);

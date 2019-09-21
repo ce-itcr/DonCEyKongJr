@@ -1,7 +1,3 @@
-//
-// Created by ivan on 9/15/19.
-//
-
 #include "JsonParser.h"
 
 Crocodile getCrocodileByNumber(char *json, int n){
@@ -31,7 +27,6 @@ void updateEntities(char *json){
         lists->fruitList[i].alive = tmpFruit.alive;
         lists->fruitList[i].score = tmpFruit.score;
     }
-
 }
 
 int getIntValueInJsonArray(char *json, char *array, int i, char *data){

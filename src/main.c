@@ -6,7 +6,7 @@
  For more information about the project visit: https://github.com/ce-itcr/DonCEyKongJr
 
  File Version    : 1.0
- Authors         : Github @ angelortizv
+ Authors         : Github@angelortizv, Github@jesquivel48
  Last modified   : 19/09/2019, 00:20, @angelortizv
 */
 
