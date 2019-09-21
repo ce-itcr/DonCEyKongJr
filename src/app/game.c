@@ -38,6 +38,17 @@ int processEvents(SDL_Window *window, Game *game){
         done = 1;
       break;
     }
+
+    if(game->windowPage == 0 && event.type == SDL_MOUSEBUTTONDOWN){
+    	if (event.button.button == SDL_BUTTON_LEFT){
+    		int mouseX, mouseY;
+			SDL_GetMouseState(&mouseX, &mouseY);
+
+			if (playGame_btn(game, mouseX, mouseY)){
+				game->windowPage = 1;
+			}
+		}
+    }
   }
 
   const Uint8 *state = SDL_GetKeyboardState(NULL);
@@ -90,11 +101,30 @@ void checkPlayerCollision(Game* game,char* direction){
 		}
 }
 
-void initializeGame(SDL_Window *window, Game *game){
-	SDL_Init(SDL_INIT_VIDEO);
+int playGame_btn(Game *game, int mouseX, int mouseY){
+	int playXLeft = 12*8*game->sizeMult;
+	int playXRight = 19*8*game->sizeMult;
+	int playYDown = game->y-(6*8*game->sizeMult);
+	int playYUp = game->y-(10*8*game->sizeMult);
 
+	if ((mouseX > playXLeft && mouseX < playXRight) == 0){
+		return 0;
+	}
+	if ((mouseY > playYUp && mouseY < playYDown) == 0){
+		return 0;
+	}
+	return 1;
+}
+
+void initializeGame(SDL_Window *window, Game *game){
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+	backgroundSound = Mix_LoadMUS("audio/Stage1.mp3");
+	//Mix_PlayMusic(backgroundSound, -1);
 
 	game->sizeMult = 3;
+	game->windowPage = 0;
 	game->x = 248*game->sizeMult;
 	game->y = 216*game->sizeMult;
 	game->player.x = 0;
@@ -115,48 +145,57 @@ void initializeGame(SDL_Window *window, Game *game){
 }
 
 void gameRender(Game *game) {
-    SDL_Rect backRect = {0, 0, game->x, game->y};
-    SDL_RenderCopy(game->renderer, game->backgroundImage, NULL, &backRect);
 
-    SDL_Rect playerRect = {game->player.x, game->player.y, 25 * game->sizeMult, 16 * game->sizeMult};
-    SDL_RenderCopy(game->renderer, game->playerImage, NULL, &playerRect);
+	if (game->windowPage == 0){
+		SDL_Rect menuRect = {0, 0, game->x, game->y};
+		SDL_RenderCopy(game->renderer, game->menuImage, NULL, &menuRect);
+	}
+	if(game->windowPage == 1){
+		//Mix_PlayMusic(backgroundSound, -1);
+		SDL_Rect backRect = {0, 0, game->x, game->y};
+		SDL_RenderCopy(game->renderer, game->backgroundImage, NULL, &backRect);
 
-    Terrain *terrain0 = malloc(sizeof(Terrain));
-    Terrain *terrain1 = malloc(sizeof(Terrain));
-    Terrain *terrain2 = malloc(sizeof(Terrain));
-    Terrain *terrain3 = malloc(sizeof(Terrain));
-    Terrain *terrain4 = malloc(sizeof(Terrain));
-    Terrain *terrain5 = malloc(sizeof(Terrain));
-    Terrain *terrain6 = malloc(sizeof(Terrain));
-    Terrain *terrain7 = malloc(sizeof(Terrain));
-    Terrain *terrain8 = malloc(sizeof(Terrain));
-    Terrain *terrain9 = malloc(sizeof(Terrain));
-    Terrain *terrain10 = malloc(sizeof(Terrain));
+		SDL_Rect playerRect = {game->player.x, game->player.y, 25 * game->sizeMult, 16 * game->sizeMult};
+		SDL_RenderCopy(game->renderer, game->playerImage, NULL, &playerRect);
 
-    int dir[11][4] = {{0,   600, 20, 200},
-                      {252, 555, 20, 100},
-                      {375, 585, 20, 80},
-                      {475, 554, 20, 100},
-                      {590, 535, 20, 100},
-                      {550, 360, 25, 325},
-                      {105, 410, 23, 150},
-                      {110, 290, 23, 100},
-                      {0,   142, 28, 430},
-                      {385, 165, 25, 200},
-                      {200, 75,  25, 50}};
-    Terrain *ter[11] = {terrain0, terrain1, terrain2, terrain3, terrain4, terrain5, terrain6, terrain7, terrain8,
-                        terrain9, terrain10};
+		Terrain *terrain0 = malloc(sizeof(Terrain));
+		Terrain *terrain1 = malloc(sizeof(Terrain));
+		Terrain *terrain2 = malloc(sizeof(Terrain));
+		Terrain *terrain3 = malloc(sizeof(Terrain));
+		Terrain *terrain4 = malloc(sizeof(Terrain));
+		Terrain *terrain5 = malloc(sizeof(Terrain));
+		Terrain *terrain6 = malloc(sizeof(Terrain));
+		Terrain *terrain7 = malloc(sizeof(Terrain));
+		Terrain *terrain8 = malloc(sizeof(Terrain));
+		Terrain *terrain9 = malloc(sizeof(Terrain));
+		Terrain *terrain10 = malloc(sizeof(Terrain));
 
-    for (int i = 0; i < 11; i++) {
-        ter[i]->tCollider.x = dir[i][0];
-        ter[i]->tCollider.y = dir[i][1];
-        ter[i]->tCollider.h = dir[i][2];
-        ter[i]->tCollider.w = dir[i][3];
-        lists->terrainList[i] = *ter[i];
-		SDL_RenderCopy(game->renderer,game->blueKremlingImage,NULL,&ter[i]->tCollider);
-    }
+		int dir[11][4] = {{0,   600, 20, 200},
+						  {252, 555, 20, 100},
+						  {375, 585, 20, 80},
+						  {475, 554, 20, 100},
+						  {590, 535, 20, 100},
+						  {550, 360, 25, 325},
+						  {105, 410, 23, 150},
+						  {110, 290, 23, 100},
+						  {0,   142, 28, 430},
+						  {385, 165, 25, 200},
+						  {200, 75,  25, 50}};
+		Terrain *ter[11] = {terrain0, terrain1, terrain2, terrain3, terrain4, terrain5, terrain6, terrain7, terrain8,
+							terrain9, terrain10};
 
-    lists->numOfTerrain = 11;
+		for (int i = 0; i < 11; i++) {
+			ter[i]->tCollider.x = dir[i][0];
+			ter[i]->tCollider.y = dir[i][1];
+			ter[i]->tCollider.h = dir[i][2];
+			ter[i]->tCollider.w = dir[i][3];
+			lists->terrainList[i] = *ter[i];
+			//SDL_RenderCopy(game->renderer,game->platformImage,NULL,&ter[i]->tCollider);
+		}
+
+		lists->numOfTerrain = 11;
+	}
+
 
     SDL_RenderPresent(game->renderer);
 }
@@ -164,6 +203,8 @@ void gameRender(Game *game) {
 void loadGraphics(Game *game){
 
 	SDL_Surface *backgroundSurface = NULL;
+	SDL_Surface *menuSurface = NULL;
+	SDL_Surface *platformSurface = NULL;
 	SDL_Surface *playerSurface = NULL;
 	SDL_Surface *blueKremlinSurface = NULL;
 	SDL_Surface *redKremlinSurface = NULL;
@@ -172,6 +213,8 @@ void loadGraphics(Game *game){
 	SDL_Surface *strawberrySurface = NULL;
 
 	backgroundSurface = IMG_Load("img/background.png");
+	menuSurface = IMG_Load("img/menu.png");
+	platformSurface = IMG_Load("img/platform.png");
 	playerSurface = IMG_Load("img/dkjr.png");
 	blueKremlinSurface = IMG_Load("img/kremling_blue.png");
 	redKremlinSurface = IMG_Load("img/kremling_red.png");
@@ -181,6 +224,16 @@ void loadGraphics(Game *game){
 
 	if (backgroundSurface == NULL){
 		printf("Cannot find background.png\n\n");
+		SDL_Quit();
+		exit(1);
+	}
+	if (menuSurface == NULL){
+		printf("Cannot find menu.png\n\n");
+		SDL_Quit();
+		exit(1);
+	}
+	if (platformSurface == NULL){
+		printf("Cannot find platform.png\n\n");
 		SDL_Quit();
 		exit(1);
 	}
@@ -216,6 +269,8 @@ void loadGraphics(Game *game){
 	}
 
 	game->playerImage = SDL_CreateTextureFromSurface(game->renderer, playerSurface);
+	game->menuImage = SDL_CreateTextureFromSurface(game->renderer, menuSurface);
+	game->platformImage = SDL_CreateTextureFromSurface(game->renderer, platformSurface);
 	game->backgroundImage = SDL_CreateTextureFromSurface(game->renderer, backgroundSurface);
 	game->blueKremlingImage = SDL_CreateTextureFromSurface(game->renderer, blueKremlinSurface);
 	game->redKremlingImage = SDL_CreateTextureFromSurface(game->renderer, redKremlinSurface);
@@ -224,6 +279,8 @@ void loadGraphics(Game *game){
 	game->strawberryImage = SDL_CreateTextureFromSurface(game->renderer, strawberrySurface);
 
 	SDL_FreeSurface(playerSurface);
+	SDL_FreeSurface(menuSurface);
+	SDL_FreeSurface(platformSurface);
 	SDL_FreeSurface(backgroundSurface);
 	SDL_FreeSurface(blueKremlinSurface);
 	SDL_FreeSurface(redKremlinSurface);
@@ -234,6 +291,8 @@ void loadGraphics(Game *game){
 
 void closeGame(SDL_Window *window, Game* game){
 	SDL_DestroyTexture(game->playerImage);
+	SDL_DestroyTexture(game->menuImage);
+	SDL_DestroyTexture(game->platformImage);
 	SDL_DestroyTexture(game->backgroundImage);
 	SDL_DestroyTexture(game->blueKremlingImage);
 	SDL_DestroyTexture(game->redKremlingImage);
@@ -242,6 +301,8 @@ void closeGame(SDL_Window *window, Game* game){
 	SDL_DestroyTexture(game->strawberryImage);
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(game->renderer);
+	Mix_FreeMusic(backgroundSound);
+	Mix_CloseAudio();
 	SDL_Quit();
 }
 

@@ -18,6 +18,7 @@
 #include <string.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 #include <jmorecfg.h>
 #include <stdbool.h>
 
@@ -88,12 +89,14 @@ Lists *lists;
 typedef struct{
 	int x, y;
 	int sizeMult; 
+	int windowPage;
 
 	DKJr player;
-
 	SDL_Renderer *renderer;
 
 	SDL_Texture *backgroundImage;
+	SDL_Texture *menuImage;
+	SDL_Texture *platformImage;
 	SDL_Texture *playerImage;
 	SDL_Texture *blueKremlingImage;
 	SDL_Texture *redKremlingImage;
@@ -102,11 +105,10 @@ typedef struct{
 	SDL_Texture *strawberryImage;
 } Game;
 
-
-
-
+Mix_Music *backgroundSound;
 int processEvents(SDL_Window *window, Game *game);
 void initializeGame(SDL_Window *window, Game *game);
+int playGame_btn(Game *game, int mouseX, int mouseY);
 void gameRender(Game *game);
 void loadGraphics(Game *game);
 void closeGame(SDL_Window *window, Game *game);
