@@ -58,9 +58,12 @@ typedef struct Crocodile{
 
 typedef struct Lists{
 	int score;
-	int gameON;
+	int gameOn;
+	int Hp;
 	Crocodile cocrodileList[50];
 	Fruit fruitList[50];
+	int crocodilesAlive[50];
+	int fruitsAlive[50];
 	Ledge terrainList[50];
 	int numOfTerrain;
 	int numOfCrocodiles;

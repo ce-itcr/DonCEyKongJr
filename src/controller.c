@@ -18,16 +18,23 @@ SDL_Window* window = NULL;
 void runGame(){
     initializeGame(window, &game);
     loadGame(&game);
+    lists->gameOn = 1;
+    SDL_Renderer *renderer = NULL;
+    int done = 0;
+    while(!done){
+        done = processEvents(window, &game);
+        doRender(renderer, &game);
+        SDL_Delay(10);
+    }
 
-    pthread_t tid;
-    pthread_create(&tid,NULL,runCommunication,(void *)&tid);
-    pthread_create(&tid,NULL,runGameThread,(void *)&tid);
-    pthread_join(tid,NULL);
+//    pthread_t tid;
+//    pthread_create(&tid,NULL,runGameThread,(void *)&tid);
+//    pthread_create(&tid,NULL,runCommunication,(void *)&tid);
+//    pthread_join(tid,NULL);
 }
 
 void* runCommunication(void* arg){
-    printf("entro\n");
-    while(lists->gameON){
+    while(lists->gameOn){
         escuchar();
     }
     pthread_exit(0);
@@ -36,6 +43,7 @@ void* runCommunication(void* arg){
 void* runGameThread(void* arg){
     SDL_Renderer *renderer = NULL;
     int done = 0;
+    printf("entro\n");
     while(!done){
         done = processEvents(window, &game);
         doRender(renderer, &game);

@@ -20,7 +20,5 @@ int main(int argc, char *argv[]){
 
     runGame();
 
-    enviar("communication tests");
-    escuchar();
     return EXIT_SUCCESS;
 }

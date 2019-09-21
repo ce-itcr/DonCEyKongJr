@@ -275,11 +275,13 @@ int processEvents(SDL_Window *window, GameState *game){
     //More jumping
     const Uint8 *state = SDL_GetKeyboardState(NULL);
     if(state[SDL_SCANCODE_UP]){
+        printf("Up\n");
         game->player.dy -= 0.2f;
     }
 
     //Walking
     if(state[SDL_SCANCODE_LEFT]){
+        printf("Left\n");
         game->player.dx -= 0.5;
         if(game->player.dx < -6){
             game->player.dx = -6;
@@ -288,6 +290,7 @@ int processEvents(SDL_Window *window, GameState *game){
         game->player.slowingDown = 0;
     }
     else if(state[SDL_SCANCODE_RIGHT]){
+        printf("Right\n");
         game->player.dx += 0.5;
         if(game->player.dx > 6){
             game->player.dx = 6;
@@ -307,9 +310,8 @@ int processEvents(SDL_Window *window, GameState *game){
 }
 
 void doRender(SDL_Renderer *renderer, GameState *game){
-    //set the drawing color to blue
-    //SDL_SetRenderDrawColor(renderer, 128, 128, 255, 255);
-
+//    set the drawing color to blue
+//    SDL_SetRenderDrawColor(renderer, 128, 128, 255, 255);
 
     //Clear the screen (to blue)
     SDL_RenderClear(renderer);
@@ -338,14 +340,13 @@ void doRender(SDL_Renderer *renderer, GameState *game){
 }
 
 void initializeGame(SDL_Window *window, GameState *game){
-
     window = NULL;
     SDL_Renderer *renderer = NULL;
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
-    //Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-    //backgroundSound = Mix_LoadMUS("audio/Stage1.mp3");
-    //Mix_PlayMusic(backgroundSound, -1);
+//    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+//    backgroundSound = Mix_LoadMUS("audio/Stage1.mp3");
+//    Mix_PlayMusic(backgroundSound, -1);
 
     SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
     int flags=IMG_INIT_JPG|IMG_INIT_PNG;

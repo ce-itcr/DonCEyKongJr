@@ -21,6 +21,6 @@
 
 void runGame();
 void* runCommunication(void* arg);
-void* runGameThread(void* args);
+void* runGameThread(void* arg);
 
 #endif //DONCEYKONGJR_CONTROLLER_H

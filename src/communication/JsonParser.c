@@ -23,7 +23,6 @@ void updateEntities(char *json){
         lists->cocrodileList[i].posY = tmpCrocodile.posY;
         lists->cocrodileList[i].alive = tmpCrocodile.alive;
     }
-    free tmpCrocodile;
     for (int i = 0; i < lists->numOfFruits; i++){
         Fruit tmpFruit = getFruitByNumber(json, i);
         lists->fruitList[i].species = tmpFruit.species;
@@ -32,7 +31,6 @@ void updateEntities(char *json){
         lists->fruitList[i].alive = tmpFruit.alive;
         lists->fruitList[i].score = tmpFruit.score;
     }
-    free tmpFruit;
 
 }
 
@@ -43,9 +41,6 @@ int getIntValueInJsonArray(char *json, char *array, int i, char *data){
     cJSON *intValue = cJSON_GetObjectItemCaseSensitive(obj, data);
     int intToReturn = intValue->valueint;
     cJSON_Delete(parsedJson);
-    cJSON_Delete(arr);
-    cJSON_Delete(obj);
-    cJSON_Delete(intValue);
     return intToReturn;
 }
 
@@ -64,18 +59,17 @@ int getIntValueInJson(char *json, char *data){
     cJSON *intValue = cJSON_GetObjectItemCaseSensitive(parsedJson, data);
     int intToReturn = intValue->valueint;
     cJSON_Delete(parsedJson);
-    cJSON_Delete(intValue);
     return intToReturn;
 }
 
 char *updateJsonFromStruct(char *json){
     cJSON *parsedJson = cJSON_Parse(json);
-    cJSON *cjsonGameOn = cJSON_CreateNumber(lists.gameOn);
-    cJSON *cjsonHp = cJSON_CreateNumber(lists.Hp);
-    cJSON *cjsonNumOfCrocodiles = cJSON_CreateNumber(lists.numOfCrocodiles);
-    cJSON *cjsonNumOfFruits = cJSON_CreateNumber(lists.numOfFruits);
-    cJSON *cjsonCrocodilesAlive = cJSON_CreateIntArray(lists.crocodilesAlive, lists.numOfCrocodiles);
-    cJSON *cjsonFruitsAlive = cJSON_CreateIntArray(lists.fruitsAlive, lists.numOfFruits);
+    cJSON *cjsonGameOn = cJSON_CreateNumber(lists->gameOn);
+    cJSON *cjsonHp = cJSON_CreateNumber(lists->Hp);
+    cJSON *cjsonNumOfCrocodiles = cJSON_CreateNumber(lists->numOfCrocodiles);
+    cJSON *cjsonNumOfFruits = cJSON_CreateNumber(lists->numOfFruits);
+    cJSON *cjsonCrocodilesAlive = cJSON_CreateIntArray(lists->crocodilesAlive, lists->numOfCrocodiles);
+    cJSON *cjsonFruitsAlive = cJSON_CreateIntArray(lists->fruitsAlive, lists->numOfFruits);
     cJSON_ReplaceItemInObjectCaseSensitive(parsedJson, "gameOn", cjsonGameOn);
     cJSON_ReplaceItemInObjectCaseSensitive(parsedJson, "Hp", cjsonHp);
     cJSON_ReplaceItemInObjectCaseSensitive(parsedJson, "numOfCrocodiles", cjsonNumOfCrocodiles);
