@@ -93,7 +93,7 @@ void checkPlayerCollision(Game* game,char* direction){
 void initializeGame(SDL_Window *window, Game *game){
 	SDL_Init(SDL_INIT_VIDEO);
 
-
+	lists->gameON = 1;
 	game->sizeMult = 3;
 	game->x = 248*game->sizeMult;
 	game->y = 216*game->sizeMult;
@@ -153,7 +153,7 @@ void gameRender(Game *game) {
         ter[i]->tCollider.h = dir[i][2];
         ter[i]->tCollider.w = dir[i][3];
         lists->terrainList[i] = *ter[i];
-		SDL_RenderCopy(game->renderer,game->blueKremlingImage,NULL,&ter[i]->tCollider);
+//		SDL_RenderCopy(game->renderer,game->blueKremlingImage,NULL,&ter[i]->tCollider);
     }
 
     lists->numOfTerrain = 11;
@@ -274,12 +274,11 @@ bool checkCollision( SDL_Rect a, SDL_Rect b ){
 		return false;
 	}
 
-	printf("collision\n");
 	return true;
 }
 
 //void updateFruitsAndCrocodiles(){
-//    for(int i = currentNumberOfFruit; i < lists->numOfFruits;i++){
+//    for(int i = lists->currentNumberOfFruits; i < lists->numOfFruits;i++){
 //        lists->fruitList[i].rCollider.x = lists->fruitList[i].posX;
 //        lists->fruitList[i].rCollider.y = lists->fruitList[i].posY;
 //        lists->fruitList[i].rCollider.h = lists->fruitList[i].height;
@@ -294,7 +293,7 @@ bool checkCollision( SDL_Rect a, SDL_Rect b ){
 //        currentNumberOfFruit = i;
 //    }
 //
-//	for(int i = currentNumberOfCrocodiles; i < lists->numOfCrocodiles;i++){
+//	for(int i = lists->currentNumberOfCrocodiles; i < lists->numOfCrocodiles;i++){
 //		lists->cocrodileList[i].rCollider.x = lists->cocrodileList[i].posX;
 //		lists->cocrodileList[i].rCollider.y = lists->cocrodileList[i].posY;
 //		lists->cocrodileList[i].rCollider.h = lists->cocrodileList[i].height;

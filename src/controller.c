@@ -12,18 +12,34 @@
 
 #include "controller.h"
 
-void runGame(){
-    Game game;
-    SDL_Window *window = NULL;
+Game game;
+SDL_Window* window = NULL;
 
+void runGame(){
     initializeGame(window, &game);
     loadGraphics(&game);
-    int done = 0;
 
+    pthread_t tid;
+    pthread_create(&tid,NULL,runCommunication,(void *)&tid);
+    pthread_create(&tid,NULL,runGameThread,(void *)&tid);
+    pthread_join(tid,NULL);
+}
+
+void* runCommunication(void* arg){
+    printf("entro\n");
+    while(lists->gameON){
+        escuchar();
+    }
+    pthread_exit(0);
+}
+
+void* runGameThread(void* arg){
+    int done = 0;
     while(!done){
         done = processEvents(window, &game);
         gameRender(&game);
         SDL_Delay(10);
     }
     closeGame(window, &game);
+    pthread_exit(0);
 }
