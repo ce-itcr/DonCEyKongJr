@@ -68,3 +68,22 @@ int getIntValueInJson(char *json, char *data){
     return intToReturn;
 }
 
+char *updateJsonFromStruct(char *json){
+    cJSON *parsedJson = cJSON_Parse(json);
+    cJSON *cjsonGameOn = cJSON_CreateNumber(lists.gameOn);
+    cJSON *cjsonHp = cJSON_CreateNumber(lists.Hp);
+    cJSON *cjsonNumOfCrocodiles = cJSON_CreateNumber(lists.numOfCrocodiles);
+    cJSON *cjsonNumOfFruits = cJSON_CreateNumber(lists.numOfFruits);
+    cJSON *cjsonCrocodilesAlive = cJSON_CreateIntArray(lists.crocodilesAlive, lists.numOfCrocodiles);
+    cJSON *cjsonFruitsAlive = cJSON_CreateIntArray(lists.fruitsAlive, lists.numOfFruits);
+    cJSON_ReplaceItemInObjectCaseSensitive(parsedJson, "gameOn", cjsonGameOn);
+    cJSON_ReplaceItemInObjectCaseSensitive(parsedJson, "Hp", cjsonHp);
+    cJSON_ReplaceItemInObjectCaseSensitive(parsedJson, "numOfCrocodiles", cjsonNumOfCrocodiles);
+    cJSON_ReplaceItemInObjectCaseSensitive(parsedJson, "numOfFruits", cjsonNumOfFruits);
+    cJSON_ReplaceItemInObjectCaseSensitive(parsedJson, "crocodilesAlive", cjsonCrocodilesAlive);
+    cJSON_ReplaceItemInObjectCaseSensitive(parsedJson, "fruitsAlive", cjsonFruitsAlive);
+    char *jsonToReturn = parsedJson->string;
+    cJSON_Delete(parsedJson);
+    return jsonToReturn;
+}
+

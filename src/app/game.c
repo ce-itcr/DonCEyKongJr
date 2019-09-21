@@ -62,16 +62,16 @@ int processEvents(SDL_Window *window, Game *game){
     game->player.x += 1*game->sizeMult;
     game->player.pCollider.x += 1*game->sizeMult;
   }
-  if(state[SDL_SCANCODE_UP]){
-  	checkPlayerCollision(game,"-y");
-    game->player.y -= 1*game->sizeMult;
-    game->player.pCollider.y -= 1*game->sizeMult;
-  }
-  if(state[SDL_SCANCODE_DOWN]){
-	  checkPlayerCollision(game,"+y");
-      game->player.y += 1*game->sizeMult;
-      game->player.pCollider.y += 1*game->sizeMult;
-  }
+//  if(state[SDL_SCANCODE_UP]){
+//  	checkPlayerCollision(game,"-y");
+//    game->player.y -= 1*game->sizeMult;
+//    game->player.pCollider.y -= 1*game->sizeMult;
+//  }
+//  if(state[SDL_SCANCODE_DOWN]){
+//	  checkPlayerCollision(game,"+y");
+//      game->player.y += 1*game->sizeMult;
+//      game->player.pCollider.y += 1*game->sizeMult;
+//  }
   return done;
 }
 
