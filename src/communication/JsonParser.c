@@ -23,6 +23,7 @@ void updateEntities(char *json){
         lists->cocrodileList[i].posY = tmpCrocodile.posY;
         lists->cocrodileList[i].alive = tmpCrocodile.alive;
     }
+    free tmpCrocodile;
     for (int i = 0; i < lists->numOfFruits; i++){
         Fruit tmpFruit = getFruitByNumber(json, i);
         lists->fruitList[i].species = tmpFruit.species;
@@ -31,6 +32,7 @@ void updateEntities(char *json){
         lists->fruitList[i].alive = tmpFruit.alive;
         lists->fruitList[i].score = tmpFruit.score;
     }
+    free tmpFruit;
 
 }
 
@@ -39,7 +41,12 @@ int getIntValueInJsonArray(char *json, char *array, int i, char *data){
     cJSON *arr = cJSON_GetObjectItemCaseSensitive(parsedJson, array);
     cJSON *obj = cJSON_GetArrayItem(arr, i);
     cJSON *intValue = cJSON_GetObjectItemCaseSensitive(obj, data);
-    return intValue->valueint;
+    int intToReturn = intValue->valueint;
+    cJSON_Delete(parsedJson);
+    cJSON_Delete(arr);
+    cJSON_Delete(obj);
+    cJSON_Delete(intValue);
+    return intToReturn;
 }
 
 Fruit getFruitByNumber(char *json, int n) {
@@ -55,6 +62,9 @@ Fruit getFruitByNumber(char *json, int n) {
 int getIntValueInJson(char *json, char *data){
     cJSON *parsedJson = cJSON_Parse(json);
     cJSON *intValue = cJSON_GetObjectItemCaseSensitive(parsedJson, data);
-    return intValue->valueint;
+    int intToReturn = intValue->valueint;
+    cJSON_Delete(parsedJson);
+    cJSON_Delete(intValue);
+    return intToReturn;
 }
 
