@@ -1,13 +1,14 @@
 #include "controller.h"
 
+GameState gameState;
+SDL_Window *window;
+SDL_Renderer *renderer;
+
 void runGame(){
     lists->gameOn = 1;
 
-    GameState gameState;
-    SDL_Window *window;
-
     window = NULL;
-    SDL_Renderer *renderer = NULL;
+    renderer = NULL;
 
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
@@ -29,6 +30,21 @@ void runGame(){
 
     loadGame(&gameState);
 
+
+    pthread_t tid;
+    pthread_create(&tid,NULL,runGameThread,(void *)&tid);
+    pthread_create(&tid,NULL,runCommunication,(void *)&tid);
+    pthread_join(tid,NULL);
+}
+
+void* runCommunication(void* arg){
+    while(lists->gameOn){
+        escuchar(&gameState,renderer);
+    }
+    pthread_exit(0);
+}
+
+void* runGameThread(void* arg){
     // The window is open: enter program loop (see SDL_PollEvent)
     int done = 0;
 
@@ -41,29 +57,5 @@ void runGame(){
     }
 
     closeGame(window, &gameState, renderer);
-
-
-//    pthread_t tid;
-//    pthread_create(&tid,NULL,runGameThread,(void *)&tid);
-//    pthread_create(&tid,NULL,runCommunication,(void *)&tid);
-//    pthread_join(tid,NULL);
-}
-
-void* runCommunication(void* arg){
-    while(lists->gameOn){
-        escuchar();
-    }
     pthread_exit(0);
-}
-
-void* runGameThread(void* arg){
-//    int done = 0;
-//    printf("entro\n");
-//    while(!done){
-//        done = processEvents(window, &game);
-//        doRender(renderer, &game);
-//        SDL_Delay(10);
-//    }
-//    closeGame(window, &game);
-//    pthread_exit(0);
 }

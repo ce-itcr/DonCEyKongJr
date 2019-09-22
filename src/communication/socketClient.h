@@ -26,6 +26,6 @@
 #include "../app/game.h"
 
 char* enviar(char* Mensaje);
-char* escuchar();
+char* escuchar(GameState *gameState,SDL_Renderer *renderer);
 
 #endif //DONCEYKONGJR_SOCKETCLIENT_H

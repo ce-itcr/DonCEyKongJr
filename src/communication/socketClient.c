@@ -38,7 +38,7 @@ char* enviar(char* Mensaje) {
     return "";
 }
 
-char* escuchar()
+char* escuchar(GameState *gameState,SDL_Renderer *renderer)
 {
     struct sockaddr_in address;
     int sock, valread;
@@ -65,6 +65,7 @@ char* escuchar()
     valread = read( sock , buffer, 1024);
     printf("%s\n", buffer);
     updateEntities(buffer);
+    updateFruitsAndCrocodiles(gameState,renderer);
     close(sock);
 //    while(valread) {
 //        buffer[valread]='\0';    // explicit null termination: updated based on comments

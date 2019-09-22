@@ -100,7 +100,53 @@ void loadGame(GameState *game){
         SDL_Quit();
         exit(1);
     }
+
     game->scoreholder = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+    surface = IMG_Load("img/kremling_blue.png");
+    if(surface == NULL){
+        printf("Cannot find kremling_blue.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->blueKremling = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+    surface = IMG_Load("img/kremling_red.png");
+    if(surface == NULL){
+        printf("Cannot find kremling_red.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->redKremling = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+    surface = IMG_Load("img/fruit_bananas.png");
+    if(surface == NULL){
+        printf("Cannot find fruit_bananas.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->bananas = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+    surface = IMG_Load("img/fruit_oranges.png");
+    if(surface == NULL){
+        printf("Cannot find fruit_oranges.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->oranges = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+    surface = IMG_Load("img/fruit_strawberry.png");
+    if(surface == NULL){
+        printf("Cannot find fruit_strawberry.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->strawberry = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
 
     game->player.x = 40;
@@ -410,7 +456,25 @@ void doRender(SDL_Renderer *renderer, GameState *game){
             SDL_Rect underledges = { game->underledges[i].x, game->underledges[i].y, game->underledges[i].w, game->underledges[i].h };
             SDL_RenderCopy(renderer, game->platform, NULL, &underledges);
         }
+        for(int i = 0; i < lists->numOfFruits; i++){
+            SDL_Rect fruits = {lists->fruitList[i].eCollider.x, lists->fruitList[i].eCollider.y, lists->fruitList[i].eCollider.w, lists->fruitList[i].eCollider.h};
+            if(lists->fruitList[i].species == 0){
+                SDL_RenderCopy(renderer, game->bananas, NULL, &fruits);
+            }else if(lists->fruitList[i].species == 1){
+                SDL_RenderCopy(renderer, game->oranges, NULL, &fruits);
+            }else{
+                SDL_RenderCopy(renderer, game->strawberry, NULL, &fruits);
+            }
+        }
 
+        for(int i = 0; i < lists->numOfCrocodiles; i++){
+            SDL_Rect crocodile = {lists->cocrodileList[i].eCollider.x, lists->cocrodileList[i].eCollider.y, lists->cocrodileList[i].eCollider.w, lists->cocrodileList[i].eCollider.h};
+            if(lists->cocrodileList[i].species == 0){
+                SDL_RenderCopy(renderer, game->blueKremling, NULL, &crocodile);
+            }else{
+                SDL_RenderCopy(renderer, game->redKremling, NULL, &crocodile);
+            }
+        }
         //draw a rectangle at player's position
         SDL_Rect rect = { game->player.x, game->player.y, 70, 70};
         SDL_RenderCopyEx(renderer, game->playerFrames[game->player.animFrame],
@@ -423,6 +487,28 @@ void doRender(SDL_Renderer *renderer, GameState *game){
 
     //We are done drawing, "present" or show to the screen what we've drawn
     SDL_RenderPresent(renderer);
+}
+
+
+void updateFruitsAndCrocodiles(GameState* game,SDL_Renderer *renderer){
+    printf("%d\n",lists->currentNumberOfCrocodiles);
+    printf("%d\n",lists->currentNumberOfFruits);
+    printf("%d\n",lists->numOfCrocodiles);
+    printf("%d\n",lists->numOfFruits);
+    for(int i = lists->currentNumberOfFruits; i < lists->numOfFruits;i++) {
+        lists->fruitList[i].eCollider.x = lists->fruitList[i].posX;
+        lists->fruitList[i].eCollider.y = lists->fruitList[i].posY;
+        lists->fruitList[i].eCollider.h = 25;
+        lists->fruitList[i].eCollider.w = 40;
+    }
+    lists->currentNumberOfFruits = lists->numOfFruits;
+    for(int i = 0; i < lists->numOfCrocodiles; i++){
+        lists->cocrodileList[i].eCollider.x = lists->cocrodileList[i].posX;
+        lists->cocrodileList[i].eCollider.y = lists->cocrodileList[i].posY;
+        lists->cocrodileList[i].eCollider.h = 50;
+        lists->cocrodileList[i].eCollider.w = 50;
+    }
+    lists->currentNumberOfCrocodiles = lists->numOfCrocodiles;
 }
 
 void closeGame(SDL_Window *window, GameState *game, SDL_Renderer *renderer){

@@ -44,6 +44,7 @@ typedef struct Fruit{
 	int width;
 	int height;
 	int alive;
+	SDL_Rect eCollider;
 } Fruit;
 
 typedef struct Crocodile{
@@ -54,6 +55,7 @@ typedef struct Crocodile{
 	int width;
 	int height;
 	int alive;
+    SDL_Rect eCollider;
 } Crocodile;
 
 typedef struct Lists{
@@ -90,6 +92,11 @@ typedef struct{
     SDL_Texture *dk;
     SDL_Texture *jail;
     SDL_Texture *scoreholder;
+    SDL_Texture *blueKremling;
+    SDL_Texture *redKremling;
+    SDL_Texture *bananas;
+    SDL_Texture *oranges;
+    SDL_Texture *strawberry;
 
     int time;
     int windowPage;
@@ -106,6 +113,7 @@ int processEvents(SDL_Window *window, GameState *game);
 void doRender(SDL_Renderer *renderer, GameState *game);
 void closeGame(SDL_Window *window, GameState *game, SDL_Renderer *renderer);
 int playGame_btn(GameState *game, int mouseX, int mouseY);
+void updateFruitsAndCrocodiles(GameState* game,SDL_Renderer *renderer);
 
 
 #endif //DONCEYKONGJR_GAME_H
