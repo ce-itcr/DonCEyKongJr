@@ -45,9 +45,7 @@ void* runCommunication(void* arg){
     while(lists->gameOn){
         if(lists->commOn){
             char *string = updateJsonFromStruct();
-            printf("holi\n");
             printf("%s\n", string);
-            printf("holi2\n");
             enviar(string);
             escuchar();
         }

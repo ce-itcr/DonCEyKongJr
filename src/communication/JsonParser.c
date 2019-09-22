@@ -18,7 +18,7 @@ void updateEntities(char *json){
         lists->cocrodileList[i].posX = tmpCrocodile.posX;
         lists->cocrodileList[i].posY = tmpCrocodile.posY;
         lists->cocrodileList[i].alive = tmpCrocodile.alive;
-        lists->crocodilesAlive[i] = 1;
+        lists->crocodilesAlive[i] = tmpCrocodile.alive;
     }
     for (int i = 0; i < lists->numOfFruits; i++){
         Fruit tmpFruit = getFruitByNumber(json, i);
@@ -27,7 +27,7 @@ void updateEntities(char *json){
         lists->fruitList[i].posY = tmpFruit.posY;
         lists->fruitList[i].alive = tmpFruit.alive;
         lists->fruitList[i].score = tmpFruit.score;
-        lists->fruitsAlive[i] = 1;
+        lists->fruitsAlive[i] = tmpFruit.alive;
     }
 }
 
@@ -66,12 +66,20 @@ char *updateJsonFromStruct(){
 //    cJSON *cjsonCrocodilesAlive = cJSON_CreateIntArray(lists->crocodilesAlive, lists->numOfCrocodiles);
 //    cJSON *cjsonFruitsAlive = cJSON_CreateIntArray(lists->fruitsAlive, lists->numOfFruits);
     cJSON_AddNumberToObject(jsonToSend, "gameOn", lists->gameOn);
+    cJSON_AddNumberToObject(jsonToSend, "score", lists->score);
     cJSON_AddNumberToObject(jsonToSend, "hp", lists->hp);
     cJSON_AddNumberToObject(jsonToSend, "numOfCrocodiles", lists->numOfCrocodiles);
     cJSON_AddNumberToObject(jsonToSend, "numOfFruits", lists->numOfFruits);
     cJSON *crocodilesAliveArr = cJSON_CreateIntArray(lists->crocodilesAlive, lists->numOfCrocodiles);
     cJSON_AddItemToObject(jsonToSend, "crocodilesAlive", crocodilesAliveArr);
-    cJSON *fruitsAliveArr = cJSON_CreateIntArray(lists->fruitsAlive, lists->numOfFruits);
+    cJSON *fruitsAliveArr = cJSON_CreateArray();
+    for (int i = 0; i < lists->numOfFruits; i++) {
+        printf("%d\n", lists->fruitsAlive[i]);
+        cJSON *number = cJSON_CreateNumber(lists->fruitsAlive[i]);
+        cJSON_AddItemToArray(fruitsAliveArr, number);
+    }
+    printf("fruitsAliveArr: ");
+    printf("%s\n", cJSON_Print(fruitsAliveArr));
     cJSON_AddItemToObject(jsonToSend, "fruitsAlive", fruitsAliveArr);
 //    printf("%s\n", jsonToSend->valuestring);
 //    printf("%s\n", jsonToSend->string);

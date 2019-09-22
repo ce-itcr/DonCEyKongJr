@@ -336,6 +336,7 @@ void ObjectCollision(GameState* game){
     }
     for(int i = 0; i < lists->numOfFruits;i++) {
         if (checkCollision(pCollider, lists->fruitList[i].eCollider) && lists->fruitList[i].alive) {
+            printf("for %d\n", i);
             lists->score += lists->fruitList[i].score;
             lists->fruitList[i].alive = 0;
             lists->fruitsAlive[i] = 0;
@@ -376,27 +377,27 @@ bool checkCollision(SDL_Rect a, SDL_Rect b){
     return true;
 }
 
-int processEvents(SDL_Window *window, GameState *game){
+int processEvents(SDL_Window *window, GameState *game) {
     SDL_Event event;
     int done = 0;
 
-    while(SDL_PollEvent(&event)){
-        switch(event.type){
-            case SDL_WINDOWEVENT_CLOSE:{
-                if(window){
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_WINDOWEVENT_CLOSE: {
+                if (window) {
                     SDL_DestroyWindow(window);
                     window = NULL;
                     done = 1;
                 }
             }
                 break;
-            case SDL_KEYDOWN:{
-                switch(event.key.keysym.sym){
+            case SDL_KEYDOWN: {
+                switch (event.key.keysym.sym) {
                     case SDLK_ESCAPE:
                         done = 1;
                         break;
                     case SDLK_UP:
-                        if(game->player.onLedge){
+                        if (game->player.onLedge) {
                             game->player.dy = -8;
                             game->player.onLedge = 0;
                         }
@@ -411,12 +412,12 @@ int processEvents(SDL_Window *window, GameState *game){
         }
     }
 
-    if(game->windowPage == 0 && event.type == SDL_MOUSEBUTTONDOWN){
-        if (event.button.button == SDL_BUTTON_LEFT){
+    if (game->windowPage == 0 && event.type == SDL_MOUSEBUTTONDOWN) {
+        if (event.button.button == SDL_BUTTON_LEFT) {
             int mouseX, mouseY;
             SDL_GetMouseState(&mouseX, &mouseY);
 
-            if (playGame_btn(game, mouseX, mouseY)){
+            if (playGame_btn(game, mouseX, mouseY)) {
                 game->windowPage = 1;
             }
         }
@@ -424,32 +425,30 @@ int processEvents(SDL_Window *window, GameState *game){
 
     //More jumping
     const Uint8 *state = SDL_GetKeyboardState(NULL);
-    if(state[SDL_SCANCODE_UP]){
+    if (state[SDL_SCANCODE_UP]) {
         game->player.dy -= 0.2f;
     }
 
     //Walking
-    if(state[SDL_SCANCODE_LEFT]){
+    if (state[SDL_SCANCODE_LEFT]) {
         game->player.dx -= 0.5;
-        if(game->player.dx < -6){
+        if (game->player.dx < -6) {
             game->player.dx = -6;
         }
         game->player.facingLeft = 1;
         game->player.slowingDown = 0;
-    }
-    else if(state[SDL_SCANCODE_RIGHT]){
+    } else if (state[SDL_SCANCODE_RIGHT]) {
         game->player.dx += 0.5;
-        if(game->player.dx > 6){
+        if (game->player.dx > 6) {
             game->player.dx = 6;
         }
         game->player.facingLeft = 0;
         game->player.slowingDown = 0;
-    }
-    else{
+    } else {
         game->player.animFrame = 0;
         game->player.dx *= 0.8f;
         game->player.slowingDown = 1;
-        if(fabsf(game->player.dx) < 0.1f){
+        if (fabsf(game->player.dx) < 0.1f) {
             game->player.dx = 0;
         }
     }
@@ -555,7 +554,7 @@ void updateFruitsAndCrocodiles(){
         lists->fruitList[i].eCollider.w = 40;
     }
     lists->currentNumberOfFruits = lists->numOfFruits;
-    for(int i = 0; i < lists->numOfCrocodiles; i++){
+    for(int i = lists->currentNumberOfCrocodiles; i < lists->numOfCrocodiles; i++){
         lists->cocrodileList[i].eCollider.x = lists->cocrodileList[i].posX;
         lists->cocrodileList[i].eCollider.y = lists->cocrodileList[i].posY;
         lists->cocrodileList[i].eCollider.h = 50;
