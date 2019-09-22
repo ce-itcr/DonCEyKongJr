@@ -15,6 +15,7 @@
 
 #include "app/game.h"
 #include "communication/socketClient.h"
+#include "communication/JsonParser.h"
 #include <pthread.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>

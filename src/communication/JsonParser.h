@@ -22,5 +22,6 @@ void updateEntities(char *json);
 Fruit getFruitByNumber(char *json, int n);
 int getIntValueInJsonArray(char *json, char *arr, int i, char *data);
 int getIntValueInJson(char *json, char *data);
+char *updateJsonFromStruct();
 
 #endif //JSON_JSONPARSER_H

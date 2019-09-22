@@ -17,6 +17,7 @@
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
 #include <time.h>
+#include <stdbool.h>
 
 #define GRAVITY  0.35f
 
@@ -61,7 +62,8 @@ typedef struct Crocodile{
 typedef struct Lists{
 	int score;
 	int gameOn;
-	int Hp;
+	int commOn;
+	int hp;
 	Crocodile cocrodileList[50];
 	Fruit fruitList[50];
 	int crocodilesAlive[50];
@@ -113,7 +115,9 @@ int processEvents(SDL_Window *window, GameState *game);
 void doRender(SDL_Renderer *renderer, GameState *game);
 void closeGame(SDL_Window *window, GameState *game, SDL_Renderer *renderer);
 int playGame_btn(GameState *game, int mouseX, int mouseY);
-void updateFruitsAndCrocodiles(GameState* game,SDL_Renderer *renderer);
+void updateFruitsAndCrocodiles();
+void ObjectCollision(GameState* game);
+bool checkCollision(SDL_Rect a, SDL_Rect b);
 
 
 #endif //DONCEYKONGJR_GAME_H

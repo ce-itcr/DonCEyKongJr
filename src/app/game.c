@@ -326,6 +326,56 @@ void collisionDetect(GameState *game){
     }
 }
 
+void ObjectCollision(GameState* game){
+    SDL_Rect pCollider = {game->player.x, game->player.y, 48, 48};
+    for(int i = 0; i < lists->numOfCrocodiles;i++){
+        if(checkCollision(pCollider,lists->cocrodileList[i].eCollider)){
+            game->player.life--;
+            lists->commOn = 1;
+        }
+    }
+    for(int i = 0; i < lists->numOfFruits;i++) {
+        if (checkCollision(pCollider, lists->fruitList[i].eCollider) && lists->fruitList[i].alive) {
+            lists->score += lists->fruitList[i].score;
+            lists->fruitList[i].alive = 0;
+            lists->fruitsAlive[i] = 0;
+            lists->commOn = 1;
+        }
+    }
+}
+
+bool checkCollision(SDL_Rect a, SDL_Rect b){
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+
+    leftA = a.x;
+    rightA = a.x + a.w;
+    topA = a.y;
+    bottomA = a.y + a.h;
+
+    leftB = b.x;
+    rightB = b.x + b.w;
+    topB = b.y;
+    bottomB = b.y + b.h;
+
+    if( bottomA <= topB ){
+        return false;
+    }
+    if( topA >= bottomB ){
+        return false;
+    }
+    if( rightA <= leftB ){
+        return false;
+    }
+    if( leftA >= rightB ){
+        return false;
+    }
+
+    return true;
+}
+
 int processEvents(SDL_Window *window, GameState *game){
     SDL_Event event;
     int done = 0;
@@ -457,13 +507,16 @@ void doRender(SDL_Renderer *renderer, GameState *game){
             SDL_RenderCopy(renderer, game->platform, NULL, &underledges);
         }
         for(int i = 0; i < lists->numOfFruits; i++){
-            SDL_Rect fruits = {lists->fruitList[i].eCollider.x, lists->fruitList[i].eCollider.y, lists->fruitList[i].eCollider.w, lists->fruitList[i].eCollider.h};
-            if(lists->fruitList[i].species == 0){
-                SDL_RenderCopy(renderer, game->bananas, NULL, &fruits);
-            }else if(lists->fruitList[i].species == 1){
-                SDL_RenderCopy(renderer, game->oranges, NULL, &fruits);
-            }else{
-                SDL_RenderCopy(renderer, game->strawberry, NULL, &fruits);
+            if(lists->fruitList[i].alive) {
+                SDL_Rect fruits = {lists->fruitList[i].eCollider.x, lists->fruitList[i].eCollider.y,
+                                   lists->fruitList[i].eCollider.w, lists->fruitList[i].eCollider.h};
+                if (lists->fruitList[i].species == 0) {
+                    SDL_RenderCopy(renderer, game->bananas, NULL, &fruits);
+                } else if (lists->fruitList[i].species == 1) {
+                    SDL_RenderCopy(renderer, game->oranges, NULL, &fruits);
+                } else {
+                    SDL_RenderCopy(renderer, game->strawberry, NULL, &fruits);
+                }
             }
         }
 
@@ -490,7 +543,7 @@ void doRender(SDL_Renderer *renderer, GameState *game){
 }
 
 
-void updateFruitsAndCrocodiles(GameState* game,SDL_Renderer *renderer){
+void updateFruitsAndCrocodiles(){
     printf("%d\n",lists->currentNumberOfCrocodiles);
     printf("%d\n",lists->currentNumberOfFruits);
     printf("%d\n",lists->numOfCrocodiles);

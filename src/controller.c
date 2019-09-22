@@ -6,6 +6,9 @@ SDL_Renderer *renderer;
 
 void runGame(){
     lists->gameOn = 1;
+    lists->score = 0;
+    lists->hp = 1;
+    lists->commOn = 0;
 
     window = NULL;
     renderer = NULL;
@@ -38,8 +41,17 @@ void runGame(){
 }
 
 void* runCommunication(void* arg){
+    escuchar();
     while(lists->gameOn){
-        escuchar(&gameState,renderer);
+        if(lists->commOn){
+            char *string = updateJsonFromStruct();
+            printf("holi\n");
+            printf("%s\n", string);
+            printf("holi2\n");
+            enviar(string);
+            escuchar();
+        }
+        sleep(5);
     }
     pthread_exit(0);
 }
@@ -53,6 +65,7 @@ void* runGameThread(void* arg){
         done = processEvents(window, &gameState);
         process(&gameState);
         collisionDetect(&gameState);
+        ObjectCollision(&gameState);
         doRender(renderer, &gameState);
     }
 

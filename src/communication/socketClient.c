@@ -7,7 +7,7 @@ char* enviar(char* Mensaje) {
     struct sockaddr_in address;
     int sock, valread;
     struct sockaddr_in serv_addr;
-    char buffer[1024] = {0};
+    char buffer[1024];
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
         printf("\n Socket creation error \n");
@@ -31,14 +31,15 @@ char* enviar(char* Mensaje) {
     }
     printf("p1\n");
     strcpy(buffer, Mensaje);
-    sleep(1);
+    printf("%d\n string = %s",strlen(buffer),buffer);
+
     send(sock, buffer, strlen(buffer),0 );
 //    printf("Hello message sent\n");
     close(sock);
     return "";
 }
 
-char* escuchar(GameState *gameState,SDL_Renderer *renderer)
+void escuchar()
 {
     struct sockaddr_in address;
     int sock, valread;
@@ -65,7 +66,7 @@ char* escuchar(GameState *gameState,SDL_Renderer *renderer)
     valread = read( sock , buffer, 1024);
     printf("%s\n", buffer);
     updateEntities(buffer);
-    updateFruitsAndCrocodiles(gameState,renderer);
+    updateFruitsAndCrocodiles();
     close(sock);
 //    while(valread) {
 //        buffer[valread]='\0';    // explicit null termination: updated based on comments
@@ -74,5 +75,4 @@ char* escuchar(GameState *gameState,SDL_Renderer *renderer)
 //        buffer[0]='\0';         // clear the buffer : I am 99% sure this is not needed now
 //        valread--;
 //    }
-    return buffer;
 }

@@ -23,9 +23,8 @@
 #include <string.h>
 #include <stdbool.h>
 #include "JsonParser.h"
-#include "../app/game.h"
 
 char* enviar(char* Mensaje);
-char* escuchar(GameState *gameState,SDL_Renderer *renderer);
+void escuchar();
 
 #endif //DONCEYKONGJR_SOCKETCLIENT_H
