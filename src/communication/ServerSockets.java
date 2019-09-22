@@ -37,7 +37,7 @@ public class ServerSockets implements Runnable {
 //                System.out.println("Aceptado");
                 out = new OutputStreamWriter(new BufferedOutputStream(clientSocket.getOutputStream()));
                 String jsonData = Json.jsonEntitiesToString(jsonEntities1);
-//                System.out.println(jsonData);
+                System.out.println(jsonData);
                 out.write(jsonData);
                 out.flush();
                 // input
@@ -47,7 +47,7 @@ public class ServerSockets implements Runnable {
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 inputLine = in.readLine();
 //                System.out.println("inputline");
-//                System.out.println(inputLine);
+                System.out.println(inputLine);
                 jsonEntities1 = json.jsonToEntities(inputLine);
                 clientSocket.close();
 

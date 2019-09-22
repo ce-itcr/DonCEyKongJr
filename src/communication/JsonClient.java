@@ -1,25 +1,25 @@
 package communication;
 
 public class JsonClient {
-    Integer score;
-    Integer gameOn;
-    Integer Hp;
-    Integer[] fruitsAlive;
-    Integer[] crocodilesAlive;
-    Integer numOfCrocodiles;
-    Integer numOfFruits;
+    public Integer gameOn;
+    public Integer score;
+    public Integer hp;
+    public Integer numOfCrocodiles;
+    public Integer numOfFruits;
+    public Integer[] crocodilesAlive;
+    public Integer[] fruitsAlive;
 
-    public JsonClient(Integer score, Integer gameOn, Integer hp, Integer[] fruitsAlive, Integer[] crocodilesAlive, Integer numOfCrocodiles, Integer numOfFruits) {
-        this.score = score;
+    public JsonClient(Integer gameOn, Integer score, Integer hp, Integer numOfCrocodiles, Integer numOfFruits, Integer[] crocodilesAlive, Integer[] fruitsAlive) {
         this.gameOn = gameOn;
-        Hp = hp;
-        this.fruitsAlive = fruitsAlive;
-        this.crocodilesAlive = crocodilesAlive;
+        this.score = score;
+        this.hp = hp;
         this.numOfCrocodiles = numOfCrocodiles;
         this.numOfFruits = numOfFruits;
+        this.crocodilesAlive = crocodilesAlive;
+        this.fruitsAlive = fruitsAlive;
     }
 
-    public JsonClient(String json) {
-
+    public JsonClient() {
+        super();
     }
 }
