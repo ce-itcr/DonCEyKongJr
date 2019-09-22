@@ -24,7 +24,7 @@ public class JsonEntities {
         this.numOfFruits = fruits.length;
     }
 
-    public JsonEntities(){
+    public JsonEntities(int i){
         this.crocodiles = new Crocodile[0];
         this.fruits = new Fruit[0];
         this.donkeyKongJr = new DonkeyKongJr(1, 1, 0, 552);

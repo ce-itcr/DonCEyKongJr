@@ -7,42 +7,21 @@ import java.util.Arrays;
 
 public class Json {
 
-    public JsonEntities jsonToEntities(String json) {
+    public void jsonToEntities(String json) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            JsonClient jsonClient = null;
-            jsonClient = mapper.readValue(json, JsonClient.class);
-            System.out.println("GameOn");
-            System.out.println(jsonClient.gameOn);
-            ServerSockets.jsonEntities1.numOfCrocodiles = jsonClient.numOfCrocodiles;
-            ServerSockets.jsonEntities1.numOfFruits = jsonClient.numOfFruits;
+            JsonClient jsonClient = mapper.readValue(json, JsonClient.class);
             ServerSockets.jsonEntities1.gameOn = jsonClient.gameOn;
             ServerSockets.jsonEntities1.score = jsonClient.score;
-            System.out.println("CA length:");
-            System.out.println(jsonClient.crocodilesAlive.length);
-            for (int i = 0; i < jsonClient.crocodilesAlive.length; i++) {
-                System.out.println("iC: ");
-                System.out.println(i);
-                System.out.println(ServerSockets.jsonEntities1.crocodiles.length);
-                System.out.println(jsonClient.crocodilesAlive.length);
+            for (int i = 0; i < jsonClient.numOfCrocodiles; i++) {
                 ServerSockets.jsonEntities1.crocodiles[i].alive = jsonClient.crocodilesAlive[i];
             }
-            System.out.println("FA length:");
-            System.out.println(jsonClient.fruitsAlive.length);
-            for (int i = 0; i < jsonClient.fruitsAlive.length; i++) {
-                System.out.println("i: ");
-                System.out.println(i);
-                System.out.println(ServerSockets.jsonEntities1.fruits[i].alive);
-                System.out.println(jsonClient.fruitsAlive[i]);
+            for (int i = 0; i < jsonClient.numOfFruits; i++) {
                 ServerSockets.jsonEntities1.fruits[i].alive = jsonClient.fruitsAlive[i];
-                System.out.println(ServerSockets.jsonEntities1.fruits[i].alive);
-                System.out.println(jsonClient.fruitsAlive[i]);
             }
-            return ServerSockets.jsonEntities1;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new JsonEntities();
     }
 
     public static String jsonEntitiesToString(JsonEntities jsonEntities) throws JsonProcessingException {

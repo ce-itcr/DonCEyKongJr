@@ -48,7 +48,7 @@ public class ServerSockets implements Runnable {
                 inputLine = in.readLine();
 //                System.out.println("inputline");
                 System.out.println(inputLine);
-                jsonEntities1 = json.jsonToEntities(inputLine);
+                json.jsonToEntities(inputLine);
                 clientSocket.close();
 
             } catch (Exception e) {}
