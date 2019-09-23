@@ -253,51 +253,45 @@ void loadGame(GameState *game) {
         game->lianas[i].y = 650;
     }
 
-
-    game->lianas[89].x = 297;
-    game->lianas[89].y = 52;
-    game->lianas[89].w = 5;
-    game->lianas[89].h = 50;
-
     game->lianas[90].x = 297;
-    game->lianas[90].y = 295;
+    game->lianas[90].y = 52;
     game->lianas[90].w = 5;
     game->lianas[90].h = 50;
 
-    game->lianas[91].x = 177;
-    game->lianas[91].y = 295;
+    game->lianas[91].x = 681;
+    game->lianas[91].y = 105;
     game->lianas[91].w = 5;
-    game->lianas[91].h = 268;
+    game->lianas[91].h = 385;
 
-    game->lianas[92].x = 681;
+    game->lianas[92].x = 609;
     game->lianas[92].y = 105;
     game->lianas[92].w = 5;
-    game->lianas[92].h = 385;
+    game->lianas[92].h = 380;
 
-    game->lianas[93].x = 609;
-    game->lianas[93].y = 105;
+    game->lianas[93].x = 537;
+    game->lianas[93].y = 175;
     game->lianas[93].w = 5;
-    game->lianas[93].h = 380;
+    game->lianas[93].h = 260;
 
-    game->lianas[94].x = 537;
+    game->lianas[94].x = 465;
     game->lianas[94].y = 175;
     game->lianas[94].w = 5;
-    game->lianas[94].h = 260;
+    game->lianas[94].h = 300;
 
-    game->lianas[95].x = 465;
-    game->lianas[95].y = 175;
+    game->lianas[95].x = 393;
+    game->lianas[95].y = 150;
     game->lianas[95].w = 5;
-    game->lianas[95].h = 300;
+    game->lianas[95].h = 240;
 
-    game->lianas[96].x = 393;
+    game->lianas[96].x = 297;
     game->lianas[96].y = 150;
     game->lianas[96].w = 5;
-    game->lianas[96].h = 240;
+    game->lianas[96].h = 330;
 
-    game->lianas[97].x = 297;
-    game->lianas[97].y = 150;
+    game->lianas[97].x = 177;
+    game->lianas[97].y = 295;
     game->lianas[97].w = 5;
-    game->lianas[97].h = 330;
+    game->lianas[97].h = 268;
 
     game->lianas[98].x = 105;
     game->lianas[98].y = 150;
