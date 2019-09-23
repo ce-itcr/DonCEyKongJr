@@ -16,11 +16,11 @@ public class AddEntities {
             Integer entityNum = scanner.nextInt();
             if (entityNum == 0) {
                 Crocodile obj = new Crocodile();
-                System.out.println("Digite la liana en la que quiere que entre el cocodrilo, del 1 al 11");
+                System.out.println("Digite la liana en la que quiere que entre el cocodrilo, del 1 al 9");
                 Integer[] nextInt = Main.vinesHashMap.vinesCoords.get(scanner.nextInt()-1);
                 obj.posX = nextInt[0];
                 obj.posY = nextInt[1];
-                System.out.println("Digite el color del cocodrilo: 0 = azul, 1+ = rojo");
+                System.out.println("Digite el color del cocodrilo: 0 = azul, 1 = rojo");
                 obj.species = scanner.nextInt();
                 obj.alive = 1;
                 Crocodile crocodile = new Crocodile();
@@ -28,7 +28,7 @@ public class AddEntities {
                 System.out.println(Json.jsonEntitiesToString(ServerSockets.jsonEntities1));
             } else if (entityNum == 1) {
                 Fruit obj = new Fruit();
-                System.out.println("Digite el puntaje que recibira el jugador al coger la fruta");
+                System.out.println("Digite el puntaje que recibira el jugador al tomar la fruta");
                 obj.score = scanner.nextInt();
                 System.out.println("Digite las coordenadas");
                 System.out.println("X: ");
