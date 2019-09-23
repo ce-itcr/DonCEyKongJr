@@ -15,6 +15,8 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <time.h>
 #include <stdbool.h>
@@ -124,6 +126,19 @@ typedef struct{
     SDL_Renderer *renderer;
 } GameState;
 
+Mix_Music *opening;
+Mix_Chunk *ending;
+Mix_Music *backgroundSound;
+Mix_Chunk *jumpSound;
+Mix_Chunk *climb;
+Mix_Chunk *eatFruit;
+
+
+TTF_Font *font;
+SDL_Surface *message;
+SDL_Texture *TEXT;
+SDL_Rect *textRect;
+SDL_Color *textColor;
 
 void loadGame(GameState *game);
 void process(GameState *game);
@@ -132,6 +147,7 @@ int processEvents(SDL_Window *window, GameState *game);
 void doRender(SDL_Renderer *renderer, GameState *game);
 void closeGame(SDL_Window *window, GameState *game, SDL_Renderer *renderer);
 int playGame_btn(GameState *game, int mouseX, int mouseY);
+int exitGame_btn(GameState *game, int mouseX, int mouseY);
 void updateFruitsAndCrocodiles();
 void ObjectCollision(GameState* game);
 bool checkCollision(SDL_Rect a, SDL_Rect b);
