@@ -167,6 +167,18 @@ void loadGame(GameState *game) {
     game->strawberry = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
 
+//    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+    backgroundSound = Mix_LoadMUS("audio/02_Stage1.mp3");
+    opening = Mix_LoadMUS("audio/03_Opening.mp3");
+    ending = Mix_LoadWAV("audio/05_Stage 1 Clear.wav");
+    jumpSound = Mix_LoadWAV("audio/20_SFX Jump.mp3");
+    climb = Mix_LoadWAV("audio/16_SFX Climbing.mp3");
+    eatFruit = Mix_LoadWAV("audio/15_SFX Bite.mp3");
+
+    Mix_PlayMusic(opening, -1);
+
     game->player.x = 40;
     game->player.y = 240 - 40;
     game->player.dx = 0;
@@ -190,6 +202,8 @@ void loadGame(GameState *game) {
     game->ending = 0;
 
     game->time = 0;
+
+
 
     //init ledges
     for (int i = 0; i < 100; i++) {
@@ -349,7 +363,6 @@ void process(GameState *game){
             }
         }
     }
-
     player->dy += GRAVITY;
 }
 
@@ -460,11 +473,12 @@ void ObjectCollision(GameState* game){
 
     for(int i = 0; i < lists->numOfFruits;i++) {
         if (checkCollision(pCollider, lists->fruitList[i].eCollider) && lists->fruitList[i].alive) {
-            printf("for %d\n", i);
+//            printf("for %d\n", i);
             lists->score += lists->fruitList[i].score;
             lists->fruitList[i].alive = 0;
             lists->fruitsAlive[i] = 0;
             lists->commOn = 1;
+            Mix_PlayChannel(-1,eatFruit, 0);
         }
     }
 
@@ -479,6 +493,8 @@ void ObjectCollision(GameState* game){
 
     if(checkCollision(pCollider, game->safekey.eCollider)){
 
+//        Mix_FreeMusic(backgroundSound);
+        Mix_PauseMusic();
         SDL_DestroyTexture(game->playerFrames[0]);
         SDL_DestroyTexture(game->playerFrames[1]);
         SDL_DestroyTexture(game->brick);
@@ -491,11 +507,15 @@ void ObjectCollision(GameState* game){
         SDL_DestroyTexture(game->background);
         SDL_DestroyTexture(game->menu);
         SDL_DestroyTexture(game->scoreholder);
-//        SDL_DestroyTexture()
 
         SDL_Rect nextRect = {0, 0,  248*3, 216*3};
         SDL_RenderCopy(game->renderer, game->next, NULL, &nextRect);
         game->ending = 1;
+        Mix_PlayChannel(-1,ending, 0);
+
+//        SDL_Quit();
+//        Mix_PlayMusic(ending, -1);
+
     }
 
 }
@@ -558,16 +578,19 @@ int processEvents(SDL_Window *window, GameState *game) {
                         break;
                     case SDLK_UP:
                         if(game->player.onLedge) {
+                            Mix_PlayChannel(-1,jumpSound, 0);
                             game->player.dy = -8;
                             game->player.onLedge = 0;
                         }
                         else if(game->player.onLiana) {
+                            Mix_PlayChannel(-1,climb, 0);
                             game->player.dy = -10;
                             game->player.onLiana = 0;
                         }
                         break;
                     case SDLK_DOWN:
                         if(game->player.onLiana){
+                            Mix_PlayChannel(-1,climb, 0);
                             game->player.dy = 8;
                             game->player.onLiana = 0;
                         }
@@ -581,6 +604,7 @@ int processEvents(SDL_Window *window, GameState *game) {
         }
     }
 
+
     if (game->windowPage == 0 && event.type == SDL_MOUSEBUTTONDOWN) {
         if (event.button.button == SDL_BUTTON_LEFT) {
             int mouseX, mouseY;
@@ -588,6 +612,12 @@ int processEvents(SDL_Window *window, GameState *game) {
 
             if (playGame_btn(game, mouseX, mouseY)) {
                 game->windowPage = 1;
+                Mix_FreeMusic(opening);
+                Mix_PlayMusic(backgroundSound, -1);
+
+            }
+            if(exitGame_btn(game,mouseX,mouseY)){
+                closeGame(window,game,game->renderer);
             }
         }
     }
@@ -631,8 +661,29 @@ int processEvents(SDL_Window *window, GameState *game) {
 int playGame_btn(GameState *game, int mouseX, int mouseY){
     int playXLeft = 12*8*game->sizeMult;
     int playXRight = 19*8*game->sizeMult;
-    int playYDown = (248*game->sizeMult)-(6*8*game->sizeMult);
-    int playYUp = (248*game->sizeMult)-(10*8*game->sizeMult);
+    int playYDown = (248*game->sizeMult)-(17*8*game->sizeMult);
+    int playYUp = (248*game->sizeMult)-(21*8*game->sizeMult);
+
+    if ((mouseX > playXLeft && mouseX < playXRight) == 0){
+        return 0;
+    }
+    if ((mouseY > playYUp && mouseY < playYDown) == 0){
+        return 0;
+    }
+    return 1;
+}
+
+
+
+// Name : exitGame_btn
+// Parameters: GameState game, int mouseX, int mouseY
+// Brief:
+// Use:
+int exitGame_btn(GameState *game, int mouseX, int mouseY){
+    int playXLeft = 12*8*game->sizeMult;
+    int playXRight = 19*8*game->sizeMult;
+    int playYDown = (248*game->sizeMult)-(11*8*game->sizeMult);
+    int playYUp = (248*game->sizeMult)-(16*8*game->sizeMult);
 
     if ((mouseX > playXLeft && mouseX < playXRight) == 0){
         return 0;
@@ -759,6 +810,10 @@ void closeGame(SDL_Window *window, GameState *game, SDL_Renderer *renderer){
     SDL_DestroyTexture(game->menu);
     SDL_DestroyTexture(game->scoreholder);
     SDL_DestroyTexture(game->next);
+    Mix_FreeMusic(backgroundSound);
+    Mix_FreeChunk(ending);
+    Mix_FreeChunk(jumpSound);
+    Mix_FreeChunk(eatFruit);
 
     // Close and destroy the window
     SDL_DestroyWindow(window);
