@@ -4,10 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import communication.AddEntities;
 import communication.JsonEntities;
 import communication.ServerSockets;
+import entities.VinesHashMap;
 
 public class Main {
 
-//    public static VinesHashMap vinesHashMap = new VinesHashMap();
+    public static VinesHashMap vinesHashMap = new VinesHashMap();
 
     public static void main(String args[]) throws JsonProcessingException {
         ServerSockets.jsonEntities1 = new JsonEntities(1);

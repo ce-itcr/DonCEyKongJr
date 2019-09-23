@@ -3,6 +3,7 @@ package communication;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import entities.Crocodile;
 import entities.Fruit;
+import main.Main;
 
 import java.util.Scanner;
 
@@ -15,11 +16,10 @@ public class AddEntities {
             Integer entityNum = scanner.nextInt();
             if (entityNum == 0) {
                 Crocodile obj = new Crocodile();
-                System.out.println("Digite las coordenadas");
-                System.out.println("X: ");
-                obj.posX = scanner.nextInt();
-                System.out.println("Y: ");
-                obj.posY = scanner.nextInt();
+                System.out.println("Digite la liana en la que quiere que entre el cocodrilo, del 1 al 11");
+                Integer[] nextInt = Main.vinesHashMap.vinesCoords.get(scanner.nextInt()-1);
+                obj.posX = nextInt[0];
+                obj.posY = nextInt[1];
                 System.out.println("Digite el color del cocodrilo: 0 = azul, 1+ = rojo");
                 obj.species = scanner.nextInt();
                 obj.alive = 1;

@@ -4,20 +4,16 @@
     <list default="true" id="1ed1c7bd-0f46-48ad-9e02-b5f372a982b4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/communication/AddEntities.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/communication/AddEntities.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/communication/JsonEntities.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/communication/JsonEntities.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/communication/ServerSockets.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/communication/ServerSockets.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/entities/Crocodile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/entities/Crocodile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/entities/Crocodiles.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/entities/Crocodiles.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/entities/Crocodiles.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/entities/DonkeyKongJr.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/entities/DonkeyKongJrFac.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/entities/Fruit.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/entities/Fruit.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/entities/Fruits.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/entities/Fruits.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/entities/Fruits.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DonCEyKongJr_Server/main/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/communication/AddEntities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/communication/AddEntities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/communication/JsonEntities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/communication/JsonEntities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/communication/ServerSockets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/communication/ServerSockets.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Crocodile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/Crocodile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Crocodiles.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/DonkeyKongJr.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/DonkeyKongJrFac.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Fruit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/Fruit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Fruits.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/VinesHashMap.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -45,13 +41,26 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/entities/Crocodile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="30" column="13" lean-forward="true" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+            <state relative-caret-position="403">
+              <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/entities/VinesHashMap.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+              <folding>
+                <element signature="e#669#670#0" expanded="true" />
+                <element signature="e#719#720#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -84,8 +93,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+            <state relative-caret-position="170">
+              <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -105,11 +114,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/communication/AddEntities.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="403">
-              <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+              <caret line="29" column="40" lean-forward="true" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -191,16 +200,16 @@
         <option value="$PROJECT_DIR$/src/communication/ServerComm.java" />
         <option value="$PROJECT_DIR$/src/entities/DonkeyKongJr.java" />
         <option value="$PROJECT_DIR$/src/communication/JsonClient.java" />
-        <option value="$PROJECT_DIR$/src/entities/VinesHashMap.java" />
-        <option value="$PROJECT_DIR$/src/main/Main.java" />
         <option value="$PROJECT_DIR$/src/communication/Json.java" />
         <option value="$PROJECT_DIR$/src/entities/Fruits.java" />
         <option value="$PROJECT_DIR$/src/entities/Crocodiles.java" />
-        <option value="$PROJECT_DIR$/src/communication/AddEntities.java" />
         <option value="$PROJECT_DIR$/src/communication/JsonEntities.java" />
         <option value="$PROJECT_DIR$/src/communication/ServerSockets.java" />
         <option value="$PROJECT_DIR$/src/entities/Fruit.java" />
         <option value="$PROJECT_DIR$/src/entities/Crocodile.java" />
+        <option value="$PROJECT_DIR$/src/entities/VinesHashMap.java" />
+        <option value="$PROJECT_DIR$/src/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/communication/AddEntities.java" />
       </list>
     </option>
   </component>
@@ -298,18 +307,17 @@
       <workItem from="1568687270172" duration="20726000" />
       <workItem from="1568974400851" duration="34031000" />
       <workItem from="1569133915921" duration="20359000" />
-      <workItem from="1569201101510" duration="208000" />
+      <workItem from="1569201101510" duration="1541000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85034000" />
+    <option name="totallyTimeSpent" value="86367000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.102684565" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.102684565" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -317,7 +325,7 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32719547" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32719547" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32577905" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -388,7 +396,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/entities/VinesHashMap.java" />
     <entry file="file://$PROJECT_DIR$/src/communication/JsonClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -396,16 +403,6 @@
           <folding>
             <element signature="e#717#718#0" expanded="true" />
             <element signature="e#740#741#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -424,16 +421,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/communication/AddEntities.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -496,8 +483,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/entities/Crocodile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="30" column="13" lean-forward="true" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+        <state relative-caret-position="403">
+          <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/entities/VinesHashMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+          <folding>
+            <element signature="e#669#670#0" expanded="true" />
+            <element signature="e#719#720#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/communication/AddEntities.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="29" column="40" lean-forward="true" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
