@@ -329,6 +329,10 @@ void loadGame(GameState *game) {
 
 }
 
+// Name : process
+// Parameters: GameState game
+// Brief:
+// Use:
 void process(GameState *game){
     game->time++;
     DKJr *player = &game->player;
@@ -349,6 +353,10 @@ void process(GameState *game){
     player->dy += GRAVITY;
 }
 
+// Name : collisionDetect
+// Parameters: GameState game
+// Brief:
+// Use:
 void collisionDetect(GameState *game) {
     //Check for collision with any ledges
     for (int i = 0; i < 100; i++) {
@@ -420,6 +428,10 @@ void collisionDetect(GameState *game) {
     }
 }
 
+// Name : ObjectCollision
+// Parameters: GameState game
+// Brief:
+// Use:
 void ObjectCollision(GameState* game){
     SDL_Rect pCollider = {game->player.x, game->player.y, 48, 48};
     for(int i = 0; i < lists->numOfCrocodiles;i++){
@@ -488,6 +500,10 @@ void ObjectCollision(GameState* game){
 
 }
 
+// Name : checkCollision
+// Parameters: SDL_Rect a, SDL_Rect b
+// Brief:
+// Use:
 bool checkCollision(SDL_Rect a, SDL_Rect b){
     int leftA, leftB;
     int rightA, rightB;
@@ -608,6 +624,10 @@ int processEvents(SDL_Window *window, GameState *game) {
     return done;
 }
 
+// Name : playGame_btn
+// Parameters: GameState game, int mouseX, int mouseY
+// Brief:
+// Use:
 int playGame_btn(GameState *game, int mouseX, int mouseY){
     int playXLeft = 12*8*game->sizeMult;
     int playXRight = 19*8*game->sizeMult;
@@ -698,6 +718,10 @@ void doRender(SDL_Renderer *renderer, GameState *game){
     SDL_RenderPresent(renderer);
 }
 
+// Name : updateFruitsAndCrocodiles
+// Parameters: N/A
+// Brief:
+// Use:
 void updateFruitsAndCrocodiles(){
     printf("%d\n",lists->currentNumberOfCrocodiles);
     printf("%d\n",lists->currentNumberOfFruits);

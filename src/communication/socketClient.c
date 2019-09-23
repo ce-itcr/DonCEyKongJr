@@ -2,8 +2,11 @@
 
 #define PORT 8080
 
-char* enviar(char* Mensaje) {
-//    printf("p0.15519\n");
+// Name : senData
+// Parameters: char msg
+// Brief:
+// Use: controller.c - runCommunication
+char* sendData(char* msg) {
     struct sockaddr_in address;
     int sock, valread;
     struct sockaddr_in serv_addr;
@@ -19,7 +22,6 @@ char* enviar(char* Mensaje) {
     serv_addr.sin_port = htons(PORT);
 
     // Convert IPv4 and IPv6 addresses from text to binary form
-//    printf("p0.25\n");
     if(inet_pton(AF_INET, "192.168.1.7", &serv_addr.sin_addr)<=0)
     {
         printf("\nInvalid address/ Address not supported \n");
@@ -30,14 +32,17 @@ char* enviar(char* Mensaje) {
         printf("\nConnection Failed \n");
     }
     printf("p1\n");
-    strcpy(buffer, Mensaje);
+    strcpy(buffer, msg);
     send(sock, buffer, strlen(buffer),0 );
-//    printf("Hello message sent\n");
     close(sock);
     return "";
 }
 
-void escuchar()
+// Name : listener
+// Parameters: N/A
+// Brief:
+// Use: controller.c - runCommunication
+void listener()
 {
     struct sockaddr_in address;
     int sock, valread;

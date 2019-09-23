@@ -4,6 +4,11 @@ GameState gameState;
 SDL_Window *window;
 SDL_Renderer *renderer;
 
+
+// Name : runGame
+// Parameters: N/A
+// Brief:
+// Use: main.c - main
 void runGame(){
     lists->gameOn = 1;
     lists->score = 0;
@@ -39,25 +44,30 @@ void runGame(){
     pthread_join(tid,NULL);
 }
 
+// Name : runCommunication
+// Parameters:
+// Brief:
+// Use: controller.c - runGame
 void* runCommunication(void* arg){
-    escuchar();
+    listener();
     while(lists->gameOn){
         if(lists->commOn){
             char *string = updateJsonFromStruct();
             printf("%s\n", string);
-            enviar(string);
-            escuchar();
+            sendData(string);
+            listener();
         }
         sleep(5);
     }
     pthread_exit(0);
 }
 
+// Name : runGameThread
+// Parameters:
+// Brief:
+// Use: controller.c - runGame
 void* runGameThread(void* arg){
-    // The window is open: enter program loop (see SDL_PollEvent)
     int done = 0;
-
-    //Event loop
     while(!done){
         done = processEvents(window, &gameState);
         process(&gameState);
@@ -65,7 +75,6 @@ void* runGameThread(void* arg){
         ObjectCollision(&gameState);
         doRender(renderer, &gameState);
     }
-
     closeGame(window, &gameState, renderer);
     pthread_exit(0);
 }

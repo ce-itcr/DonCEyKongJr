@@ -1,5 +1,5 @@
 /*
- JsonParser.h -
+ JsonParser.h - parse information of crocodiles and fruits from the server through JSON
 
  This file is part of DonCE Y Kong Jr, the same correspondent to Project III for the course of Languages, Compilers and Interpreters. (CE3104), Languages module.
  The project consists in the implementation of an application that reaffirms the knowledge of the imperative and object-oriented programming paradigms.
