@@ -21,9 +21,18 @@ void loadGame(GameState *game) {
     game->menu = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
 
+    surface = IMG_Load("img/nextlevel.png");
+    if (surface == NULL) {
+        printf("Cannot find nextlevel.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->next = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
     surface = IMG_Load("img/jr_a.png");
     if (surface == NULL) {
-        printf("Cannot find player_lta.png!\n\n");
+        printf("Cannot find jr_a.png!\n\n");
         SDL_Quit();
         exit(1);
     }
@@ -32,7 +41,7 @@ void loadGame(GameState *game) {
 
     surface = IMG_Load("img/jr_b.png");
     if (surface == NULL) {
-        printf("Cannot find player_ltb.png!\n\n");
+        printf("Cannot find jr_tb.png!\n\n");
         SDL_Quit();
         exit(1);
     }
@@ -41,7 +50,7 @@ void loadGame(GameState *game) {
 
     surface = IMG_Load("img/platform.png");
     if (surface == NULL) {
-        printf("Cannot find brick.png!\n\n");
+        printf("Cannot find platform.png!\n\n");
         SDL_Quit();
         exit(1);
     }
@@ -67,7 +76,6 @@ void loadGame(GameState *game) {
     game->platform = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
 
-
     surface = IMG_Load("img/safetkey.png");
     if (surface == NULL) {
         printf("Cannot find safetykey.png!\n\n");
@@ -88,7 +96,7 @@ void loadGame(GameState *game) {
 
     surface = IMG_Load("img/jail.png");
     if (surface == NULL) {
-        printf("Cannot find mario.png!\n\n");
+        printf("Cannot find jail.png!\n\n");
         SDL_Quit();
         exit(1);
     }
@@ -114,9 +122,9 @@ void loadGame(GameState *game) {
     game->scoreholder = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
 
-    surface = IMG_Load("img/kremling_blue.png");
+    surface = IMG_Load("img/kremling_blue_d.png");
     if (surface == NULL) {
-        printf("Cannot find kremling_blue.png!\n\n");
+        printf("Cannot find kremling_blue_d.png!\n\n");
         SDL_Quit();
         exit(1);
     }
@@ -169,9 +177,17 @@ void loadGame(GameState *game) {
     game->player.facingLeft = 1;
     game->player.slowingDown = 0;
     game->player.onLiana = 0;
+    game->safekey.x = 275;
+    game->safekey.y = 10;
+    game->safekey.w = 50;
+    game->safekey.eCollider.x = game->safekey.x;
+    game->safekey.eCollider.y = game->safekey.y;
+    game->safekey.eCollider.w = game->safekey.w;
+    game->safekey.eCollider.h = game->safekey.w;
 
     game->sizeMult = 3;
     game->windowPage = 0;
+    game->ending = 0;
 
     game->time = 0;
 
@@ -448,6 +464,28 @@ void ObjectCollision(GameState* game){
         }
         game->player.onLiana = 0;
     }
+
+    if(checkCollision(pCollider, game->safekey.eCollider)){
+
+        SDL_DestroyTexture(game->playerFrames[0]);
+        SDL_DestroyTexture(game->playerFrames[1]);
+        SDL_DestroyTexture(game->brick);
+        SDL_DestroyTexture(game->platform);
+        SDL_DestroyTexture(game->liana);
+        SDL_DestroyTexture(game->safetyKey);
+        SDL_DestroyTexture(game->mario);
+        SDL_DestroyTexture(game->dk);
+        SDL_DestroyTexture(game->jail);
+        SDL_DestroyTexture(game->background);
+        SDL_DestroyTexture(game->menu);
+        SDL_DestroyTexture(game->scoreholder);
+//        SDL_DestroyTexture()
+
+        SDL_Rect nextRect = {0, 0,  248*3, 216*3};
+        SDL_RenderCopy(game->renderer, game->next, NULL, &nextRect);
+        game->ending = 1;
+    }
+
 }
 
 bool checkCollision(SDL_Rect a, SDL_Rect b){
@@ -596,7 +634,7 @@ void doRender(SDL_Renderer *renderer, GameState *game){
         SDL_Rect backgroundRect = {0,0, 248*3, 216*3};
         SDL_RenderCopy(game->renderer, game->background, NULL, &backgroundRect);
 
-        SDL_Rect safetykeyRect = {275,10, 50, 50};
+        SDL_Rect safetykeyRect = {game->safekey.x,game->safekey.y, game->safekey.w, game->safekey.w};
         SDL_RenderCopy(game->renderer, game->safetyKey, NULL, &safetykeyRect);
 
         SDL_Rect marioRect = {175,100, 75, 75};
@@ -608,7 +646,7 @@ void doRender(SDL_Renderer *renderer, GameState *game){
         SDL_Rect dkRect = {65,60, 70, 65};
         SDL_RenderCopy(game->renderer, game->dk, NULL, &dkRect);
 
-        SDL_Rect scoreholderRect = {550,0, 200, 100};
+        SDL_Rect scoreholderRect = {540,0, 200, 100};
         SDL_RenderCopy(game->renderer, game->scoreholder, NULL, &scoreholderRect);
 
         for(int i = 0; i < 100; i++){
@@ -668,15 +706,15 @@ void updateFruitsAndCrocodiles(){
     for(int i = lists->currentNumberOfFruits; i < lists->numOfFruits;i++) {
         lists->fruitList[i].eCollider.x = lists->fruitList[i].posX;
         lists->fruitList[i].eCollider.y = lists->fruitList[i].posY;
-        lists->fruitList[i].eCollider.h = 25;
+        lists->fruitList[i].eCollider.h = 40;
         lists->fruitList[i].eCollider.w = 40;
     }
     lists->currentNumberOfFruits = lists->numOfFruits;
     for(int i = lists->currentNumberOfCrocodiles; i < lists->numOfCrocodiles; i++){
         lists->cocrodileList[i].eCollider.x = lists->cocrodileList[i].posX;
         lists->cocrodileList[i].eCollider.y = lists->cocrodileList[i].posY;
-        lists->cocrodileList[i].eCollider.h = 50;
-        lists->cocrodileList[i].eCollider.w = 50;
+        lists->cocrodileList[i].eCollider.h = 40;
+        lists->cocrodileList[i].eCollider.w = 40;
         lists->cocrodileList[i].speed = 5;
     }
     lists->currentNumberOfCrocodiles = lists->numOfCrocodiles;
@@ -688,6 +726,7 @@ void closeGame(SDL_Window *window, GameState *game, SDL_Renderer *renderer){
     SDL_DestroyTexture(game->playerFrames[1]);
     SDL_DestroyTexture(game->brick);
     SDL_DestroyTexture(game->platform);
+    SDL_DestroyTexture(game->liana);
     SDL_DestroyTexture(game->safetyKey);
     SDL_DestroyTexture(game->mario);
     SDL_DestroyTexture(game->dk);
@@ -695,6 +734,7 @@ void closeGame(SDL_Window *window, GameState *game, SDL_Renderer *renderer){
     SDL_DestroyTexture(game->background);
     SDL_DestroyTexture(game->menu);
     SDL_DestroyTexture(game->scoreholder);
+    SDL_DestroyTexture(game->next);
 
     // Close and destroy the window
     SDL_DestroyWindow(window);

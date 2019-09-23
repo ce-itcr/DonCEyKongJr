@@ -42,6 +42,11 @@ typedef struct{
     SDL_Rect eCollider;
 } Liana;
 
+typedef struct{
+    int x, y, w, h;
+    SDL_Rect eCollider;
+} SafetyKey;
+
 typedef struct Fruit{
 	int posX;
 	int posY;
@@ -90,6 +95,7 @@ typedef struct{
     Ledge ledges[100];
     Ledge underledges[100];
     Liana lianas[100];
+    SafetyKey safekey;
 
     SDL_Texture *playerFrames[2];
     SDL_Texture *brick;
@@ -107,11 +113,13 @@ typedef struct{
     SDL_Texture *bananas;
     SDL_Texture *oranges;
     SDL_Texture *strawberry;
+    SDL_Texture *next;
 
     int time;
     int windowPage;
     int sizeMult;
 
+    bool ending;
 
     SDL_Renderer *renderer;
 } GameState;
