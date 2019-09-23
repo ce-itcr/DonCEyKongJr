@@ -31,8 +31,6 @@ char* enviar(char* Mensaje) {
     }
     printf("p1\n");
     strcpy(buffer, Mensaje);
-    printf("%d\n string = %s",strlen(buffer),buffer);
-
     send(sock, buffer, strlen(buffer),0 );
 //    printf("Hello message sent\n");
     close(sock);
