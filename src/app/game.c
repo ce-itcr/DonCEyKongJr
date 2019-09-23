@@ -1,10 +1,10 @@
 #include "game.h"
 
-void loadGame(GameState *game){
+void loadGame(GameState *game) {
     SDL_Surface *surface = NULL;
 
     surface = IMG_Load("img/background.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find background.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -12,8 +12,8 @@ void loadGame(GameState *game){
     game->background = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
 
-    surface = IMG_Load("img/menu.png");
-    if(surface == NULL){
+    surface = IMG_Load("img/menu2.png");
+    if (surface == NULL) {
         printf("Cannot find menu.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -22,7 +22,7 @@ void loadGame(GameState *game){
     SDL_FreeSurface(surface);
 
     surface = IMG_Load("img/jr_a.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find player_lta.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -31,7 +31,7 @@ void loadGame(GameState *game){
     SDL_FreeSurface(surface);
 
     surface = IMG_Load("img/jr_b.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find player_ltb.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -40,7 +40,7 @@ void loadGame(GameState *game){
     SDL_FreeSurface(surface);
 
     surface = IMG_Load("img/platform.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find brick.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -48,8 +48,18 @@ void loadGame(GameState *game){
     game->brick = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
 
+    surface = IMG_Load("img/liana.png");
+    if (surface == NULL) {
+        printf("Cannot find liana.png!\n\n");
+        SDL_Quit();
+        exit(1);
+    }
+    game->liana = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+
+
     surface = IMG_Load("img/downplatform.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find downplatform.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -59,7 +69,7 @@ void loadGame(GameState *game){
 
 
     surface = IMG_Load("img/safetkey.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find safetykey.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -68,7 +78,7 @@ void loadGame(GameState *game){
     SDL_FreeSurface(surface);
 
     surface = IMG_Load("img/mario.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find mario.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -77,7 +87,7 @@ void loadGame(GameState *game){
     SDL_FreeSurface(surface);
 
     surface = IMG_Load("img/jail.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find mario.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -86,7 +96,7 @@ void loadGame(GameState *game){
     SDL_FreeSurface(surface);
 
     surface = IMG_Load("img/dk.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find dk.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -95,7 +105,7 @@ void loadGame(GameState *game){
     SDL_FreeSurface(surface);
 
     surface = IMG_Load("img/scoreholder.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find scoreholder.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -105,7 +115,7 @@ void loadGame(GameState *game){
     SDL_FreeSurface(surface);
 
     surface = IMG_Load("img/kremling_blue.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find kremling_blue.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -114,7 +124,7 @@ void loadGame(GameState *game){
     SDL_FreeSurface(surface);
 
     surface = IMG_Load("img/kremling_red.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find kremling_red.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -123,7 +133,7 @@ void loadGame(GameState *game){
     SDL_FreeSurface(surface);
 
     surface = IMG_Load("img/fruit_bananas.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find fruit_bananas.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -132,7 +142,7 @@ void loadGame(GameState *game){
     SDL_FreeSurface(surface);
 
     surface = IMG_Load("img/fruit_oranges.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find fruit_oranges.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -141,7 +151,7 @@ void loadGame(GameState *game){
     SDL_FreeSurface(surface);
 
     surface = IMG_Load("img/fruit_strawberry.png");
-    if(surface == NULL){
+    if (surface == NULL) {
         printf("Cannot find fruit_strawberry.png!\n\n");
         SDL_Quit();
         exit(1);
@@ -150,24 +160,26 @@ void loadGame(GameState *game){
     SDL_FreeSurface(surface);
 
     game->player.x = 40;
-    game->player.y = 240-40;
+    game->player.y = 240 - 40;
     game->player.dx = 0;
     game->player.dy = 0;
     game->player.onLedge = 0;
+    game->player.onLiana = 0;
     game->player.animFrame = 0;
     game->player.facingLeft = 1;
     game->player.slowingDown = 0;
+    game->player.onLiana = 0;
 
-    game->sizeMult =3;
+    game->sizeMult = 3;
     game->windowPage = 0;
 
     game->time = 0;
 
     //init ledges
-    for(int i = 0; i < 100; i++){
+    for (int i = 0; i < 100; i++) {
         game->ledges[i].w = 256;
         game->ledges[i].h = 20;
-        game->ledges[i].x = i*256;
+        game->ledges[i].x = i * 256;
         game->ledges[i].y = 650;
     }
 
@@ -201,10 +213,11 @@ void loadGame(GameState *game){
     game->ledges[99].w = 145;
     game->ledges[99].h = 22;
 
-    for(int i = 0; i < 100; i++){
+    //init underLedges
+    for (int i = 0; i < 100; i++) {
         game->underledges[i].w = 256;
         game->underledges[i].h = 20;
-        game->underledges[i].x = i*256;
+        game->underledges[i].x = i * 256;
         game->underledges[i].y = 650;
     }
 
@@ -233,6 +246,77 @@ void loadGame(GameState *game){
     game->underledges[99].w = 188;
     game->underledges[99].h = 100;
 
+    for (int i = 0; i < 100; i++) {
+        game->lianas[i].w = 256;
+        game->lianas[i].h = 20;
+        game->lianas[i].x = i * 256;
+        game->lianas[i].y = 650;
+    }
+
+
+    game->lianas[89].x = 297;
+    game->lianas[89].y = 52;
+    game->lianas[89].w = 5;
+    game->lianas[89].h = 50;
+
+    game->lianas[90].x = 297;
+    game->lianas[90].y = 295;
+    game->lianas[90].w = 5;
+    game->lianas[90].h = 50;
+
+    game->lianas[91].x = 177;
+    game->lianas[91].y = 295;
+    game->lianas[91].w = 5;
+    game->lianas[91].h = 268;
+
+    game->lianas[92].x = 681;
+    game->lianas[92].y = 105;
+    game->lianas[92].w = 5;
+    game->lianas[92].h = 385;
+
+    game->lianas[93].x = 609;
+    game->lianas[93].y = 105;
+    game->lianas[93].w = 5;
+    game->lianas[93].h = 380;
+
+    game->lianas[94].x = 537;
+    game->lianas[94].y = 175;
+    game->lianas[94].w = 5;
+    game->lianas[94].h = 260;
+
+    game->lianas[95].x = 465;
+    game->lianas[95].y = 175;
+    game->lianas[95].w = 5;
+    game->lianas[95].h = 300;
+
+    game->lianas[96].x = 393;
+    game->lianas[96].y = 150;
+    game->lianas[96].w = 5;
+    game->lianas[96].h = 240;
+
+    game->lianas[97].x = 297;
+    game->lianas[97].y = 150;
+    game->lianas[97].w = 5;
+    game->lianas[97].h = 330;
+
+    game->lianas[98].x = 105;
+    game->lianas[98].y = 150;
+    game->lianas[98].w = 5;
+    game->lianas[98].h = 390;
+
+    game->lianas[99].x = 34;
+    game->lianas[99].y = 150;
+    game->lianas[99].w = 5;
+    game->lianas[99].h = 410;
+
+    for(int i = 0; i < 100; i++){
+        game->lianas[i].eCollider.x = game->lianas[i].x;
+        game->lianas[i].eCollider.y = game->lianas[i].y;
+        game->lianas[i].eCollider.w = game->lianas[i].w;
+        game->lianas[i].eCollider.h = game->lianas[i].h;
+    }
+
+
 }
 
 void process(GameState *game){
@@ -255,72 +339,72 @@ void process(GameState *game){
     player->dy += GRAVITY;
 }
 
-void collisionDetect(GameState *game){
-    //Check for collision with any ledges (brick blocks)
-    for(int i = 0; i < 100; i++){
+void collisionDetect(GameState *game) {
+    //Check for collision with any ledges
+    for (int i = 0; i < 100; i++) {
         float mw = 48, mh = 48;
+        float aw = 10, ah = 10;
         float mx = game->player.x, my = game->player.y;
         float bx = game->ledges[i].x, by = game->ledges[i].y, bw = game->ledges[i].w, bh = game->ledges[i].h;
         float ubx = game->underledges[i].x, uby = game->underledges[i].y, ubw = game->underledges[i].w, ubh = game->underledges[i].h;
 
         //Check collisions for ledges
-        if(mx+mw/2 > bx && mx+mw/2<bx+bw){
-            if(my < by+bh && my > by && game->player.dy < 0){
-                game->player.y = by+bh;
-                my = by+bh;
+        if (mx + mw / 2 > bx && mx + mw / 2 < bx + bw) {
+            if (my < by + bh && my > by && game->player.dy < 0) {
+                game->player.y = by + bh;
+                my = by + bh;
                 game->player.dy = 0;
                 game->player.onLedge = 1;
             }
         }
-        if(mx+mw > bx && mx<bx+bw){
-            if(my+mh > by && my < by && game->player.dy > 0){
-                game->player.y = by-mh;
-                my = by-mh;
+        if (mx + mw > bx && mx < bx + bw) {
+            if (my + mh > by && my < by && game->player.dy > 0) {
+                game->player.y = by - mh;
+                my = by - mh;
                 game->player.dy = 0;
                 game->player.onLedge = 1;
             }
         }
-        if(my+mh > by && my<by+bh){
-            if(mx < bx+bw && mx+mw > bx+bw && game->player.dx < 0){
-                game->player.x = bx+bw;
-                mx = bx+bw;
+        if (my + mh > by && my < by + bh) {
+            if (mx < bx + bw && mx + mw > bx + bw && game->player.dx < 0) {
+                game->player.x = bx + bw;
+                mx = bx + bw;
                 game->player.dx = 0;
-            }
-            else if(mx+mw > bx && mx < bx && game->player.dx > 0){
-                game->player.x = bx-mw;
-                mx = bx-mw;
+            } else if (mx + mw > bx && mx < bx && game->player.dx > 0) {
+                game->player.x = bx - mw;
+                mx = bx - mw;
                 game->player.dx = 0;
             }
         }
 
         //Check collisions for underledges
-        if(mx+mw/2 > ubx && mx+mw/2<ubx+ubw){
-            if(my < uby+ubh && my > uby && game->player.dy < 0){
-                game->player.y = uby+ubh;
-                my = by+ubh;
+        if (mx + mw / 2 > ubx && mx + mw / 2 < ubx + ubw) {
+            if (my < uby + ubh && my > uby && game->player.dy < 0) {
+                game->player.y = uby + ubh;
+                my = by + ubh;
                 game->player.dy = 0;
                 game->player.onLedge = 1;
             }
         }
-        if(mx+mw > ubx && mx<ubx+ubw){
-            if(my+mh > uby && my < uby && game->player.dy > 0){
-                game->player.y = uby-mh;
-                my = uby-mh;
+        if (mx + mw > ubx && mx < ubx + ubw) {
+            if (my + mh > uby && my < uby && game->player.dy > 0) {
+                game->player.y = uby - mh;
+                my = uby - mh;
                 game->player.dy = 0;
                 game->player.onLedge = 1;
             }
         }
-        if(my+mh > uby && my<uby+ubh){
-            if(mx < ubx+bw && mx+mw > ubx+bw && game->player.dx < 0){
-                game->player.x = ubx+ubw;
-                mx = ubx+ubw;
+        if (my + mh > uby && my < uby + ubh) {
+            if (mx < ubx + bw && mx + mw > ubx + bw && game->player.dx < 0) {
+                game->player.x = ubx + ubw;
+                mx = ubx + ubw;
+                game->player.dx = 0;
+            } else if (mx + mw > ubx && mx < ubx && game->player.dx > 0) {
+                game->player.x = bx - mw;
+                mx = ubx - mw;
                 game->player.dx = 0;
             }
-            else if(mx+mw > ubx && mx < ubx && game->player.dx > 0){
-                game->player.x = bx-mw;
-                mx = ubx-mw;
-                game->player.dx = 0;
-            }
+
         }
 
     }
@@ -341,6 +425,15 @@ void ObjectCollision(GameState* game){
             lists->fruitsAlive[i] = 0;
             lists->commOn = 1;
         }
+    }
+
+    for(int i = 0; i < 100;i++) {
+        if (checkCollision(pCollider, game->lianas[i].eCollider)) {
+            game->player.dy = 0;
+            game->player.onLiana = 1;
+            break;
+        }
+        game->player.onLiana = 0;
     }
 }
 
@@ -373,6 +466,7 @@ bool checkCollision(SDL_Rect a, SDL_Rect b){
         return false;
     }
 
+
     return true;
 }
 
@@ -396,9 +490,19 @@ int processEvents(SDL_Window *window, GameState *game){
                         done = 1;
                         break;
                     case SDLK_UP:
-                        if(game->player.onLedge){
+                        if(game->player.onLedge) {
                             game->player.dy = -8;
                             game->player.onLedge = 0;
+                        }
+                        else if(game->player.onLiana) {
+                            game->player.dy = -10;
+                            game->player.onLiana = 0;
+                        }
+                        break;
+                    case SDLK_DOWN:
+                        if(game->player.onLiana){
+                            game->player.dy = 8;
+                            game->player.onLiana = 0;
                         }
                         break;
                 }
@@ -494,7 +598,7 @@ void doRender(SDL_Renderer *renderer, GameState *game){
         SDL_Rect dkRect = {65,60, 70, 65};
         SDL_RenderCopy(game->renderer, game->dk, NULL, &dkRect);
 
-        SDL_Rect scoreholderRect = {570,0, 150, 95};
+        SDL_Rect scoreholderRect = {540,0, 200, 100};
         SDL_RenderCopy(game->renderer, game->scoreholder, NULL, &scoreholderRect);
 
         for(int i = 0; i < 100; i++){
@@ -506,6 +610,12 @@ void doRender(SDL_Renderer *renderer, GameState *game){
             SDL_Rect underledges = { game->underledges[i].x, game->underledges[i].y, game->underledges[i].w, game->underledges[i].h };
             SDL_RenderCopy(renderer, game->platform, NULL, &underledges);
         }
+
+        for(int i = 0; i < 100; i++){
+            SDL_Rect lianasRect = { game->lianas[i].x, game->lianas[i].y, game->lianas[i].w, game->lianas[i].h };
+            SDL_RenderCopy(renderer, game->liana, NULL, &lianasRect);
+        }
+
         for(int i = 0; i < lists->numOfFruits; i++){
             if(lists->fruitList[i].alive) {
                 SDL_Rect fruits = {lists->fruitList[i].eCollider.x, lists->fruitList[i].eCollider.y,
@@ -528,6 +638,7 @@ void doRender(SDL_Renderer *renderer, GameState *game){
                 SDL_RenderCopy(renderer, game->redKremling, NULL, &crocodile);
             }
         }
+
         //draw a rectangle at player's position
         SDL_Rect rect = { game->player.x, game->player.y, 70, 70};
         SDL_RenderCopyEx(renderer, game->playerFrames[game->player.animFrame],
@@ -535,13 +646,9 @@ void doRender(SDL_Renderer *renderer, GameState *game){
 
     }
 
-    //SDL_RenderClear(renderer);
-
-
     //We are done drawing, "present" or show to the screen what we've drawn
     SDL_RenderPresent(renderer);
 }
-
 
 void updateFruitsAndCrocodiles(){
     printf("%d\n",lists->currentNumberOfCrocodiles);
@@ -584,6 +691,4 @@ void closeGame(SDL_Window *window, GameState *game, SDL_Renderer *renderer){
 
     // Clean up
     SDL_Quit();
-
 }
-

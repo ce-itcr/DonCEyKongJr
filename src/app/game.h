@@ -28,6 +28,7 @@ typedef struct
 	short life;
 	char *name;
 	int onLedge;
+	bool onLiana;
 
 	int animFrame, facingLeft, slowingDown;
 } DKJr;
@@ -35,6 +36,11 @@ typedef struct
 typedef struct{
 	int x, y, w, h;
 } Ledge;
+
+typedef struct{
+    int x, y, w, h;
+    SDL_Rect eCollider;
+} Liana;
 
 typedef struct Fruit{
 	int posX;
@@ -83,12 +89,14 @@ typedef struct{
 
     Ledge ledges[100];
     Ledge underledges[100];
+    Liana lianas[100];
 
     SDL_Texture *playerFrames[2];
     SDL_Texture *brick;
     SDL_Texture *background;
     SDL_Texture *menu;
     SDL_Texture *platform;
+    SDL_Texture *liana;
     SDL_Texture *safetyKey;
     SDL_Texture *mario;
     SDL_Texture *dk;
@@ -103,6 +111,7 @@ typedef struct{
     int time;
     int windowPage;
     int sizeMult;
+
 
     SDL_Renderer *renderer;
 } GameState;

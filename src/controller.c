@@ -33,10 +33,9 @@ void runGame(){
 
     loadGame(&gameState);
 
-
     pthread_t tid;
     pthread_create(&tid,NULL,runGameThread,(void *)&tid);
-    pthread_create(&tid,NULL,runCommunication,(void *)&tid);
+//    pthread_create(&tid,NULL,runCommunication,(void *)&tid);
     pthread_join(tid,NULL);
 }
 
