@@ -2,9 +2,7 @@ package communication;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import entities.Crocodile;
-import entities.Crocodiles;
 import entities.Fruit;
-import entities.Fruits;
 
 import java.util.Scanner;
 
@@ -25,8 +23,8 @@ public class AddEntities {
                 System.out.println("Digite el color del cocodrilo: 0 = azul, 1+ = rojo");
                 obj.species = scanner.nextInt();
                 obj.alive = 1;
-                Crocodiles crocodiles = new Crocodiles();
-                crocodiles.createCrocodile(1, obj);
+                Crocodile crocodile = new Crocodile();
+                crocodile.createCrocodile(1, obj);
                 System.out.println(Json.jsonEntitiesToString(ServerSockets.jsonEntities1));
             } else if (entityNum == 1) {
                 Fruit obj = new Fruit();
@@ -40,8 +38,8 @@ public class AddEntities {
                 System.out.println("Digite el tipo de fruta: 0 = banana, 1 = naranja, 2+ = fresas");
                 obj.species = scanner.nextInt();
                 obj.alive = 1;
-                Fruits fruits = new Fruits();
-                fruits.createFruit(1, obj);
+                Fruit fruit = new Fruit();
+                fruit.createFruit(1, obj);
                 System.out.println(Json.jsonEntitiesToString(ServerSockets.jsonEntities1));
             } else {
                 System.out.println("Numero invalido");

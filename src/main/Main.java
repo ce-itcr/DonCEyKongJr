@@ -2,14 +2,8 @@ package main;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import communication.AddEntities;
-import communication.Json;
 import communication.JsonEntities;
 import communication.ServerSockets;
-import entities.Crocodile;
-import entities.DonkeyKongJr;
-import entities.Fruit;
-
-import java.util.HashMap;
 
 public class Main {
 

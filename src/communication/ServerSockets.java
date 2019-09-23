@@ -1,7 +1,5 @@
 package communication;
 
-import jdk.net.Sockets;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -32,22 +30,15 @@ public class ServerSockets implements Runnable {
         while (true) {
             try {
                 // output
-//                System.out.println("Esperando");
                 clientSocket = serverSocket.accept();
-//                System.out.println("Aceptado");
                 out = new OutputStreamWriter(new BufferedOutputStream(clientSocket.getOutputStream()));
                 String jsonData = Json.jsonEntitiesToString(jsonEntities1);
-                System.out.println(jsonData);
                 out.write(jsonData);
                 out.flush();
                 // input
-//                System.out.println("Esperando");
                 clientSocket = serverSocket.accept();
-//                System.out.println("Aceptado");
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 inputLine = in.readLine();
-//                System.out.println("inputline");
-                System.out.println(inputLine);
                 json.jsonToEntities(inputLine);
                 clientSocket.close();
 
