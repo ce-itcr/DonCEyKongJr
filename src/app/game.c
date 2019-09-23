@@ -415,9 +415,27 @@ void ObjectCollision(GameState* game){
     for(int i = 0; i < lists->numOfCrocodiles;i++){
         if(checkCollision(pCollider,lists->cocrodileList[i].eCollider)){
             game->player.life--;
+//            lists.hp =
             lists->commOn = 1;
         }
+        if(!lists->cocrodileList[i].species && lists->cocrodileList[i].alive){
+            lists->cocrodileList[i].eCollider.y += 5;
+            if(lists->cocrodileList[i].eCollider.y > 800){
+                lists->cocrodileList[i].alive = 0;
+            }
+        }
+        if(lists->cocrodileList[i].species){
+            for(int j = 89; j < 100;j++) {
+                if (checkCollision(game->lianas[j].eCollider, lists->cocrodileList[i].eCollider)) {
+                    lists->cocrodileList[i].eCollider.y += lists->cocrodileList[i].speed;
+                } else {
+                    lists->cocrodileList[i].speed = lists->cocrodileList[i].speed * -1;
+                    lists->cocrodileList[i].eCollider.y += lists->cocrodileList[i].speed;
+                }
+            }
+        }
     }
+
     for(int i = 0; i < lists->numOfFruits;i++) {
         if (checkCollision(pCollider, lists->fruitList[i].eCollider) && lists->fruitList[i].alive) {
             printf("for %d\n", i);
@@ -510,7 +528,6 @@ int processEvents(SDL_Window *window, GameState *game) {
             }
                 break;
             case SDL_QUIT:
-                //quit out of the game
                 done = 1;
                 break;
         }
@@ -597,7 +614,7 @@ void doRender(SDL_Renderer *renderer, GameState *game){
         SDL_Rect dkRect = {65,60, 70, 65};
         SDL_RenderCopy(game->renderer, game->dk, NULL, &dkRect);
 
-        SDL_Rect scoreholderRect = {540,0, 200, 100};
+        SDL_Rect scoreholderRect = {550,0, 200, 100};
         SDL_RenderCopy(game->renderer, game->scoreholder, NULL, &scoreholderRect);
 
         for(int i = 0; i < 100; i++){
@@ -666,6 +683,7 @@ void updateFruitsAndCrocodiles(){
         lists->cocrodileList[i].eCollider.y = lists->cocrodileList[i].posY;
         lists->cocrodileList[i].eCollider.h = 50;
         lists->cocrodileList[i].eCollider.w = 50;
+        lists->cocrodileList[i].speed = 5;
     }
     lists->currentNumberOfCrocodiles = lists->numOfCrocodiles;
 }
