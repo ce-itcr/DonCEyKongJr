@@ -7,7 +7,7 @@ SDL_Renderer *renderer;
 
 // Name : runGame
 // Parameters: N/A
-// Brief:
+// Brief: Creates the render, the game window and runs the two main threads
 // Use: main.c - main
 void runGame(){
     lists->gameOn = 1;
@@ -19,6 +19,7 @@ void runGame(){
     renderer = NULL;
 
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+    TTF_Init();
 
     int flags=IMG_INIT_JPG|IMG_INIT_PNG;
     int initted=IMG_Init(flags);
@@ -35,18 +36,19 @@ void runGame(){
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     gameState.renderer = renderer;
-
     loadGame(&gameState);
+
 
     pthread_t tid;
     pthread_create(&tid,NULL,runGameThread,(void *)&tid);
     pthread_create(&tid,NULL,runCommunication,(void *)&tid);
+    pthread_create(&tid,NULL,setupArduinoComm,(void *)&tid);
     pthread_join(tid,NULL);
 }
 
 // Name : runCommunication
-// Parameters:
-// Brief:
+// Parameters: N/A
+// Brief: runs the communication loop
 // Use: controller.c - runGame
 void* runCommunication(void* arg){
     listener();
@@ -63,8 +65,8 @@ void* runCommunication(void* arg){
 }
 
 // Name : runGameThread
-// Parameters:
-// Brief:
+// Parameters: N/A
+// Brief: runs the game loop
 // Use: controller.c - runGame
 void* runGameThread(void* arg){
     int done = 0;

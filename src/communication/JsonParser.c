@@ -2,8 +2,8 @@
 
 // Name : getCrocodileByNumber
 // Parameters: char json, int n
-// Brief:
-// Use:
+// Brief: Gets the n value from the crocodile array
+// Use: updateEntities
 Crocodile getCrocodileByNumber(char *json, int n){
     int species = getIntValueInJsonArray(json, "crocodiles", n, "species");
     int posX = getIntValueInJsonArray(json, "crocodiles", n, "posX");
@@ -15,8 +15,8 @@ Crocodile getCrocodileByNumber(char *json, int n){
 
 // Name : updateEntities
 // Parameters: char json
-// Brief:
-// Use:
+// Brief: updates lists with the data received from server
+// Use: socketsClient.c - listener
 void updateEntities(char *json){
     lists->numOfCrocodiles = getIntValueInJson(json, "numOfCrocodiles");
     lists->numOfFruits = getIntValueInJson(json, "numOfFruits");
