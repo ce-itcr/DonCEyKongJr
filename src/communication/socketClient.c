@@ -2,9 +2,9 @@
 
 #define PORT 8080
 
-// Name : senData
+// Name : sendData
 // Parameters: char msg
-// Brief:
+// Brief: sends current game data to server
 // Use: controller.c - runCommunication
 char* sendData(char* msg) {
     struct sockaddr_in address;
@@ -22,7 +22,7 @@ char* sendData(char* msg) {
     serv_addr.sin_port = htons(PORT);
 
     // Convert IPv4 and IPv6 addresses from text to binary form
-    if(inet_pton(AF_INET, "192.168.1.7", &serv_addr.sin_addr)<=0)
+    if(inet_pton(AF_INET, "192.168.43.163", &serv_addr.sin_addr)<=0)
     {
         printf("\nInvalid address/ Address not supported \n");
     }
@@ -40,7 +40,7 @@ char* sendData(char* msg) {
 
 // Name : listener
 // Parameters: N/A
-// Brief:
+// Brief: receives new fruits and crocodiles from server
 // Use: controller.c - runCommunication
 void listener()
 {
@@ -58,7 +58,7 @@ void listener()
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
     // Convert IPv4 and IPv6 addresses from text to binary form
-    if(inet_pton(AF_INET, "192.168.1.7", &serv_addr.sin_addr)<=0)
+    if(inet_pton(AF_INET, "192.168.43.163", &serv_addr.sin_addr)<=0)
     {
         printf("\nInvalid address/ Address not supported \n");
     }

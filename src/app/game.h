@@ -15,9 +15,22 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <time.h>
 #include <stdbool.h>
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdint.h>
+#include <fcntl.h>
+#include <termios.h>
+#include <errno.h>
+#include <sys/ioctl.h>
+#include <pthread.h>
 
 #define GRAVITY  0.35f
 
@@ -114,17 +127,42 @@ typedef struct{
     SDL_Texture *oranges;
     SDL_Texture *strawberry;
     SDL_Texture *next;
+    SDL_Texture *appIcon;
+    SDL_Texture *scoreCounter;
+    SDL_Texture *heart;
 
+
+    SDL_Window *window;
     int time;
     int windowPage;
     int sizeMult;
 
-    bool ending;
+//    bool ending;
 
     SDL_Renderer *renderer;
 } GameState;
 
 
+Mix_Music *opening;
+Mix_Music *ending;
+Mix_Music *backgroundSound;
+Mix_Chunk *jumpSound;
+Mix_Chunk *climb;
+Mix_Chunk *eatFruit;
+Mix_Chunk *cocrodrileCollision;
+
+TTF_Font *font;
+TTF_Font *scoreFont;
+SDL_Color textColor;
+SDL_Surface *message;
+SDL_Texture *text;
+SDL_Surface *points;
+SDL_Texture *pointsTexture;
+
+int fd, n, i;
+char readBuffer[64];
+
+void* setupArduinoComm(void* arg);
 void loadGame(GameState *game);
 void process(GameState *game);
 void collisionDetect(GameState *game);
@@ -132,9 +170,12 @@ int processEvents(SDL_Window *window, GameState *game);
 void doRender(SDL_Renderer *renderer, GameState *game);
 void closeGame(SDL_Window *window, GameState *game, SDL_Renderer *renderer);
 int playGame_btn(GameState *game, int mouseX, int mouseY);
+int exitGame_btn(GameState *game, int mouseX, int mouseY);
+int playNext_btn(GameState *game, int mouseX, int mouseY);
 void updateFruitsAndCrocodiles();
 void ObjectCollision(GameState* game);
 bool checkCollision(SDL_Rect a, SDL_Rect b);
+void checkPlayerLife(GameState *game);
 
 
 #endif //DONCEYKONGJR_GAME_H
